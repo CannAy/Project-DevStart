@@ -16,6 +16,7 @@ namespace DevStart_Entity.Entities
 		public bool LessonState { get; set; } = true;
 
 		public Guid CourseId { get; set; }
+
 		public virtual Course Course { get; set; }
 
 		public Guid VideoId { get; set; }
