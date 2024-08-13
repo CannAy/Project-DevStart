@@ -4,19 +4,16 @@ using DevStart_DataAccsess.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace DevStart_DataAccsess.Migrations
 {
-    [DbContext(typeof(DevStartContext))]
-    [Migration("20240810204425_DevStartInitial")]
-    partial class DevStartInitial
+    [DbContext(typeof(DevStartDbContext))]
+    partial class DevStartDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,15 +24,15 @@ namespace DevStart_DataAccsess.Migrations
 
             modelBuilder.Entity("CourseTag", b =>
                 {
-                    b.Property<Guid>("CoursesCourseId")
+                    b.Property<Guid>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("TagsTagId")
+                    b.Property<Guid>("TagId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("CoursesCourseId", "TagsTagId");
+                    b.HasKey("CourseId", "TagId");
 
-                    b.HasIndex("TagsTagId");
+                    b.HasIndex("TagId");
 
                     b.ToTable("CourseTag");
                 });
@@ -239,6 +236,9 @@ namespace DevStart_DataAccsess.Migrations
 
                     b.Property<Guid>("CourseId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CourseSaleDetailQuantity")
+                        .HasColumnType("int");
 
                     b.Property<bool>("CourseSaleDetailState")
                         .HasColumnType("bit");
@@ -469,13 +469,13 @@ namespace DevStart_DataAccsess.Migrations
                 {
                     b.HasOne("DevStart_Entity.Entities.Course", null)
                         .WithMany()
-                        .HasForeignKey("CoursesCourseId")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DevStart_Entity.Entities.Tag", null)
                         .WithMany()
-                        .HasForeignKey("TagsTagId")
+                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

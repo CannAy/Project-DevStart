@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DevStart_DataAccsess.Migrations
 {
     /// <inheritdoc />
-    public partial class DevStartInitial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -244,6 +244,7 @@ namespace DevStart_DataAccsess.Migrations
                 {
                     CourseSaleDetailId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CourseSaleDetailState = table.Column<bool>(type: "bit", nullable: false),
+                    CourseSaleDetailQuantity = table.Column<int>(type: "int", nullable: false),
                     CourseSaleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -268,21 +269,21 @@ namespace DevStart_DataAccsess.Migrations
                 name: "CourseTag",
                 columns: table => new
                 {
-                    CoursesCourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TagsTagId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TagId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseTag", x => new { x.CoursesCourseId, x.TagsTagId });
+                    table.PrimaryKey("PK_CourseTag", x => new { x.CourseId, x.TagId });
                     table.ForeignKey(
-                        name: "FK_CourseTag_Courses_CoursesCourseId",
-                        column: x => x.CoursesCourseId,
+                        name: "FK_CourseTag_Courses_CourseId",
+                        column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "CourseId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CourseTag_Tags_TagsTagId",
-                        column: x => x.TagsTagId,
+                        name: "FK_CourseTag_Tags_TagId",
+                        column: x => x.TagId,
                         principalTable: "Tags",
                         principalColumn: "TagId",
                         onDelete: ReferentialAction.Cascade);
@@ -394,9 +395,9 @@ namespace DevStart_DataAccsess.Migrations
                 column: "CourseSaleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseTag_TagsTagId",
+                name: "IX_CourseTag_TagId",
                 table: "CourseTag",
-                column: "TagsTagId");
+                column: "TagId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lessons_CourseId",

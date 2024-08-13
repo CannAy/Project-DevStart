@@ -8,11 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // AppSettings.json da yer alan ayarlarý DBContext e ekleme
-builder.Services.AddDbContext<DevStartContext>(
-		options => options.UseSqlServer(builder.Configuration.GetConnectionString("DevStart"))
+builder.Services.AddDbContext<DevStartDbContext>(
+		options => 
+		options.UseSqlServer(builder.Configuration.GetConnectionString("DevStartConnection"))
 	);
 
-builder.Services.AddExtensions();
+builder.Services.AddExtensions(); //DependencyExtensions için.
 
 var app = builder.Build();
 

@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace DevStart_DataAccsess.Contexts
 {
-	public class DevStartContext : IdentityDbContext<AppUser, AppRole, Guid>
+	public class DevStartDbContext : IdentityDbContext<AppUser, AppRole, Guid>
 	{
-		public DevStartContext(DbContextOptions<DevStartContext> options) : base(options) { } //constructor tanımlıyoruz..
+		public DevStartDbContext(DbContextOptions<DevStartDbContext> options) : base(options) { } //constructor tanımlıyoruz..
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Course> Courses { get; set; }
 		public DbSet<CourseSale> CoursesSales { get; set; }
@@ -37,7 +37,17 @@ namespace DevStart_DataAccsess.Contexts
 			builder.Entity<Tag>().Property("TagDescription").IsRequired().HasMaxLength(200);
 			builder.Entity<Video>().Property("VideoLink").IsRequired().HasMaxLength(500);
 
-			base.OnModelCreating(builder);
+
+            //bu yapı, Course ile tag arasında many to many ilişkisi. Course birden fazla tag içerebilir, aynı şekilde bir tag birden fazla course ile ilişkili olabilir.
+            builder.Entity<Course>()  
+				.HasMany(c => c.Tags)	
+				.WithMany(t => t.Courses)
+				.UsingEntity<Dictionary<string, object>>
+				("CourseTag", 
+				j => j.HasOne<Tag>().WithMany().HasForeignKey("TagId"),
+				j => j.HasOne<Course>().WithMany().HasForeignKey("CourseId"));
+
+            base.OnModelCreating(builder);
 
 
 		}

@@ -12,8 +12,9 @@ namespace DevStart_Entity.Entities
 		[Key]
 		public Guid CourseSaleDetailId { get; set; }
 		public bool CourseSaleDetailState { get; set; } = true;
+        public int CourseSaleDetailQuantity { get; set; } //satış adedi için
 
-		public Guid CourseSaleId { get; set; }
+        public Guid CourseSaleId { get; set; }
 		public virtual CourseSale CourseSale { get; set; }
 
 		public Guid CourseId { get; set; }

@@ -1,5 +1,8 @@
 ﻿using DevStart_DataAccsess.Contexts;
 using DevStart_DataAccsess.Identity;
+using DevStart_DataAccsess.UnitOfWorks;
+using DevStart_Entity.UnitOfWork;
+using DevStart_Service.Mapping;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -26,8 +29,12 @@ namespace DevStart_Service.Extensions
 					/*opt.User.AllowedUserNameCharacters = "abcdefghijklmnoprstuvyz0123456789";*/ //kullanıcı adı girilirken bunlardan başka birkarakter girilmesine izin vermez.
 					opt.Lockout.MaxFailedAccessAttempts = 3;  //default 5
 					opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1); //default 5
-				}).AddEntityFrameworkStores<DevStartContext>();
-		}
+				}).AddEntityFrameworkStores<DevStartDbContext>();
+
+            services.AddAutoMapper(typeof(MappingProfile));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+        }
+
 	}
 
 }
