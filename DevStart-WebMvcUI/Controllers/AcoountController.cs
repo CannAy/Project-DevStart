@@ -6,6 +6,7 @@ namespace DevStart_WebMvcUI.Controllers
     {
         public IActionResult Index()
         {
+            // deneme
             return View();
         }
     }
