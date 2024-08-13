@@ -17,6 +17,6 @@ namespace DevStart_Entity.Interfaces
 
         //***** CourseSale ve CourseSaleDetail 'lerin serviceleri oluşturulacak mı??????
         
-        //test
+        //test1
     }
 }
