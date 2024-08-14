@@ -1,3 +1,8 @@
+.admin-bar {
+  .th-header .sticky-wrapper.sticky {
+    top: 32px;
+  }
+}
 p.has-drop-cap {
   margin-bottom: 20px;
 }
@@ -38,6 +43,10 @@ p.has-drop-cap {
 
 .content-none-search {
   margin-top: 30px;
+  margin-bottom: -10px;
+}
+.nof-title {
+  margin-top: -0.2em;
 }
 
 .wp-block-button.aligncenter {
@@ -245,6 +254,7 @@ ul.wp-block-latest-posts {
     max-width: 100%;
     border: 1px solid rgba($color: #000000, $alpha: 0.1);
     padding-left: 20px;
+    border-radius: 8px 0 0 8px;
   }
 
   .wp-block-search__button {
@@ -253,6 +263,7 @@ ul.wp-block-latest-posts {
     border: none;
     color: #fff;
     background-color: $theme-color;
+    border-radius: 0 8px 8px 0;
     &.has-icon {
       min-width: 55px;
     }
@@ -268,6 +279,7 @@ ul.wp-block-latest-posts {
   border: none;
   .wp-block-search__input {
     padding: 0 8px 0 25px;
+    border-radius: 8px 0 0 8px;
   }
 }
 
@@ -368,6 +380,8 @@ ul.wp-block-rss a {
   }
 }
 
+
+
 .page-links {
   clear: both;
   margin: 0 0 1.5em;
@@ -385,6 +399,7 @@ ul.wp-block-rss a {
     color: $title-color;
     border: 1px solid rgba($color: #000000, $alpha: 0.08);
     margin-right: 10px;
+    border-radius: 5px;
 
     &:hover {
       opacity: 0.8;
@@ -405,7 +420,6 @@ ul.wp-block-rss a {
   }
 }
 
-
 .blog-single {
 
   .wp-block-archives-dropdown {
@@ -416,55 +430,45 @@ ul.wp-block-rss a {
   &.format-link,
   &.tag-sticky-2,
   &.sticky {
-    border-color: transparent;
     position: relative;
 
 
     .blog-content {
-      background-color: $smoke-color;
       padding: 0;
-      border: none;
 
       &:before {
         display: none;
       }
     }
 
-    &:before { 
-      content: '\f0c1';
+    &:before {
+      content: '\f08d';
       position: absolute;
-      font-family: 'Font Awesome 6 Pro';
-      font-size: 5rem;
-      opacity: 0.3;
-      right: 15px;
-      line-height: 1;
-      top: 15px;
-      color: $theme-color;
-      z-index: 1;
-    }
-  }
-
-  &.tag-sticky-2,
-  &.sticky {
-    &::before {
-      content: "Featured";
+      font-family: $icon-font;
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 1;
       right: 0;
       top: 0;
-      font-size: 18px;
       color: $white-color;
       background-color: $theme-color;
-      font-family: $title-font;
-      opacity: 1;
-      text-transform: capitalize;
-      padding: 10px 23px;
-      font-weight: 400;
+      z-index: 1;
+      height: 40px;
+      width: 40px;
+      line-height: 40px;
+      text-align: center;
+      border-radius: 0 8px 0 8px;
     }
   }
 
   &.format-quote {
     &:before {
       content: "\f10e";
-      top: 0;
+    }
+  }
+  &.format-link {
+    &:before {
+      content: "\f0c1";
     }
   }
 
@@ -503,10 +507,6 @@ ul.wp-block-rss a {
     &.sticky,
     &.format-quote,
     &.format-link {
-      box-shadow: none;
-      border: none;
-      background-color: transparent;
-
       &:before {
         display: none;
       }
@@ -515,7 +515,7 @@ ul.wp-block-rss a {
 }
 
 .th-search {
-  background-color: #f3f3f3;
+  background-color: $smoke-color;
   margin-bottom: 30px;
   border: 1px solid #f3f3f3;
 
@@ -545,7 +545,8 @@ ul.wp-block-rss a {
     >* {
       display: inline-block;
       margin-right: 15px;
-      font-size: 14px;
+      font-size: 16px;
+      font-weight: 500;
 
       &:last-child {
         margin-right: 0;
@@ -559,45 +560,6 @@ ul.wp-block-rss a {
   }
 }
 
-
-@include lg {
-  .blog-single {
-
-    &.format-quote,
-    &.format-link,
-    &.tag-sticky-2,
-    &.sticky {
-      &:before {
-        font-size: 14px;
-        padding: 8px 16px;
-      }
-    }
-    &.format-quote {
-      &:before {
-        top: 15px;
-      }
-    }
-  }
- 
-}
-
-
-@include sm {
-  .blog-single {
-
-    &.format-quote,
-    &.format-link,
-    &.tag-sticky-2,
-    &.sticky {
-      &:before {
-        font-size: 14px;
-        padding: 8px 16px;
-      }
-    }
-  }
-}
-
-
 @media (max-width: 768px) {
   .wp-block-latest-comments {
     padding-left: 10px;
@@ -606,4 +568,26 @@ ul.wp-block-rss a {
   .page--content.clearfix+.th-comment-form {
     margin-top: 24px;
   }
+}
+
+@include xs {
+  .blog-single {
+    &.format-quote,
+    &.format-link,
+    &.tag-sticky-2,
+    &.sticky {
+      .blog-content {
+        &:before {
+          display: none;
+        }
+      }
+  
+      &:before {
+        font-size: 13px;
+        height: 32px;
+        width: 32px;
+        line-height: 32px;
+      }
+    }
+  }  
 }

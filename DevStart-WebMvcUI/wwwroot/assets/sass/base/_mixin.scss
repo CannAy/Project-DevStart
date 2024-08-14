@@ -197,3 +197,10 @@
 		@content;
 	}
 }
+
+@mixin rtl {
+	/* rtl Support */
+	[dir="rtl"] {
+		@content;
+	}
+}

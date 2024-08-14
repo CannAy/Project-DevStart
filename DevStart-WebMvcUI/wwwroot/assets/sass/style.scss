@@ -1,8 +1,8 @@
 /*
-Template Name: Webteck
-Template URL: http://themeholy.com/html/webteck
-Description: Technology & IT Solutions HTML Template
-Author: Themeholy
+Template Name: Edura
+Template URL: http://themeholy.com/html/edura
+Description: Online Courses & Education HTML Template
+Author: themeholy
 Author URI: https://themeforest.net/user/themeholy
 Version: 1.0.0
 */
@@ -22,7 +22,7 @@ Version: 1.0.0
     2.1. Container
     2.2. Grid
     2.3. Input
-    2.4. Slider
+    2.4. Slick Slider
     2.5. Mobile Menu
 03. Utilities
     3.1. Preloader
@@ -34,7 +34,6 @@ Version: 1.0.0
     3.8. Text Color
     3.9. Overlay
     3.10. Animation
-    
 04. Template Style
     4.1. Widget
     4.2. Header
@@ -52,25 +51,8 @@ Version: 1.0.0
     4.00. Cart
     4.00. Checkout
     4.00. Wishlist
-    4.00. Contact
-    4.00. About
-    4.00. Team
-    4.00. Testimonial
-    4.00. Counter
-    4.00. Blog
-    4.00. Brand
-    4.00. Simple Sections
-    4.00. Why
-    4.00. Faq
-    4.00. CTA
+    4.00. Client
     4.00. Service
-    4.00. Pricing
-    4.00. Gallery
-    4.00. Skill
-    4.00. Process
-    4.00. Particle
-    4.00. Feature
-
 05. Spacing
 
 */
@@ -113,11 +95,11 @@ Version: 1.0.0
 /*------------------- 2.3. Input -------------------*/
 @import 'reset/input';
 
-/*------------------- 2.4. Slider -------------------*/
-@import 'reset/slider';
+/*------------------- 2.4. Slick Slider -------------------*/
+@import 'reset/slick-slider';
 
 /*------------------- 2.5. Mobile Menu -------------------*/
-@import 'reset/thmenu';
+@import 'reset/asmenu';
 
 
 /*=================================
@@ -203,7 +185,7 @@ Version: 1.0.0
 @import 'template/sections/checkout';
 
 /*------------------- 4.00. Wishlist  -------------------*/
-@import 'template/sections/wishlist';
+@import 'template/sections/wishlist'; 
 
 /*------------------- 4.00. Contact  -------------------*/
 @import 'template/sections/contact';
@@ -226,11 +208,20 @@ Version: 1.0.0
 /*------------------- 4.00. Brand  -------------------*/
 @import 'template/sections/brand';
 
+/*------------------- 4.00. Feature  -------------------*/
+@import 'template/sections/feature';
+
 /*------------------- 4.00. Simple Sections  -------------------*/
 @import 'template/sections/simple-sections';
 
 /*------------------- 4.00. Why -------------------*/
 @import 'template/sections/why';
+
+/*------------------- 4.00. Tab Menu -------------------*/
+@import 'template/sections/tabmenu';
+
+/*------------------- 4.00. Gallery -------------------*/
+@import 'template/sections/gallery';
 
 /*------------------- 4.00. Faq -------------------*/
 @import 'template/sections/faq';
@@ -238,42 +229,53 @@ Version: 1.0.0
 /*------------------- 4.00. CTA -------------------*/
 @import 'template/sections/cta';
 
-/*------------------- 4.00. Service -------------------*/
-@import 'template/sections/service';
-
-/*------------------- 4.00. Pricing -------------------*/
-@import 'template/sections/pricing';
-
-/*------------------- 4.00. Gallery -------------------*/
-@import 'template/sections/gallery';
-
-/*------------------- 4.00. Project -------------------*/
-@import 'template/sections/project';
-
-/*------------------- 4.00. Skill -------------------*/
-@import 'template/sections/skill';
-
-/*------------------- 4.00. Marquee -------------------*/
-@import 'template/sections/marquee';
+/*------------------- 4.00. Course -------------------*/
+@import 'template/sections/course';
 
 /*------------------- 4.00. Process -------------------*/
 @import 'template/sections/process';
 
-/*------------------- 4.00. Particle -------------------*/
-@import 'template/sections/particle';
+/*------------------- 4.00. Event -------------------*/
+@import 'template/sections/event';
+
+/*------------------- 4.00. Category -------------------*/
+@import 'template/sections/category';
+
+/*------------------- 4.00. Tabmenu -------------------*/
+@import 'template/sections/tabmenu';
 
 /*------------------- 4.00. Feature -------------------*/
 @import 'template/sections/feature';
 
-/*------------------- 4.00. Screenshot -------------------*/
-@import 'template/sections/screenshot';
+/*------------------- 4.00. LMS -------------------*/
+@import 'template/sections/lms';
 
-/*------------------- 4.00. Color Scheme -------------------*/
-@import 'template/sections/color-plate';
+/*------------------- 4.00. Client -------------------*/
+@import 'template/sections/client';
+
+/*------------------- 4.00. video -------------------*/
+@import 'template/sections/video';
+
+/*------------------- 4.00. Pricing -------------------*/
+@import 'template/sections/pricing';
+
+/*------------------- 4.00. Service -------------------*/
+@import 'template/sections/service';
 
 
 /*=================================
     05. Spacing
 ==================================*/
-@import 'spacing/spacing'; 
+@import 'spacing/spacing';
+/*------------------- 6.03 Update 3 RTL -------------------*/
+@import 'rtl';
 
+/*=================================
+    06. Update
+==================================*/
+// /*------------------- 6.01 Update 1 -------------------*/
+@import 'update_1';
+// /*------------------- 6.02 Update 2 -------------------*/
+// @import 'update_2';
+// /*------------------- 6.02 Update 4 -------------------*/
+// @import 'update_3';

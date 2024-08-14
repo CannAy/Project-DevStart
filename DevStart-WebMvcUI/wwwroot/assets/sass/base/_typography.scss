@@ -3,6 +3,7 @@ body {
 	scroll-behavior: auto !important;
 }
 
+
 body {
 	font-family: $title-font;
 	font-size: $body-font-size;
@@ -11,27 +12,32 @@ body {
 	line-height: $body-line-Height;
 	overflow-x: hidden;
 	-webkit-font-smoothing: antialiased;
-
-	&.theme-blue {
-		--theme-color: #3E66F3;
-		background-color: #F8FAFF;
-	}
-	&.theme-blue2 {
-		--theme-color: #3E66F3;
-		background-color: #F3F2EA;
-	}
-	&.theme-blue3 {
-		--theme-color: #3E66F3; 
-	}
-
-	&.bg-dark {
-		background-color: #0E0E0E !important; 
-		--theme-color: #02CE80;
-		--theme-color2: #7BD706;
-	}
-	&.bg-como {
-		--theme-color: #407360; 
-	} 
+	/***scroll-bar***/
+    &::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+		border-radius: 20px;
+    }
+    &::-webkit-scrollbar-track {
+        background: rgba(252,0, 18, 0.1);
+		box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+		border-radius: 20px;
+    }
+    &::-webkit-scrollbar-thumb {
+		background-color: $theme-color;
+		background-image: -webkit-linear-gradient(
+			45deg,
+			rgba(255, 255, 255, 0.3) 25%,
+			transparent 20%,
+			transparent 50%,
+			rgba(255, 255, 255, 0.3) 50%,
+			rgba(255, 255, 255, 0.3) 75%,
+			transparent 75%,
+			transparent
+		);
+		border-radius: 20px;
+    }
 }
 
 iframe {
@@ -192,14 +198,14 @@ h6 {
 
 .h1,
 h1 {
-	font-size: 48px;
-	line-height: 1.208;
+	font-size: 60px;
+	line-height: 1.167;
 }
 
 .h2,
 h2 {
-	font-size: 40px;
-	line-height: 1.25;
+	font-size: 44px;
+	line-height: 1.208;
 }
 
 .h3,
@@ -212,32 +218,45 @@ h3 {
 h4 {
 	font-size: 30px;
 	line-height: 1.333;
+	font-weight: 600;
 }
 
 .h5,
 h5 {
 	font-size: 24px;
 	line-height: 1.417;
+	font-weight: 600;
 }
 
 .h6,
 h6 {
 	font-size: 20px;
 	line-height: 1.5;
+	font-weight: 600;
+}
+
+@include ml {
+	.h1,
+	h1 {
+		font-size: 48px;
+	}
+
+	.h2,
+	h2 {
+		font-size: 40px;
+	}
 }
 
 @include lg {
 
 	.h1,
 	h1 {
-		font-size: 44px;
-		line-height: 1.3;
+		font-size: 40px;
 	}
 
 	.h2,
 	h2 {
 		font-size: 36px;
-		line-height: 1.3;
 	}
 
 	.h3,
@@ -271,8 +290,7 @@ h6 {
 
 	.h2,
 	h2 {
-		font-size: 34px;
-		line-height: 1.3;
+		font-size: 28px;
 	}
 
 	.h3,
@@ -301,12 +319,7 @@ h6 {
 	.h1,
 	h1 {
 		font-size: 34px;
-		line-height: 1.35;
-	}
-
-	.h2,
-	h2 {
-		font-size: 28px;
+		line-height: 1.3;
 	}
 }
 

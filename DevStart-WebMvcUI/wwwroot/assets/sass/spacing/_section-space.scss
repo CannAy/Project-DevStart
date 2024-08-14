@@ -61,6 +61,6 @@
 
   .space-extra2,
   .space-extra2-bottom {
-    padding-bottom: 70px;
+    padding-bottom: calc(var(--section-space-mobile) - 30px);
   }
 }

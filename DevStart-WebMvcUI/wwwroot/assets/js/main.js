@@ -19,7 +19,7 @@
     13. Section Position
     14. Filter
     15. Counter Up
-    16. AS Tab
+    16. th Tab
     17. Shape Mockup
     18. Progress Bar Animation
     19. Price Slider
@@ -37,6 +37,11 @@
   /*---------- 01. On Load Function ----------*/
     $(window).on("load", function () {
         $(".preloader").fadeOut();
+        $(".slick-slider").slick("refresh");
+    });
+
+    $(window).on('resize', function () {
+        $(".slick-slider").slick("refresh");
     });
 
     /*---------- 02. Preloader ----------*/
@@ -148,8 +153,8 @@
         }
     })
 
-      /*----------- 04.1.  One Page Nav ----------*/ 
-      function onePageNav(element) {
+    /*----------- 22. One Page Nav ----------*/
+    function onePageNav(element) {
         if ($(element).length > 0) {
             $(element).each(function () {
             var link = $(this).find('a');
@@ -163,17 +168,16 @@
                     }, 1000);
                 };
     
-                }); 
+                });
             });
             })
         }
     };
     onePageNav('.onepage-nav');
-    onePageNav('.scroll-down');
 
     /*---------- 05. Scroll To Top ----------*/
     // progressAvtivation
-    if($('.scroll-top')) {
+    if($('.scroll-top').length > 0) {
         
         var scrollTopbtn = document.querySelector('.scroll-top');
         var progressPath = document.querySelector('.scroll-top path');
@@ -223,11 +227,6 @@
           $(this).removeAttr('data-bg-color');
         });
     };
-
-    $('[data-border]').each(function() {
-        var borderColor = $(this).data('border');
-        $(this).css('--th-border-color', borderColor);
-    });
       
     if ($('[data-mask-src]').length > 0) {
         $('[data-mask-src]').each(function () {
@@ -240,152 +239,199 @@
           $(this).removeAttr('data-mask-src');
         });
     };
-
-
-
-    /*----------- 07. Global Slider ----------*/
-    
-    $('.th-slider').each(function () {
-
-        var thSlider = $(this);
-        var settings = $(this).data('slider-options');
-
-        // Store references to the navigation Slider
-        var prevArrow = thSlider.find('.slider-prev');
-        var nextArrow = thSlider.find('.slider-next');
-        var paginationEl = thSlider.find('.slider-pagination');
-
-        var autoplayconditon = settings['autoplay'];
-
-        var sliderDefault = { 
-            slidesPerView: 1,
-            spaceBetween: settings['spaceBetween'] ? settings['spaceBetween'] : 24,
-            loop: settings['loop'] == false ? false : true,
-            speed: settings['speed'] ? settings['speed'] : 1000,
-            autoplay: autoplayconditon ? autoplayconditon : {delay: 6000, disableOnInteraction: false},
-            navigation: {
-                nextEl: nextArrow.get(0),
-                prevEl: prevArrow.get(0),  
-            },
-            pagination: {
-                el: paginationEl.get(0),
-                clickable: true, 
-                renderBullet: function (index, className) {
-                    return '<span class="' + className + '" aria-label="Go to Slide ' + (index + 1) + '"></span>';
-                },
-            },
-        };
-
-        var options = JSON.parse(thSlider.attr('data-slider-options'));
-        options = $.extend({}, sliderDefault, options);
-        var swiper = new Swiper(thSlider.get(0), options); // Assign the swiper variable
-
-        if ($('.slider-area').length > 0) {
-            $('.slider-area').closest(".container").parent().addClass("arrow-wrap");
-        }
-
-    });
-
-    // Function to add animation classes
-    function animationProperties() {
-        $('[data-ani]').each(function () {
-            var animationName = $(this).data('ani');
-            $(this).addClass(animationName);
-        });
-
-        $('[data-ani-delay]').each(function () {
-            var delayTime = $(this).data('ani-delay');
-            $(this).css('animation-delay', delayTime);
-        });
-    }
-    animationProperties();
-
-    // Add click event handlers for external slider arrows based on data attributes
-    $('[data-slider-prev], [data-slider-next]').on('click', function () {
-        var sliderSelector = $(this).data('slider-prev') || $(this).data('slider-next');
-        var targetSlider = $(sliderSelector);
-
-        if (targetSlider.length) {
-            var swiper = targetSlider[0].swiper;
-
-            if (swiper) {
-                if ($(this).data('slider-prev')) {
-                    swiper.slidePrev(); 
-                } else {
-                    swiper.slideNext(); 
-                }
-            }
-        }
-    }); 
-
-    /*-------------- 08. Slider Tab -------------*/ 
-    $.fn.activateSliderThumbs = function (options) {
-        var opt = $.extend(
-            {
-                sliderTab: false,
-                tabButton: ".tab-btn",
-            },
-            options
-        );
-    
-        return this.each(function () {
-            var $container = $(this);
-            var $thumbs = $container.find(opt.tabButton);
-            var $line = $('<span class="indicator"></span>').appendTo($container);
-    
-            var sliderSelector = $container.data("slider-tab");
-            var $slider = $(sliderSelector);
-    
-            var swiper = $slider[0].swiper;
-    
-            $thumbs.on("click", function (e) {
-                e.preventDefault();
-                var clickedThumb = $(this);
-    
-                clickedThumb.addClass("active").siblings().removeClass("active");
-                linePos(clickedThumb, $container);
-    
-                if (opt.sliderTab) {
-                    var slideIndex = clickedThumb.index();
-                    swiper.slideTo(slideIndex);
-                }
-            });
-    
-            if (opt.sliderTab) {
-                swiper.on("slideChange", function () {
-                    var activeIndex = swiper.realIndex;
-                    var $activeThumb = $thumbs.eq(activeIndex);
-    
-                    $activeThumb.addClass("active").siblings().removeClass("active");
-                    linePos($activeThumb, $container);
-                });
-    
-                var initialSlideIndex = swiper.activeIndex;
-                var $initialThumb = $thumbs.eq(initialSlideIndex);
-                $initialThumb.addClass("active").siblings().removeClass("active");
-                linePos($initialThumb, $container);
-            }
-    
-            function linePos($activeThumb) {
-                var thumbOffset = $activeThumb.position();
-    
-                var marginTop = parseInt($activeThumb.css('margin-top')) || 0;
-                var marginLeft = parseInt($activeThumb.css('margin-left')) || 0;
-    
-                $line.css("--height-set", $activeThumb.outerHeight() + "px");
-                $line.css("--width-set", $activeThumb.outerWidth() + "px");
-                $line.css("--pos-y", thumbOffset.top + marginTop + "px");
-                $line.css("--pos-x", thumbOffset.left + marginLeft + "px");
-            }
+    if ($('[data-theme-color]').length > 0) {
+        $('[data-theme-color]').each(function () {
+          var $color = $(this).attr('data-theme-color');
+          $(this).get(0).style.setProperty('--theme-color', $color);
+          $(this).removeAttr('data-theme-color');
         });
     };
-    
-    if ($(".testi-thumb").length) {
-        $(".testi-thumb").activateSliderThumbs({
-            sliderTab: true,
-            tabButton: ".tab-btn",
+    if ($('[data-body-color]').length > 0) {
+        $('[data-body-color]').each(function () {
+          var $color = $(this).attr('data-body-color');
+          $(this).get(0).style.setProperty('--body-color', $color);
+          $(this).removeAttr('data-body-color');
         });
-    }
+    };
+
+    /*----------- 07. Global Slider ----------*/
+    $(".th-carousel").each(function () {
+        var themeSlide = $(this);
+
+        // Collect Data
+        function d(data) {
+            return themeSlide.data(data);
+        }
+
+        // Custom Arrow Button
+        var prevButton =
+                '<button type="button" class="slick-prev"><i class="' +
+                d("prev-arrow") +
+                '"></i></button>',
+            nextButton =
+                '<button type="button" class="slick-next"><i class="' +
+                d("next-arrow") +
+                '"></i></button>';
+
+        // Function For Custom Arrow Btn
+        $("[data-slick-next]").each(function () {
+            $(this).on("click", function (e) {
+                e.preventDefault();
+                $($(this).data("slick-next")).slick("slickNext");
+            });
+        });
+
+        $("[data-slick-prev]").each(function () {
+            $(this).on("click", function (e) {
+                e.preventDefault();
+                $($(this).data("slick-prev")).slick("slickPrev");
+            });
+        });
+
+        // Check for arrow wrapper
+        if (d("arrows") == true) {
+            if (!themeSlide.closest(".arrow-wrap").length) {
+                themeSlide.closest(".container").parent().addClass("arrow-wrap");
+            }
+        }
+
+        themeSlide.slick({
+            dots: d("dots") ? true : false,
+            fade: d("fade") ? true : false,
+            arrows: d("arrows") ? true : false,
+            speed: d("speed") ? d("speed") : 1000,
+            asNavFor: d("asnavfor") ? d("asnavfor") : false,
+            autoplay: d("autoplay") == false ? false : true,
+            infinite: d("infinite") == false ? false : true,
+            slidesToShow: d("slide-show") ? d("slide-show") : 1,
+            adaptiveHeight: d("adaptive-height") ? true : false,
+            centerMode: d("center-mode") ? true : false,
+            autoplaySpeed: d("autoplay-speed") ? d("autoplay-speed") : 8000,
+            centerPadding: d("center-padding") ? d("center-padding") : "0",
+            focusOnSelect: d("focuson-select") == false ? false : true,
+            pauseOnFocus: d("pauseon-focus") ? true : false,
+            pauseOnHover: d("pauseon-hover") ? true : false,
+            variableWidth: d("variable-width") ? true : false,
+            vertical: d("vertical") ? true : false,
+            verticalSwiping: d("vertical") ? true : false,
+            swipeToSlide: (d('swipetoslide') ? true : false),
+            prevArrow: d("prev-arrow")
+                ? prevButton
+                : '<button type="button" class="slick-prev"><i class="far fa-arrow-left"></i></button>',
+            nextArrow: d("next-arrow")
+                ? nextButton
+                : '<button type="button" class="slick-next"><i class="far fa-arrow-right"></i></button>',
+            rtl: $("html").attr("dir") == "rtl" ? true : false,
+            responsive: [
+                {
+                    breakpoint: 1600,
+                    settings: {
+                        arrows: d("xl-arrows") ? true : false,
+                        dots: d("xl-dots") ? true : false,
+                        slidesToShow: d("xl-slide-show")
+                            ? d("xl-slide-show")
+                            : d("slide-show"),
+                        centerMode: d("xl-center-mode") ? true : false,
+                        centerPadding: "0",
+                    },
+                },
+                {
+                    breakpoint: 1400,
+                    settings: {
+                        arrows: d("ml-arrows") ? true : false,
+                        dots: d("ml-dots") ? true : false,
+                        slidesToShow: d("ml-slide-show")
+                            ? d("ml-slide-show")
+                            : d("slide-show"),
+                        centerMode: d("ml-center-mode") ? true : false,
+                        centerPadding: 0,
+                    },
+                },
+                {
+                    breakpoint: 1200,
+                    settings: {
+                        arrows: d("lg-arrows") ? true : false,
+                        dots: d("lg-dots") ? true : false,
+                        slidesToShow: d("lg-slide-show")
+                            ? d("lg-slide-show")
+                            : d("slide-show"),
+                        centerMode: d("lg-center-mode")
+                            ? d("lg-center-mode")
+                            : false,
+                        centerPadding: 0,
+                    },
+                },
+                {
+                    breakpoint: 992,
+                    settings: {
+                        arrows: d("md-arrows") ? true : false,
+                        dots: d("md-dots") ? true : false,
+                        slidesToShow: d("md-slide-show")
+                            ? d("md-slide-show")
+                            : 1,
+                        centerMode: d("md-center-mode")
+                            ? d("md-center-mode")
+                            : false,
+                        centerPadding: 0,
+                    },
+                },
+                {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: d("sm-arrows") ? true : false,
+                        dots: d("sm-dots") ? true : false,
+                        slidesToShow: d("sm-slide-show")
+                            ? d("sm-slide-show")
+                            : 1,
+                        centerMode: d("sm-center-mode")
+                            ? d("sm-center-mode")
+                            : false,
+                        centerPadding: 0,
+                    },
+                },
+                {
+                    breakpoint: 576,
+                    settings: {
+                        arrows: d("xs-arrows") ? true : false,
+                        dots: d("xs-dots") ? true : false,
+                        slidesToShow: d("xs-slide-show")
+                            ? d("xs-slide-show")
+                            : 1,
+                        centerMode: d("xs-center-mode")
+                            ? d("xs-center-mode")
+                            : false,
+                        centerPadding: 0,
+                    },
+                },
+                // You can unslick at a given breakpoint now by adding:
+                // settings: "unslick"
+                // instead of a settings object
+            ],
+        });
+    });
+
+    
+    /*----------- 08. Custom Animaiton For Slider ----------*/
+    $('[data-ani-duration]').each(function () {
+        var durationTime = $(this).data('ani-duration');
+        $(this).css('animation-duration', durationTime);
+    });
+    
+    $('[data-ani-delay]').each(function () {
+        var delayTime = $(this).data('ani-delay');
+        $(this).css('animation-delay', delayTime);
+    });
+    
+    $('[data-ani]').each(function () {
+        var animaionName = $(this).data('ani');
+        $(this).addClass(animaionName);
+        $('.slick-current [data-ani]').addClass('th-animated');
+    });
+    
+    $('.th-carousel').on('afterChange', function (event, slick, currentSlide, nextSlide) {
+        $(slick.$slides).find('[data-ani]').removeClass('th-animated');
+        $(slick.$slides[currentSlide]).find('[data-ani]').addClass('th-animated');
+    })
 
     /*----------- 09. Ajax Contact Form ----------*/
     var form = ".ajax-contact";
@@ -552,58 +598,11 @@
         midClick: true,
     });
 
-    /*  footer animation  */ 
-    $(".th-screen").length && $(window).on("scroll", function () {   
-        ! function (t, a = 0) {
-            var i = $(window).scrollTop(),
-                o = i + $(window).height(), 
-                s = $(t).offset().top;
-            return s + $(t).height() - parseInt(a) <= o && s >= i
-        }
-        (".th-screen", 200) ? $(".th-screen").removeClass("th-visible"): $(".th-screen").addClass("th-visible")
-    }),  
+    $(".popup-content").on("click", function () {
+        $(".slick-slider").slick("refresh");
+    });
+
     
-
-    function content_ready_scripts() {
-        const boxes = gsap.utils.toArray('.global-image'); 
-        boxes.forEach(img => {
-            gsap.to(img, {
-                scrollTrigger: {
-                    trigger: img,
-                    start: "top 70%",
-                    end: "bottom bottom",
-                    toggleClass: "active", 
-                    once: true,
-                }
-            });
-        });
-    }
-
-    if($('.th-anim').length){
-        gsap.registerPlugin(ScrollTrigger);
-        let revealContainers = document.querySelectorAll(".th-anim"); 
-        revealContainers.forEach((container) => {
-          let image = container.querySelector("img");
-          let tl = gsap.timeline({
-            scrollTrigger: {
-            trigger: container,
-            toggleActions: "play none none none"
-            }
-          });
-          tl.set(container, { autoAlpha: 1 });
-          tl.from(container, 1.5, {
-            xPercent: -100,
-            ease: Power2.out
-          });
-          tl.from(image, 1.5, {
-            xPercent: 100,
-            scale: 1.3,
-            delay: -1.5,
-            ease: Power2.out
-          });
-        });
-    }    
-
 
     /*---------- 13. Section Position ----------*/
     // Interger Converter
@@ -650,8 +649,8 @@
     }
 
     /*----------- 14. Filter ----------*/
-      /*----------- 15. Filter ----------*/  
-      $(".filter-active").imagesLoaded(function () {
+
+    $(".filter-active").imagesLoaded(function () {
         var $filter = ".filter-active",
             $filterItem = ".filter-item",
             $filterMenu = ".filter-menu-active";
@@ -683,39 +682,6 @@
         }
     });
     
-
-    // Active specifix
-    $('.filter-active-cat1').imagesLoaded(function () {
-        var $filter = '.filter-active-cat1',
-        $filterItem = '.filter-item',
-        $filterMenu = '.filter-menu-active';
-
-        if ($($filter).length > 0) {
-            var $grid = $($filter).isotope({
-                itemSelector: $filterItem,
-                filter: '.cat1',
-                masonry: {
-                // use outer width of grid-sizer for columnWidth
-                columnWidth: 1
-                }
-            });
-
-            // filter items on button click
-            $($filterMenu).on('click', 'button', function () {
-                var filterValue = $(this).attr('data-filter');
-                $grid.isotope({
-                filter: filterValue
-                });
-            });
-
-            // Menu Active Class 
-            $($filterMenu).on('click', 'button', function (event) {
-                event.preventDefault();
-                $(this).addClass('active');
-                $(this).siblings('.active').removeClass('active');
-            });
-        };
-    });
 
     $(".masonary-active").imagesLoaded(function () {
         var $filter = ".masonary-active",
@@ -759,6 +725,129 @@
         delay: 10,
         time: 1000,
     });
+
+    /*---------- 16. th Tab ----------*/
+    $.fn.thTab = function (options) {
+        var opt = $.extend(
+            {
+                sliderTab: false,
+                tabButton: "button",
+            },
+            options
+        );
+
+        $(this).each(function () {
+            var $menu = $(this);
+            var $button = $menu.find(opt.tabButton);
+
+            // Append indicator
+            $menu.append('<span class="indicator"></span>');
+            var $line = $menu.find(".indicator");
+
+            // On Click Button Class Remove and indecator postion set
+            $button.on("click", function (e) {
+                e.preventDefault();
+                var cBtn = $(this);
+                cBtn.addClass("active").siblings().removeClass("active");
+                if (opt.sliderTab) {
+                    $(slider).slick("slickGoTo", cBtn.data("slide-go-to"));
+                } else {
+                    linePos();
+                }
+            });
+
+            // Work With slider
+            if (opt.sliderTab) {
+                var slider = $menu.data("asnavfor"); // select slider
+
+                // Select All button and set attribute
+                var i = 0;
+                $button.each(function () {
+                    var slideBtn = $(this);
+                    slideBtn.attr("data-slide-go-to", i);
+                    i++;
+
+                    // Active Slide On load > Actived Button
+                    if (slideBtn.hasClass("active")) {
+                        $(slider).slick(
+                            "slickGoTo",
+                            slideBtn.data("slide-go-to")
+                        );
+                    }
+
+                    // Change Indicator On slide Change
+                    $(slider).on(
+                        "beforeChange",
+                        function (event, slick, currentSlide, nextSlide) {
+                            $menu
+                                .find(
+                                    opt.tabButton +
+                                        '[data-slide-go-to="' +
+                                        nextSlide +
+                                        '"]'
+                                )
+                                .addClass("active")
+                                .siblings()
+                                .removeClass("active");
+                            linePos();
+                        }
+                    );
+                });
+            }
+
+            // Indicator Position
+            function linePos() {
+                var $btnActive = $menu.find(opt.tabButton + ".active"),
+                    $height = $btnActive.css("height"),
+                    $width = $btnActive.css("width"),
+                    $top = $btnActive.position().top + "px",
+                    $left = $btnActive.position().left + "px";
+
+                $line.get(0).style.setProperty("--height-set", $height);
+                $line.get(0).style.setProperty("--width-set", $width);
+                $line.get(0).style.setProperty("--pos-y", $top);
+                $line.get(0).style.setProperty("--pos-x", $left);
+
+                if (
+                    $($button).first().position().left ==
+                    $btnActive.position().left
+                ) {
+                    $line
+                        .addClass("start")
+                        .removeClass("center")
+                        .removeClass("end");
+                } else if (
+                    $($button).last().position().left ==
+                    $btnActive.position().left
+                ) {
+                    $line
+                        .addClass("end")
+                        .removeClass("center")
+                        .removeClass("start");
+                } else {
+                    $line
+                        .addClass("center")
+                        .removeClass("start")
+                        .removeClass("end");
+                }
+            }
+            linePos();
+        });
+    };
+
+    // Call On Load
+    if ($(".testi-card2-tab").length) {
+        $(".testi-card2-tab").thTab({
+            sliderTab: true,
+            tabButton: ".tab-btn",
+        });
+    }
+    if ($(".service-block-tab").length) {
+        $(".service-block-tab").thTab({
+            sliderTab: true,
+            tabButton: ".tab-btn",
+        });
+    }
 
     /*----------- 17. Shape Mockup ----------*/
     $.fn.shapeMockup = function () {
@@ -817,6 +906,55 @@
         perspective: 1000,   
     })
 
+    /*----------- 21. Indicator ----------*/
+    // Indicator
+    $.fn.indicator = function () {
+        var $menu = $(this),
+            $linkBtn = $menu.find("a"),
+            $btn = $menu.find("button");
+        // Append indicator
+        $menu.append('<span class="indicator"></span>');
+        var $line = $menu.find(".indicator");
+        // Check which type button is Available
+        if ($linkBtn.length) {
+            var $currentBtn = $linkBtn;
+        } else if ($btn.length) {
+            var $currentBtn = $btn;
+        }
+        // On Click Button Class Remove
+        $currentBtn.on("click", function (e) {
+            e.preventDefault();
+            $(this).addClass("active");
+            $(this).siblings(".active").removeClass("active");
+            linePos();
+        });
+        
+        function linePos() {
+            var $btnActive = $menu.find(".active"),
+                $height = $btnActive.css("height"),
+                $width = $btnActive.css("width"),
+                $top = $btnActive.position().top + "px",
+                $left = $btnActive.position().left + "px";
+
+            $(window).on('resize', function () {
+                $top = $btnActive.position().top + "px",
+                $left = $btnActive.position().left + "px";
+            });
+
+            $line.get(0).style.setProperty("--height-set", $height);
+            $line.get(0).style.setProperty("--width-set", $width);
+            $line.get(0).style.setProperty("--pos-y", $top);
+            $line.get(0).style.setProperty("--pos-x", $left);
+
+        }
+        linePos();
+    };
+
+    // Call On Load
+    if ($(".indicator-active").length) {
+        $(".indicator-active").indicator();
+    }
+
     /*---------- 22. Circle Progress ----------*/
     function animateElements() {
         $('.feature-circle .progressbar').each(function () {
@@ -845,7 +983,6 @@
         });
 
         $('.skill-circle .progressbar').each(function () {
-            var pathColor = $(this).attr('data-path-color');
             var elementPos = $(this).offset().top;
             var topOfWindow = $(window).scrollTop();
             var percent = $(this).find('.circle').attr('data-percent');
@@ -856,18 +993,18 @@
                 $(this).find('.circle').circleProgress({
                 startAngle: -Math.PI / 2,
                 value: percent / 100,
-                size: 176,
+                size: 100,
                 thickness: 8,
-                emptyFill: "#EFF1F9",
+                emptyFill: "#E0E0E0",
                 lineCap: 'round',
                 fill: {
-                    color: pathColor,
+                    gradient: ["#F11F22", "#F2891D"]
                 }
                 }).on('circle-animation-progress', function (event, progress, stepValue) {
-                $(this).find('.circle-num').text((stepValue*100).toFixed(0) + "%");  
+                $(this).find('.circle-num').text((stepValue*100).toFixed(0) + "%");
                 }).stop();
             }
-        }); 
+        });
     }
 
     // Show animated elements
@@ -925,6 +1062,54 @@
         });
     });
 
+    /*******svg-image*******/
+    /*---------- 14. Image to SVG Code ----------*/
+    const cache = {};
+
+    $.fn.inlineSvg = function fnInlineSvg() {
+        this.each(imgToSvg);
+
+        return this;
+    };
+
+    function imgToSvg() {
+        const $img = $(this);
+        const src = $img.attr("src");
+
+        // fill cache by src with promise
+        if (!cache[src]) {
+            const d = $.Deferred();
+            $.get(src, (data) => {
+                d.resolve($(data).find("svg"));
+            });
+            cache[src] = d.promise();
+        }
+
+        // replace img with svg when cached promise resolves
+        cache[src].then((svg) => {
+            const $svg = $(svg).clone();
+
+            if ($img.attr("id")) $svg.attr("id", $img.attr("id"));
+            if ($img.attr("class")) $svg.attr("class", $img.attr("class"));
+            if ($img.attr("style")) $svg.attr("style", $img.attr("style"));
+
+            if ($img.attr("width")) {
+                $svg.attr("width", $img.attr("width"));
+                if (!$img.attr("height")) $svg.removeAttr("height");
+            }
+            if ($img.attr("height")) {
+                $svg.attr("height", $img.attr("height"));
+                if (!$img.attr("width")) $svg.removeAttr("width");
+            }
+
+            $svg.insertAfter($img);
+            $img.trigger("svgInlined", $svg[0]);
+            $img.remove();
+        });
+    }
+
+    $(".svg-img").inlineSvg();
+
     // Quantity Plus Minus ---------------------------
 
     $(".quantity-plus").each(function () {
@@ -949,115 +1134,188 @@
         });
     });
 
-    // /*----------- 00.Gsap Cursor ----------*/
-    var cursor = $(".cursor"),
-    follower = $(".cursor2");
+    // Testimonail slider ----------------------
+    $("#testiSlide1").slick({
+        centerMode: true,
+        centerPadding: "600px",
+        slidesToShow: 1,
+        arrows: false,
+        dots: true,
+        responsive: [
+            {
+                breakpoint: 1800,
+                settings: {
+                    centerPadding: "300px",
+                },
+            },
+            {
+                breakpoint: 1199,
+                settings: {
+                    centerPadding: "200px",
+                },
+            },
+            {
+                breakpoint: 992,
+                settings: {
+                    centerPadding: "60px",
+                },
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    centerPadding: "0px",
+                },
+            },
+        ],
+    });
 
-    var posX = 0,
-        posY = 0;
+    $(document).on('mouseover','.team-card-1-1',function() {
+        $(this).addClass('team-card-1-1-active');
+        $('.team-card-1-1').removeClass('team-card-1-1-active');
+        $(this).addClass('team-card-1-1-active');
+    });
 
-    var mouseX = 0,
-        mouseY = 0;
+    $(document).on('mouseover','.team-card-1-2',function() {
+        $(this).addClass('team-card-1-2-active');
+        $('.team-card-1-2').removeClass('team-card-1-2-active');
+        $(this).addClass('team-card-1-2-active');
+    });
 
-    TweenMax.to({}, 0.016, {
-    repeat: -1,
-    onRepeat: function() {
-        posX += (mouseX - posX) / 9;
-        posY += (mouseY - posY) / 9;
+    $(document).on('mouseover','.service-card2',function() {
+        $(this).addClass('service-card2-active');
+        $('.service-card2').removeClass('service-card2-active');
+        $(this).addClass('service-card2-active');
+    });
 
-        TweenMax.set(follower, {
-            css: {
-            left: posX - 12,
-            top: posY - 12
+    $(document).on('mouseover','.cat-card2',function() {
+        $(this).addClass('cat-card2-active');
+        $('.cat-card2').removeClass('cat-card2-active');
+        $(this).addClass('cat-card2-active');
+    });
+
+    /************lettering js***********/
+    function injector(t, splitter, klass, after) {
+		var a = t.text().split(splitter), inject = '';
+		if (a.length) {
+			$(a).each(function(i, item) {
+				inject += '<span class="'+klass+(i+1)+'">'+item+'</span>'+after;
+			});	
+			t.empty().append(inject);
+		}
+	}
+	
+	var methods = {
+		init : function() {
+
+			return this.each(function() {
+				injector($(this), '', 'char', '');
+			});
+
+		},
+
+		words : function() {
+
+			return this.each(function() {
+				injector($(this), ' ', 'word', ' ');
+			});
+
+		},
+		
+		lines : function() {
+
+			return this.each(function() {
+				var r = "eefec303079ad17405c889e092e105b0";
+				// Because it's hard to split a <br/> tag consistently across browsers,
+				// (*ahem* IE *ahem*), we replaces all <br/> instances with an md5 hash 
+				// (of the word "split").  If you're trying to use this plugin on that 
+				// md5 hash string, it will fail because you're being ridiculous.
+				injector($(this).children("br").replaceWith(r).end(), r, 'line', '');
+			});
+
+		}
+	};
+
+    $.fn.lettering = function( method ) {
+		// Method calling logic
+		if ( method && methods[method] ) {
+			return methods[ method ].apply( this, [].slice.call( arguments, 1 ));
+		} else if ( method === 'letters' || ! method ) {
+			return methods.init.apply( this, [].slice.call( arguments, 0 ) ); // always pass an array
+		}
+		$.error( 'Method ' +  method + ' does not exist on jQuery.lettering' );
+		return this;
+	};
+
+    $(".about-title-anime").lettering();    
+
+    /*----------- Countdown ----------*/
+
+    $.fn.countdown = function () {
+        $(this).each(function () {
+            var $counter = $(this),
+                countDownDate = new Date($counter.data("offer-date")).getTime(), // Set the date we're counting down toz
+                exprireCls = "expired";
+
+            // Finding Function
+            function s$(element) {
+                return $counter.find(element);
             }
-        });
 
-        TweenMax.set(cursor, {
-            css: {
-            left: mouseX,
-            top: mouseY
-            }
+            // Update the count down every 1 second
+            var counter = setInterval(function () {
+                // Get today's date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                var distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor(
+                    (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+                );
+                var minutes = Math.floor(
+                    (distance % (1000 * 60 * 60)) / (1000 * 60)
+                );
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Check If value is lower than ten, so add zero before number
+                days < 10 ? (days = "0" + days) : null;
+                hours < 10 ? (hours = "0" + hours) : null;
+                minutes < 10 ? (minutes = "0" + minutes) : null;
+                seconds < 10 ? (seconds = "0" + seconds) : null;
+
+                // If the count down is over, write some text
+                if (distance < 0) {
+                    clearInterval(counter);
+                    $counter.addClass(exprireCls);
+                    $counter.find(".message").css("display", "block");
+                } else {
+                    // Output the result in elements
+                    s$(".day").html(days);
+                    s$(".hour").html(hours);
+                    s$(".minute").html(minutes);
+                    s$(".seconds").html(seconds);
+                }
+            }, 1000);
         });
+    };
+
+    if ($(".counter-list").length) {
+        $(".counter-list").countdown();
     }
-    });
-
-    $(document).on("mousemove", function(e) {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-    //circle
-    $(".btn").on("mouseenter", function() {
-        cursor.addClass("active");
-        follower.addClass("active");
-    });
-    $(".btn").on("mouseleave", function() {
-        cursor.removeClass("active");
-        follower.removeClass("active");
-    });   
-    // CURSOR End
-
-    // /*----------- 00.GSAP Register ----------*/
-    window.gsap.registerPlugin(
-        window.TweenMax
-    );
-    
-    // /*----------- 00.Color Scheme ----------*/
-    $('.color-switch-btns button').each(function () {   
-        // Get color for button
-        const button = $(this);
-        const color = button.data('color'); 
-        button.css('--theme-color', color);
-
-        // Change theme color on click
-        button.on('click', function () {
-            const clickedColor = $(this).data('color');
-            $('body').css('--theme-color', clickedColor);  
-        });
-    }); 
-
-    $(document).on('click','.switchIcon',function() { 
-        $('.color-scheme-wrap').toggleClass('active');  
-    });
-
-    // /*----------- Pricing-switch & Tab ----------*/
-    var e = document.getElementById("filt-monthly"),
-    d = document.getElementById("filt-yearly"),
-    t = document.getElementById("switcher"),
-    m = document.getElementById("monthly"),
-    y = document.getElementById("yearly");
-
-
-    if ($('.pricing-tabs').length){
-        e.addEventListener("click", function(){
-        t.checked = false;
-        e.classList.add("toggler--is-active");
-        d.classList.remove("toggler--is-active");
-        m.classList.remove("hide");
-        y.classList.add("hide");
-        });
-
-        d.addEventListener("click", function(){
-        t.checked = true;
-        d.classList.add("toggler--is-active");
-        e.classList.remove("toggler--is-active");
-        m.classList.add("hide");
-        y.classList.remove("hide");
-        });
-
-        t.addEventListener("click", function(){
-        d.classList.toggle("toggler--is-active");
-        e.classList.toggle("toggler--is-active");
-        m.classList.toggle("hide");
-        y.classList.toggle("hide");
-        });
+    /*--------------------------------------------------
+        select onput
+    ---------------------------------------------------*/
+    if ($('.single-select').length){
+        $('.single-select').niceSelect();
     }
-    
-    
+
     // /*----------- 00. Right Click Disable ----------*/
     //   window.addEventListener('contextmenu', function (e) {
-    //     // do something here... 
-    //     e.preventDefault();  
-    //   }, false); 
+    //     // do something here...
+    //     e.preventDefault();
+    //   }, false);
 
     // /*----------- 00. Inspect Element Disable ----------*/
     //   document.onkeydown = function (e) {

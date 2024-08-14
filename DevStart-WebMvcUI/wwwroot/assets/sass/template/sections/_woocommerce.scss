@@ -2,15 +2,15 @@
 .woocommerce-info {
   position: relative;
   padding: 11px 20px 11px 50px;
-  background-color: $theme-color;
-  color: $white-color;
+  background-color: #d3d3d3;
+  color: $body-color;
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 15px;
   border-radius: 5px;
 
   a {
-    color: $white-color;
+    color: $title-color;
     text-decoration: underline;
 
     &:hover {
@@ -35,11 +35,18 @@
     background-color: $theme-color;
     color: $white-color;
 
+    a {
+      color: $white-color;
+    }
     &:before {
       content: '\f14a';
       font-weight: 300;
     }
   }
+}
+
+.woocommerce-noreviews {
+  margin-bottom: -0.45em;
 }
 
 .woocommerce-form-login-toggle {
@@ -58,10 +65,11 @@
 .woocommerce-form-register,
 .woocommerce-form-coupon,
 .woocommerce-form-login {
+  margin-bottom: 30px;
   padding: 35px 40px 35px 40px;
   background-color: $white-color;
-  box-shadow: 0px 6px 30px rgba(1, 15, 28, 0.1);
-  margin-bottom: 0;
+  border: 1px solid $border-color;
+  box-shadow: 0px 9px 14px #fbfbfb;
   border-radius: 10px;
 
   @include xs {
@@ -75,10 +83,6 @@
       margin-bottom: 0;
     }
   }
-}
-
-.woocommerce-form-login {
-  margin-bottom: 30px;
 }
 
 .woocommerce-error {
@@ -278,7 +282,9 @@ table.variations {
     width: auto !important;
   }
 }
-
+.woosq-product .thumbnails .slick-list {
+  display: block;
+}
 .woocommerce-variation.single_variation {
   margin-bottom: 30px;
 
@@ -363,12 +369,12 @@ table.woocommerce-product-attributes {
   line-height: 1.2em;
   display: block;
   font-family: $icon-font;
-  font-weight: 700;
+  font-weight: 300;
   font-size: 14px;
 
   &:before {
     content: "\e28b\e28b\e28b\e28b\e28b";
-    color: #e1e1e1;
+    color: $theme-color;
     float: left;
     top: 0;
     left: 0;
@@ -391,6 +397,7 @@ table.woocommerce-product-attributes {
       left: 0;
       color: $theme-color;
       letter-spacing: 3px;
+      font-weight: 700;
     }
   }
 }
@@ -425,34 +432,34 @@ table.woocommerce-product-attributes {
       height: 14px;
       line-height: 1;
       font-family: $icon-font;
-      content: "\e28b";
+      content: "\f005";
       font-weight: 400;
       text-indent: 0;
       color: $yellow-color;
     }
 
     a:hover~a::before {
-      content: "\e28b";
+      content: "\f005";
       font-weight: 400;
     }
 
     &:hover a::before {
-      content: "\e28b";
+      content: "\f005";
       font-weight: 700;
     }
 
     &.selected a.active::before {
-      content: "\e28b";
+      content: "\f005";
       font-weight: 700;
     }
 
     &.selected a.active~a::before {
-      content: "\e28b";
+      content: "\f005";
       font-weight: 400;
     }
 
     &.selected a:not(.active)::before {
-      content: "\e28b";
+      content: "\f005";
       font-weight: 700;
     }
 
