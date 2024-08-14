@@ -10,13 +10,11 @@ namespace DevStart_Entity.Interfaces
 {
     public interface ICategoryService
     {
-        Task<IEnumerable<CategoryViewModel>> GetAll(); //artık T kullanmıyoruz da CategoryViewModel gibi kullanıyoruz.
+		Task<IEnumerable<CategoryViewModel>> GetAllAsync();
+		Task<CategoryViewModel> GetByIdAsync(Guid id);
+		Task AddAsync(CategoryViewModel categoryViewModel);
+		Task UpdateAsync(CategoryViewModel categoryViewModel);
+		Task DeleteAsync(Guid id);
 
-        //Task<IEnumerable<Category>> GetAllCategoriesAsync();
-        //Task<Category> GetCategoryByIdAsync(Guid id);
-        //Task AddCategoryAsync(Category category);
-        //Task UpdateCategoryAsync(Category category);
-        //Task DeleteCategoryAsync(Guid id);
-
-    }
+	}
 }

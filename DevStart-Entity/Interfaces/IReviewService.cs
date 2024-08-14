@@ -9,9 +9,12 @@ namespace DevStart_Entity.Interfaces
 {
     public interface IReviewService
     {
-        Task<IEnumerable<ReviewViewModel>> GetAll(); //artık T kullanmıyoruz da ArticleViewModel gibi kullanıyoruz.
-        Task<ReviewViewModel> Get(int id);
-        Task Add(ReviewViewModel model);
+		Task<IEnumerable<ReviewViewModel>> GetAllAsync();
+		Task<ReviewViewModel> GetByIdAsync(Guid id);
+		Task AddAsync(ReviewViewModel reviewViewModel);
+		Task UpdateAsync(ReviewViewModel reviewViewModel);
+		Task DeleteAsync(Guid id);
+		Task<IEnumerable<ReviewViewModel>> GetReviewsByCourseIdAsync(Guid courseId);
 
-    }
+	}
 }

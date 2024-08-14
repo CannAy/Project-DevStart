@@ -16,5 +16,7 @@ namespace DevStart_Entity.ViewModels
         public bool LessonState { get; set; } = true;
 
         public Guid CourseId { get; set; }
-    }
+		public string CourseTitle { get; set; } //Course
+		public string VideoLink { get; set; } //Video
+	}
 }

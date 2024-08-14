@@ -1,8 +1,10 @@
 ﻿using DevStart_DataAccsess.Contexts;
 using DevStart_DataAccsess.Identity;
 using DevStart_DataAccsess.UnitOfWorks;
+using DevStart_Entity.Interfaces;
 using DevStart_Entity.UnitOfWork;
 using DevStart_Service.Mapping;
+using DevStart_Service.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -33,7 +35,8 @@ namespace DevStart_Service.Extensions
 
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-        }
+			services.AddScoped<IAccountService, AccountService>();
+		}
 
 	}
 

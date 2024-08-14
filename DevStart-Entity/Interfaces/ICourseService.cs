@@ -9,14 +9,14 @@ namespace DevStart_Entity.Interfaces
 {
     public interface ICourseService        
     {
-        Task<IEnumerable<CourseViewModel>> GetAll(); //artık T kullanmıyoruz da ArticleViewModel gibi kullanıyoruz.
-        Task<CourseViewModel> Get(int id);
-        Task Add(CourseViewModel model);
+		Task<IEnumerable<CourseViewModel>> GetAllAsync();
+		Task<CourseViewModel> GetByIdAsync(Guid id);
+		Task AddAsync(CourseViewModel courseViewModel);
+		Task UpdateAsync(CourseViewModel courseViewModel);
+		Task DeleteAsync(Guid id);
+		Task<IEnumerable<CourseViewModel>> GetCoursesByCategoryIdAsync(Guid categoryId);
 
 
 
-        //***** CourseSale ve CourseSaleDetail 'lerin serviceleri oluşturulacak mı??????
-        
-        //test2
-    }
+	}
 }
