@@ -1,7 +1,10 @@
-﻿using DevStart_DataAccsess.Identity;
+﻿using AutoMapper;
+using DevStart_DataAccsess.Identity;
 using DevStart_Entity.Interfaces;
 using DevStart_Entity.ViewModels;
+using EduTime_Entity.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,50 +14,108 @@ using System.Threading.Tasks;
 
 namespace DevStart_Service.Services
 {
-	public class AccountService : IAccountService
-	{
-		private readonly UserManager<AppUser> _userManager;
-		private readonly SignInManager<AppUser> _signInManager;
-		private readonly RoleManager<AppRole> _roleManager;
+    public class AccountService : IAccountService
+    {
+        private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<AppRole> _roleManager;
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly IMapper _mapper;
 
-		public AccountService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager)
-		{
-			_userManager = userManager;
-			_signInManager = signInManager;
-			_roleManager = roleManager;
-		}
+        public AccountService(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, SignInManager<AppUser> signInManager, IMapper mapper)
+        {
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _signInManager = signInManager;
+            _mapper = mapper;
+        }
 
-		public async Task<IdentityResult> RegisterUserAsync(RegisterViewModel model)
-		{
-			var user = new AppUser { UserName = model.UserName, Email = model.Email };
-			return await _userManager.CreateAsync(user, model.Password);
-		}
+        public Task<string> CreateRoleAsync(RoleViewModel model)
+        {
+            throw new NotImplementedException();
+        }
 
-		public async Task<SignInResult> LoginUserAsync(LoginViewModel model)
-		{
-			return await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
-		}
+        public async Task<string> CreateUserAsync(RegisterViewModel model)
+        {
+            string message = string.Empty;
 
-		public async Task LogoutUserAsync()
-		{
-			await _signInManager.SignOutAsync();
-		}
+            AppUser user = new AppUser()
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
+                UserName = model.UserName,
+            };
+            var identityResult = await _userManager.CreateAsync(user, model.Password);
 
-		public async Task<IdentityResult> ChangePasswordAsync(ChangePasswordViewModel model)
-		{
-			var user = await _userManager.GetUserAsync(Thread.CurrentPrincipal.Identity);
-			return await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-		}
+            if (identityResult.Succeeded)
+            {
+                message = "ok";
+            }
+            else
+            {
+                foreach (var error in identityResult.Errors)
+                {
+                    message = error.Description;
+                }
+            }
 
-		public async Task<IdentityResult> AssignRoleAsync(AssignRoleViewModel model)
-		{
-			var user = await _userManager.FindByIdAsync(model.UserId);
-			return await _userManager.AddToRoleAsync(user, model.Role);
-		}
+            return message;
+        }
 
-		public async Task<IList<string>> GetRolesAsync(AppUser user)
-		{
-			return await _userManager.GetRolesAsync(user);
-		}
-	}
+        public async Task<UserViewModel> Find(string username)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            return _mapper.Map<UserViewModel>(user);
+        }
+
+        public Task<List<RoleViewModel>> GetAllRoles()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<UserViewModel>> GetAllUsers()
+        {
+            var list = await _userManager.Users.ToListAsync();
+            return _mapper.Map<IEnumerable<UserViewModel>>(list).ToList();
+        }
+
+        public async Task<string> GetUserAsync(LoginViewModel model)
+        {
+            string mesage = string.Empty;
+
+            var user = await _userManager.FindByNameAsync(model.UserName);
+            if (user == null)
+            {
+                mesage = "Kullanıcı bulunamadı!";
+                return mesage;
+            }
+            var signInResult = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);   //sondaki true, lockout özelliğini aktif yapıyor.
+
+            //Aşağıdaki 3 seçenekten sadece biri gerçekleşir.
+            if (signInResult.Succeeded)
+            {
+                mesage = "ok";
+
+            }
+            //if (signInResult.IsLockedOut)
+            //{
+            //    mesage = "Login işlemi bir süreliğine kilitlenmiştir.";
+            //}
+            //if(signInResult.IsNotAllowed)
+            //{
+            //    //Email yada telefon onayı istenmişse
+            //}
+            else
+            {
+                mesage = "Kullanıcı adı veya şifre hatalı!";
+            }
+            return mesage;
+        }
+
+        public Task SignOutAsync()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
