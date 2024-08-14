@@ -16,7 +16,8 @@ namespace DevStart_Entity.ViewModels
         public string ReviewComment { get; set; }
         public bool ReviewState { get; set; } = true;
 
-        public Guid UserId { get; set; }
+        public Guid UserId { get; set; } //yorum yapan kişinin FirstName ve LastName bilgileri alacağız bununla??
+        public string CourseTitle { get; set; } //Course bilgileri için.
 
     }
 }
