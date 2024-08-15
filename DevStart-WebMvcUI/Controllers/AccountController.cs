@@ -46,6 +46,26 @@ namespace DevStart_WebMvcUI.Controllers
             }
             return View(model);
         }
+		public IActionResult Register()
+		{
+			return View();
+		}
 
-    }
+		//create user dediğimizde gönderdiğimiz bilgileri alabilmesi için;
+		[HttpPost]
+		public async Task<IActionResult> Register(RegisterViewModel model)
+		{
+			string msg = await _accountService.CreateUserAsync(model); //msg-> message benzeri.
+			if (msg == "OK")
+			{
+				return RedirectToAction("Login");
+			}
+			else
+			{
+				ModelState.AddModelError("", msg);
+			}
+			return View(model);
+		}
+
+	}
 }
