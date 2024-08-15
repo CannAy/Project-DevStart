@@ -2,7 +2,6 @@
 using DevStart_DataAccsess.Identity;
 using DevStart_Entity.Interfaces;
 using DevStart_Entity.ViewModels;
-using EduTime_Entity.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -82,25 +81,25 @@ namespace DevStart_Service.Services
 
         public async Task<string> GetUserAsync(LoginViewModel model)
         {
-            string mesage = string.Empty;
+            string message = string.Empty;
 
             var user = await _userManager.FindByNameAsync(model.UserName);
             if (user == null)
             {
-                mesage = "Kullanıcı bulunamadı!";
-                return mesage;
+                message = "Kullanıcı bulunamadı!";
+                return message;
             }
             var signInResult = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);   //sondaki true, lockout özelliğini aktif yapıyor.
 
             //Aşağıdaki 3 seçenekten sadece biri gerçekleşir.
             if (signInResult.Succeeded)
             {
-                mesage = "ok";
+                message = "ok";
 
             }
             //if (signInResult.IsLockedOut)
             //{
-            //    mesage = "Login işlemi bir süreliğine kilitlenmiştir.";
+            //    message = "Login işlemi bir süreliğine kilitlenmiştir.";
             //}
             //if(signInResult.IsNotAllowed)
             //{
@@ -108,14 +107,14 @@ namespace DevStart_Service.Services
             //}
             else
             {
-                mesage = "Kullanıcı adı veya şifre hatalı!";
+                message = "Kullanıcı adı veya şifre hatalı!";
             }
-            return mesage;
+            return message;
         }
 
-        public Task SignOutAsync()
+        public async Task SignOutAsync()
         {
-            throw new NotImplementedException();
+            await _signInManager.SignOutAsync();
         }
     }
 }

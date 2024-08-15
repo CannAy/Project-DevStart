@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EduTime_Entity.ViewModels
+namespace DevStart_Entity.ViewModels
 {
     public class UserViewModel
     {

@@ -1,6 +1,8 @@
-﻿using DevStart_DataAccsess.Contexts;
+﻿using DevStart_DataAccess.Repositories;
+using DevStart_DataAccsess.Contexts;
 using DevStart_DataAccsess.Identity;
 using DevStart_DataAccsess.UnitOfWorks;
+using DevStart_Entity.Entities;
 using DevStart_Entity.Interfaces;
 using DevStart_Entity.UnitOfWork;
 using DevStart_Service.Mapping;
@@ -36,7 +38,10 @@ namespace DevStart_Service.Extensions
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddScoped<IAccountService, AccountService>();
-		}
+			services.AddScoped<ICourseService, CourseService>();           
+          
+
+        }
 
 	}
 
