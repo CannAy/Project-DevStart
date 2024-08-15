@@ -9,7 +9,6 @@ namespace DevStart_Entity.ViewModels
 {
     public class LessonViewModel
     {
-        [Key]
         public Guid LessonId { get; set; }
         public string LessonTitle { get; set; }
         public string LessonContent { get; set; }

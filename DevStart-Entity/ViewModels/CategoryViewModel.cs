@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 namespace DevStart_Entity.ViewModels
 {
     public class CategoryViewModel
-    {
-        [Key]
+    {       
         public Guid CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string CategoryDescription { get; set; }

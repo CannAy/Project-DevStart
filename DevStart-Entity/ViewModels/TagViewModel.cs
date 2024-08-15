@@ -9,7 +9,6 @@ namespace DevStart_Entity.ViewModels
 {
 	public class TagViewModel
 	{
-		[Key]
         public Guid TagId { get; set; }
 		public string TagName { get; set; }
 		public string TagDescription { get; set; }
