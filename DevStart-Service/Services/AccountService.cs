@@ -33,10 +33,10 @@ namespace DevStart_Service.Services
             throw new NotImplementedException();
         }
 
-        public async Task<string> CreateUserAsync(RegisterViewModel model)
+        public async Task<Response> CreateUserAsync(RegisterViewModel model)
         {
-            string message = string.Empty;
-
+            //string message = string.Empty;
+            Response response = new Response(); 
             AppUser user = new AppUser()
             {
                 FirstName = model.FirstName,
@@ -49,17 +49,19 @@ namespace DevStart_Service.Services
 
             if (identityResult.Succeeded)
             {
-                message = "ok";
+                response.Success = true;
+
             }
             else
             {
+                response.Success = false;
                 foreach (var error in identityResult.Errors)
                 {
-                    message = error.Description;
+                    response.Message = error.Description;
                 }
             }
 
-            return message;
+            return response;
         }
 
         public async Task<UserViewModel> Find(string username)
