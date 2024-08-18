@@ -20,4 +20,8 @@
     <ProjectReference Include="..\DevStart-Entity\DevStart-Entity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
