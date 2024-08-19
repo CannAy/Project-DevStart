@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using DevStart_DataAccsess.Identity;
 using DevStart_Entity.Entities;
 using DevStart_Entity.Interfaces;
 using DevStart_Entity.UnitOfWork;
 using DevStart_Entity.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,21 +18,27 @@ namespace DevStart_Service.Services
 		private readonly IRepository<Course> _courseRepository;
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly IMapper _mapper;
+        private readonly UserManager<AppUser> _userManager;
 
-		public CourseService(IRepository<Course> courseRepository, IUnitOfWork unitOfWork, IMapper mapper)
-		{
-			_courseRepository = courseRepository;
-			_unitOfWork = unitOfWork;
-			_mapper = mapper;
-		}
+        public CourseService(IRepository<Course> courseRepository, IUnitOfWork unitOfWork, IMapper mapper, UserManager<AppUser> userManager)
+        {
+            _courseRepository = courseRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+            _userManager = userManager;
+        }
 
-		public async Task<IEnumerable<CourseViewModel>> GetAllAsync()
+        public async Task<IEnumerable<CourseViewModel>> GetAllAsync()
 		{
 			var courses = await _courseRepository.GetAllAsync();
 			return _mapper.Map<IEnumerable<CourseViewModel>>(courses);
 		}
-
-		public async Task<CourseViewModel> GetByIdAsync(Guid id)
+        public async Task<UserViewModel> Find(string userName) //BAKILACAAAAAAAAKK!
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            return _mapper.Map<UserViewModel>(user);
+        }
+        public async Task<CourseViewModel> GetByIdAsync(Guid id)
 		{
 			var course = await _courseRepository.GetByIdAsync(id);
 			return _mapper.Map<CourseViewModel>(course);

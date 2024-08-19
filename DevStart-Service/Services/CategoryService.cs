@@ -57,5 +57,6 @@ namespace DevStart_Service.Services
 			_categoryRepository.Update(category);
 			await _unitOfWork.CommitAsync();
 		}
-	}
+       
+    }
 }

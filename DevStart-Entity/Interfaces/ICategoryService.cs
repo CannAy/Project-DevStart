@@ -14,7 +14,7 @@ namespace DevStart_Entity.Interfaces
 		Task<CategoryViewModel> GetByIdAsync(Guid id);
 		Task AddAsync(CategoryViewModel categoryViewModel);
 		Task UpdateAsync(CategoryViewModel categoryViewModel);
-		Task DeleteAsync(Guid id);
+		Task DeleteAsync(Guid id);     
 
-	}
+    }
 }

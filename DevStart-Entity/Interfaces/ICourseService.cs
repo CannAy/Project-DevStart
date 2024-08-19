@@ -16,7 +16,7 @@ namespace DevStart_Entity.Interfaces
 		Task DeleteAsync(Guid id);
 		Task<IEnumerable<CourseViewModel>> GetCoursesByCategoryIdAsync(Guid categoryId);
 
+        Task<UserViewModel> Find(string username);
 
-
-	}
+    }
 }

@@ -19,10 +19,9 @@ namespace DevStart_Entity.Entities
 
 
 		public Guid UserId { get; set; }
-
 		public Guid CategoryId { get; set; }
-		public virtual Category Category { get; set; }
 
+		public virtual Category Category { get; set; }
 
 		public virtual List<Review> Reviews { get; set; }
 		public virtual List<Lesson> Lessons { get; set; }
