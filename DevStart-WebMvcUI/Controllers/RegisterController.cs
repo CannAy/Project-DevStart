@@ -13,11 +13,11 @@ namespace DevStart_WebMvcUI.Controllers
             _accountService = accountService;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var users = await _accountService.GetAllUsers();
-            return View(users);
-        }
+        //public async Task<IActionResult> Index()
+        //{
+        //    var users = await _accountService.GetAllUsers();
+        //    return View(users);
+        //}
         public IActionResult Register()
         {
             return View();
@@ -26,20 +26,36 @@ namespace DevStart_WebMvcUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            Response response = new Response();
-            response = await _accountService.CreateUserAsync(model);
+            //Response response = new Response();
+            var response = await _accountService.CreateUserAsync(model);
 
-            if (response.Success)
+            if (ModelState.IsValid)
             {
-                TempData["message1"] = response.Success;
-                TempData["message2"] = "Kayıt Başarılı";
+                if (response.Success)
+                {
+                    TempData["message"] = "Kayıt Başarılı";
+                    return RedirectToAction("Index", "Home"); // Kayıttan sonra giriş sayfasına yönlendir
+                }
+                else
+                {
+                    ModelState.AddModelError("", response.Message);
+                }
             }
-            else
-            {
-                TempData["message1"] = response.Success;
-                TempData["message2"] = response.Message;
-            }
-            return RedirectToAction("Index");
+            return View(model);
+
+
+
+            //if (response.Success)
+            //{
+            //    TempData["message1"] = response.Success;
+            //    TempData["message2"] = "Kayıt Başarılı";
+            //}
+            //else
+            //{
+            //    TempData["message1"] = response.Success;
+            //    TempData["message2"] = response.Message;
+            //}
+            //return RedirectToAction("Index");
         }
     }
 }
