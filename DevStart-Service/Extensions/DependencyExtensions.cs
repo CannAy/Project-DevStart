@@ -38,9 +38,11 @@ namespace DevStart_Service.Extensions
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddScoped<IAccountService, AccountService>();
-			services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ICourseService, CourseService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); //generic repo kullanabilmemiz için.
            
+
 
 
         }

@@ -1,7 +1,7 @@
-﻿@model List<CourseViewModel>
+﻿@model IEnumerable<CourseViewModel>
 @{
-    ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "_AdminLayout";
+    // ViewData["Title"] = "Home Page";
 }
 <div class="col-md-6">
     <!-- general form elements -->
@@ -9,10 +9,10 @@
         <div class="box-header with-border">
             <h3 class="box-title">Yeni Kurs Oluşturma</h3>
             <div>
-                @if (@TempData["message1"] != null)
+               @*  @if (@TempData["message1"] != null)
                 {
                     <p>@TempData["message2"]</p>
-                }
+                } *@
             </div>
         </div>
         <!-- /.box-header -->
@@ -33,15 +33,15 @@
                 </div>
                 <div class="form-group">
                     <label for="CourseCreateDate">Kurs kayıt tarihi</label>
-                    <input type="datetime" class="form-control" id="CourseCreateDate" name="CourseCreateDate" placeholder="Kurs kayır tarihi">
+                    <input type="datetime" class="form-control" id="CourseCreateDate" name="CourseCreateDate" placeholder="Kurs kayıt tarihi">
                 </div>
-               @*  <div class="form-group">
-                    <label asp-for="CategoryId" class="control-label"></label>
-                    <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.Categories">
+                <div class="form-group">
+                    <label class="control-label">Kategoriler</label>
+                    <select id="CategoryId" name="CategoryId" class="form-control" asp-items="@ViewBag.Categories">
                         <option selected disable>Kategori seçiniz</option>
                     </select>
-                    <span asp-validation-for="CategoryId" class="text-danger"></span>
-                </div> *@
+                    @* <span asp-validation-for="CategoryId" class="text-danger"></span> *@
+                </div>
             </div>
             <!-- /.box-body -->
 
@@ -68,17 +68,17 @@
                         <th>Kurs Eklenme Tarihi</th>
                     </tr>
                 </thead>
-                @* <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.CourseTitle/td>
-                            <td>@item.CourseDescription </td>
-                            <td>@item.CoursePrice</td>
-                            <td>@item.CourseCreateDate</td>                            
-                        </tr>
-                    }
-                </tbody> *@
+                <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                <td>@item.CourseTitle/td>
+                <td>@item.CourseDescription </td>
+                <td>@item.CoursePrice</td>
+                <td>@item.CourseCreateDate</td>
+                </tr>
+                }
+                </tbody>
             </table>
         </div>
         <!-- /.box-body -->

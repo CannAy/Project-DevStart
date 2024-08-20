@@ -46,10 +46,7 @@ namespace DevStart_WebMvcUI.Controllers
             }
             return View(model);
         }
-		public IActionResult Register()
-		{
-			return View();
-		}
+
 
 		//create user dediğimizde gönderdiğimiz bilgileri alabilmesi için;
 		//[HttpPost]

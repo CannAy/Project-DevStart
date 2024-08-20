@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DevStart_DataAccsess.Identity;
 using DevStart_DataAccsess.UnitOfWorks;
+using DevStart_Entity.Entities;
 using DevStart_Entity.UnitOfWork;
 using DevStart_Entity.ViewModels;
 using System;
@@ -15,9 +16,9 @@ namespace DevStart_Service.Mapping
     {
         public MappingProfile() //ctor tanımlıyoruz işlemler için.
         {
-            //CreateMap<New, NewViewModel>().ReverseMap();
-            //CreateMap<NewCategory, NewCategoryViewModel>().ReverseMap();
+            CreateMap<Category, CategoryViewModel>().ReverseMap();
             CreateMap<AppUser, UserViewModel>().ReverseMap();
+            CreateMap<Course, CourseViewModel>().ReverseMap();
         }
     }
 }
