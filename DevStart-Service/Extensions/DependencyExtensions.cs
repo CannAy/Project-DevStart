@@ -23,23 +23,25 @@ namespace DevStart_Service.Extensions
 			services.AddIdentity<AppUser, AppRole>(
 				opt =>
 				{
-					opt.Password.RequiredLength = 6;    //default 6 karakter
-					opt.Password.RequireNonAlphanumeric = true;
-					opt.Password.RequireUppercase = true;
-					opt.Password.RequireLowercase = true;
-					opt.Password.RequireDigit = true;
+					opt.Password.RequiredLength = 1;    //default 6 karakter
+					opt.Password.RequireNonAlphanumeric = false;
+					opt.Password.RequireUppercase = false;
+					opt.Password.RequireLowercase = false;
+					opt.Password.RequireDigit = false;
 
-					opt.User.RequireUniqueEmail = true;  //aynı email adresinin tekrar kullanılmasına izin vermez.
+					opt.User.RequireUniqueEmail = false;  //aynı email adresinin tekrar kullanılmasına izin vermez.
 					/*opt.User.AllowedUserNameCharacters = "abcdefghijklmnoprstuvyz0123456789";*/ //kullanıcı adı girilirken bunlardan başka birkarakter girilmesine izin vermez.
 					opt.Lockout.MaxFailedAccessAttempts = 3;  //default 5
 					opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1); //default 5
 				}).AddEntityFrameworkStores<DevStartDbContext>();
 
             services.AddAutoMapper(typeof(MappingProfile));
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICourseService, CourseService>();
+
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); //generic repo kullanabilmemiz için.
            
 

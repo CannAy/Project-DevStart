@@ -36,10 +36,11 @@ namespace DevStart_Service.Services
         public async Task<Response> CreateUserAsync(RegisterViewModel model)
         {
             //string message = string.Empty;
-            Response response = new Response(); 
+            Response response = new Response();
             AppUser user = new AppUser()
             {
-                FirstName = model.FirstName,
+				//Id = Guid.NewGuid(),
+				FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
                 PhoneNumber = model.PhoneNumber,
@@ -50,8 +51,8 @@ namespace DevStart_Service.Services
             if (identityResult.Succeeded)
             {
                 response.Success = true;
-
-            }
+				response.Message = "Kullanıcı başarıyla oluşturuldu.";
+			}
             else
             {
                 response.Success = false;
@@ -85,18 +86,18 @@ namespace DevStart_Service.Services
         {
             string message = string.Empty;
 
-            var user = await _userManager.FindByNameAsync(model.UserName);
+            var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
                 message = "Kullanıcı bulunamadı!";
                 return message;
             }
-            var signInResult = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);   //sondaki true, lockout özelliğini aktif yapıyor.
+            var signInResult = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);   //sondaki true, lockout özelliğini aktif yapıyor.
 
             //Aşağıdaki 3 seçenekten sadece biri gerçekleşir.
             if (signInResult.Succeeded)
             {
-                message = "ok";
+                message = "OK";
 
             }
             //if (signInResult.IsLockedOut)

@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace DevStart_WebMvcUI.Controllers
 {
     public class UserController : Controller
-    {
+    { 
+                                                //******ADMIN TARAFI CONTROLLER******//
+
         private readonly IAccountService _accountService;
 
         public UserController(IAccountService accountService)

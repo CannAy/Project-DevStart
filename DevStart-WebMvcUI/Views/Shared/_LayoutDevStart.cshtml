@@ -1,11 +1,4 @@
-﻿@model DevStart_Entity.ViewModels.RegisterViewModel
-@{
-    Layout = null;
-
-    ViewData["Title"] = "Home Page";
-}
-
-<!doctype html>
+﻿<!doctype html>
 <html class="no-js" lang="zxx">
 
 <head>
@@ -177,58 +170,58 @@
             <div class="th-mobile-menu">
                 <ul>
                     <li class="menu-item-has-children">
-                        <a href="index.html">Home</a>
+                        <a href="~/Home/Index">Home</a>
+                        @* <ul class="sub-menu">
+                        <li class="menu-item-has-children">
+                        <a href="#">Multipage</a>
                         <ul class="sub-menu">
-                            <li class="menu-item-has-children">
-                                <a href="#">Multipage</a>
-                                <ul class="sub-menu">
-                                    <li><a href="index.html">Home University</a></li>
-                                    <li><a href="home-2.html">Home Online Education</a></li>
-                                    <li><a href="home-3.html">Home University Admission</a></li>
-                                    <li><a href="home-4.html">Home Digital Education</a></li>
-                                    <li><a href="home-5.html">Home Academy <span class="new-label">New</span></a></li>
-                                    <li><a href="home-6.html">Home Online Training <span class="new-label">New</span></a></li>
-                                    <li><a href="home-7.html">Home Online Mentors <span class="new-label">New</span></a></li>
-                                    <li><a href="home-8.html">Home Online Courses <span class="new-label">New</span></a></li>
-                                    <li><a href="home-9.html">Home Kindergarten <span class="new-label">New</span></a></li>
-                                    <li><a href="home-10.html">Home University <span class="new-label">New</span></a></li>
-                                    <li><a href="home-11.html">Online Education <span class="new-label">New</span></a></li>
-                                    <li><a href="home-12.html">Online Instructor <span class="new-label">New</span></a></li>
-                                    <li><a href="home-13.html">Skill Development <span class="new-label">New</span></a></li>
-                                    <li><a href="home-14.html">Home Trainer <span class="new-label">New</span></a></li>
-                                    <li><a href="home-15.html">Home Admission <span class="new-label">New</span></a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item-has-children">
-                                <a href="#">Onepage</a>
-                                <ul class="sub-menu">
-                                    <li><a href="home1-onepage.html">University Onepage</a></li>
-                                    <li><a href="home2-onepage.html">Online Education Onepage</a></li>
-                                    <li><a href="home3-onepage.html">University Admission Onepage</a></li>
-                                    <li><a href="home4-onepage.html">Digital Education Onepage</a></li>
-                                    <li><a href="home5-onepage.html">Academy Onepage <span class="new-label">New</span></a></li>
-                                    <li><a href="home6-onepage.html">Online Training Onepage <span class="new-label">New</span></a></li>
-                                    <li><a href="home7-onepage.html">Online Mentors Onepage <span class="new-label">New</span></a></li>
-                                    <li><a href="home8-onepage.html">Online Courses Onepage <span class="new-label">New</span></a></li>
-                                    <li><a href="home9-onepage.html">Kindergarten Onepage <span class="new-label">New</span></a></li>
-                                    <li><a href="home10-onepage.html">University Onepage <span class="new-label">New</span></a></li>
-                                    <li><a href="home11-onepage.html">Online Education Onepage <span class="new-label">New</span></a></li>
-                                    <li><a href="home12-onepage.html">Online Instructor Onepage <span class="new-label">New</span></a></li>
-                                    <li><a href="home13-onepage.html">Skill Development Onepage <span class="new-label">New</span></a></li>
-                                    <li><a href="home14-onepage.html">Trainer Onepage <span class="new-label">New</span></a></li>
-                                    <li><a href="home15-onepage.html">Admission Onepage <span class="new-label">New</span></a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item-has-children">
-                                <a href="#">RTL</a>
-                                <ul class="sub-menu">
-                                    <li><a href="home1-rtl.html">University RTL</a></li>
-                                    <li><a href="home2-rtl.html">Online Education RTL</a></li>
-                                    <li><a href="home3-rtl.html">University Admission RTL</a></li>
-                                    <li><a href="home4-rtl.html">Digital Education RTL</a></li>
-                                </ul>
-                            </li>
+                        <li><a href="index.html">Home University</a></li>
+                        <li><a href="home-2.html">Home Online Education</a></li>
+                        <li><a href="home-3.html">Home University Admission</a></li>
+                        <li><a href="home-4.html">Home Digital Education</a></li>
+                        <li><a href="home-5.html">Home Academy <span class="new-label">New</span></a></li>
+                        <li><a href="home-6.html">Home Online Training <span class="new-label">New</span></a></li>
+                        <li><a href="home-7.html">Home Online Mentors <span class="new-label">New</span></a></li>
+                        <li><a href="home-8.html">Home Online Courses <span class="new-label">New</span></a></li>
+                        <li><a href="home-9.html">Home Kindergarten <span class="new-label">New</span></a></li>
+                        <li><a href="home-10.html">Home University <span class="new-label">New</span></a></li>
+                        <li><a href="home-11.html">Online Education <span class="new-label">New</span></a></li>
+                        <li><a href="home-12.html">Online Instructor <span class="new-label">New</span></a></li>
+                        <li><a href="home-13.html">Skill Development <span class="new-label">New</span></a></li>
+                        <li><a href="home-14.html">Home Trainer <span class="new-label">New</span></a></li>
+                        <li><a href="home-15.html">Home Admission <span class="new-label">New</span></a></li>
                         </ul>
+                        </li>
+                        <li class="menu-item-has-children">
+                        <a href="#">Onepage</a>
+                        <ul class="sub-menu">
+                        <li><a href="home1-onepage.html">University Onepage</a></li>
+                        <li><a href="home2-onepage.html">Online Education Onepage</a></li>
+                        <li><a href="home3-onepage.html">University Admission Onepage</a></li>
+                        <li><a href="home4-onepage.html">Digital Education Onepage</a></li>
+                        <li><a href="home5-onepage.html">Academy Onepage <span class="new-label">New</span></a></li>
+                        <li><a href="home6-onepage.html">Online Training Onepage <span class="new-label">New</span></a></li>
+                        <li><a href="home7-onepage.html">Online Mentors Onepage <span class="new-label">New</span></a></li>
+                        <li><a href="home8-onepage.html">Online Courses Onepage <span class="new-label">New</span></a></li>
+                        <li><a href="home9-onepage.html">Kindergarten Onepage <span class="new-label">New</span></a></li>
+                        <li><a href="home10-onepage.html">University Onepage <span class="new-label">New</span></a></li>
+                        <li><a href="home11-onepage.html">Online Education Onepage <span class="new-label">New</span></a></li>
+                        <li><a href="home12-onepage.html">Online Instructor Onepage <span class="new-label">New</span></a></li>
+                        <li><a href="home13-onepage.html">Skill Development Onepage <span class="new-label">New</span></a></li>
+                        <li><a href="home14-onepage.html">Trainer Onepage <span class="new-label">New</span></a></li>
+                        <li><a href="home15-onepage.html">Admission Onepage <span class="new-label">New</span></a></li>
+                        </ul>
+                        </li>
+                        <li class="menu-item-has-children">
+                        <a href="#">RTL</a>
+                        <ul class="sub-menu">
+                        <li><a href="home1-rtl.html">University RTL</a></li>
+                        <li><a href="home2-rtl.html">Online Education RTL</a></li>
+                        <li><a href="home3-rtl.html">University Admission RTL</a></li>
+                        <li><a href="home4-rtl.html">Digital Education RTL</a></li>
+                        </ul>
+                        </li>
+                        </ul> *@
                     </li>
                     <li class="menu-item-has-children">
                         <a href="#">Courses</a>
@@ -309,17 +302,35 @@
                                         <a href="https://www.instagram.com/"><i class="fab fa-skype"></i></a>
                                     </div>
                                 </li>
-                                <li class="d-none d-lg-inline-block">
-                                    <i class="far fa-user"></i><a href="Account/Login">Login</a>
-                                </li>
-                                <li class="d-none d-lg-inline-block">
-                                    <i class="far fa-user"></i><a href="Register/Register">Register</a>
-                                </li>
+                                <div class="col-md-4 top-forms text-center mt-lg-3 mt-md-1 mt-0">
+                                    @if (User.Identity.IsAuthenticated)
+
+                                    //Eğer kullanıcı giriş yaptıysa :
+
+                                    {
+                                        <span>Hoşgeldiniz @User.Identity.Name</span>
+                                        <span class="mx-lg-4 mx-md-2  mx-1">
+                                            <a asp-action="Logout" asp-controller="Account">
+                                                <i class="fas fa-lock"></i> Çıkış Yap
+                                            </a>
+                                        </span>
+                                    }
+
+                                    else
+                                    {
+                                        <span class="mx-lg-4 mx-md-2  mx-1">
+                                            <a asp-action="LoginRegister" asp-controller="Account">
+                                                <i class="fas fa-lock"></i> Giriş/Kayıt
+                                            </a>
+                                        </span>                                       
+                                    }
+                                </div>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <div class="sticky-wrapper">
             <!-- Main Menu Area -->
@@ -462,66 +473,11 @@
         </div>
     </header>
 
-
-
-    <!--==============================
-    Blog Area
-    ==============================-->
-    <section class="overflow-hidden my-4" id="blog-sec">
-        <div class="col-md-6 container" style="background-color: #DCDCDC">
-            <!-- general form elements -->
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Yeni Kullanıcı Kayıt</h3>
-                    <div>
-                        @if (@TempData["message1"] != null)
-
-                        {
-                            <p>@TempData["message2"]</p>
-                        }
-                    </div>
-                </div>
-            </div>
-            <form asp-action="Register" method="post">
-                <div class="form-group">
-                    <label asp-for="FirstName"></label>
-                    <input asp-for="FirstName" class="form-control" />
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="LastName"></label>
-                    <input asp-for="LastName" class="form-control" />
-                    <span asp-validation-for="LastName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="UserName"></label>
-                    <input asp-for="UserName" class="form-control" />
-                    <span asp-validation-for="UserName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PhoneNumber"></label>
-                    <input asp-for="PhoneNumber" class="form-control" />
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password"></label>
-                    <input asp-for="Password" type="password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ConfirmPassword"></label>
-                    <input asp-for="ConfirmPassword" type="password" class="form-control" />
-                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                </div>
-                <button type="submit" class="btn btn-primary">Kayıt Ol</button>
-            </form>
-        </div>
-    </section>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
 
     <!--********************************
             Code End  Here
