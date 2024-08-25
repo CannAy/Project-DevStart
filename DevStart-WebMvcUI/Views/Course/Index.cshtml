@@ -1,0 +1,86 @@
+﻿@model IEnumerable<CourseViewModel>
+@{
+    Layout = "_AdminLayout";
+    // ViewData["Title"] = "Home Page";
+}
+<div class="col-md-6">
+    <!-- general form elements -->
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Yeni Kurs Oluşturma</h3>
+            <div>
+               @*  @if (@TempData["message1"] != null)
+                {
+                    <p>@TempData["message2"]</p>
+                } *@
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" asp-action="Create" asp-controller="Course" method="post">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="CourseTitle">Kurs Başlık</label>
+                    <input type="text" class="form-control" id="CourseTitle" name="CourseTitle" placeholder="Kurs ismi giriniz">
+                </div>
+                <div class="form-group">
+                    <label for="CourseDescription">Kurs Hakkında Bilgi</label>
+                    <input type="text" class="form-control" id="CourseDescription" name="CourseDescription" placeholder="Kurs açıklaması giriniz">
+                </div>
+                <div class="form-group">
+                    <label for="CoursePrice">Kurs Fiyatı</label>
+                    <input type="text" class="form-control" id="CoursePrice" name="CoursePrice" placeholder="Kurs fiyatı">
+                </div>
+                <div class="form-group">
+                    <label for="CourseCreateDate">Kurs kayıt tarihi</label>
+                    <input type="datetime" class="form-control" id="CourseCreateDate" name="CourseCreateDate" placeholder="Kurs kayıt tarihi">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Kategoriler</label>
+                    <select id="CategoryId" name="CategoryId" class="form-control" asp-items="@ViewBag.Categories">
+                        <option selected disable>Kategori seçiniz</option>
+                    </select>
+                    @* <span asp-validation-for="CategoryId" class="text-danger"></span> *@
+                </div>
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+            </div>
+        </form>
+    </div>
+    <!-- /.box -->
+</div>
+<div class="col-md-6">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Kurs Listesi</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Kurs Başlığı</th>
+                        <th>Kurs Açıklaması</th>
+                        <th>Kurs Ücreti</th>
+                        <th>Kurs Eklenme Tarihi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                <td>@item.CourseTitle/td>
+                <td>@item.CourseDescription </td>
+                <td>@item.CoursePrice</td>
+                <td>@item.CourseCreateDate</td>
+                </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</div>
