@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DevStart_DataAccsess.Identity
 {
-	public class AppRole : IdentityRole<Guid>
-	{
-		public string Description { get; set; }
+    public class AppRole : IdentityRole<Guid>
+    {
+        public string Description { get; set; }
 
-	}
+    }
 }

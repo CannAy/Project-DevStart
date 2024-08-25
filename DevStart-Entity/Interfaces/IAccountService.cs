@@ -8,13 +8,17 @@ using System.Threading.Tasks;
 
 namespace DevStart_Entity.Interfaces
 {
-	public interface IAccountService
-	{
-		Task<IdentityResult> RegisterUserAsync(RegisterViewModel model);
-		Task<SignInResult> LoginUserAsync(LoginViewModel model);
-		Task LogoutUserAsync();
-		Task<IdentityResult> ChangePasswordAsync(ChangePasswordViewModel model);
-		Task<IdentityResult> AssignRoleAsync(AssignRoleViewModel model);
-		Task<IList<string>> GetRolesAsync(AppUser user);
-	}
+    public interface IAccountService
+    {
+        Task<Response> CreateUserAsync(RegisterViewModel model);
+        Task<string> GetUserAsync(LoginViewModel model);
+        Task<UserViewModel> Find(string username);
+
+        Task<string> CreateRoleAsync(RoleViewModel model);
+
+        Task<List<UserViewModel>> GetAllUsers();
+        Task<List<RoleViewModel>> GetAllRoles();
+
+        Task SignOutAsync();
+    }
 }

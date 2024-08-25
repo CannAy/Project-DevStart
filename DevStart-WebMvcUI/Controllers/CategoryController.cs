@@ -30,7 +30,7 @@ namespace DevStart_WebMvcUI.Controllers
                 TempData["message1"] = true;
                 TempData["message2"] = "Kayıt Başarılı";
             }
-            else 
+            else
             {
                 TempData["message1"] = false;
                 TempData["message2"] = "Kayıt Başarısız";

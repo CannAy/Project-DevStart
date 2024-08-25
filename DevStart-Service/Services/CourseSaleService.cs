@@ -11,53 +11,53 @@ using System.Threading.Tasks;
 
 namespace DevStart_Service.Services
 {
-	public class CourseSaleService : ICourseSaleService
-	{
-		private readonly IRepository<CourseSale> _courseSaleRepository;
-		private readonly IUnitOfWork _unitOfWork;
-		private readonly IMapper _mapper;
+    public class CourseSaleService : ICourseSaleService
+    {
+        private readonly IRepository<CourseSale> _courseSaleRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-		public CourseSaleService(IRepository<CourseSale> courseSaleRepository, IUnitOfWork unitOfWork, IMapper mapper)
-		{
-			_courseSaleRepository = courseSaleRepository;
-			_unitOfWork = unitOfWork;
-			_mapper = mapper;
-		}
+        public CourseSaleService(IRepository<CourseSale> courseSaleRepository, IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            _courseSaleRepository = courseSaleRepository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
 
-		public async Task<IEnumerable<CourseSaleViewModel>> GetAllAsync()
-		{
-			var courseSales = await _courseSaleRepository.GetAllAsync();
-			return _mapper.Map<IEnumerable<CourseSaleViewModel>>(courseSales);
-		}
+        public async Task<IEnumerable<CourseSaleViewModel>> GetAllAsync()
+        {
+            var courseSales = await _courseSaleRepository.GetAllAsync();
+            return _mapper.Map<IEnumerable<CourseSaleViewModel>>(courseSales);
+        }
 
-		public async Task<CourseSaleViewModel> GetByIdAsync(Guid id)
-		{
-			var courseSale = await _courseSaleRepository.GetByIdAsync(id);
-			return _mapper.Map<CourseSaleViewModel>(courseSale);
-		}
+        public async Task<CourseSaleViewModel> GetByIdAsync(Guid id)
+        {
+            var courseSale = await _courseSaleRepository.GetByIdAsync(id);
+            return _mapper.Map<CourseSaleViewModel>(courseSale);
+        }
 
-		public async Task AddAsync(CourseSaleViewModel courseSaleViewModel)
-		{
-			var courseSale = _mapper.Map<CourseSale>(courseSaleViewModel);
-			await _courseSaleRepository.AddAsync(courseSale);
-			await _unitOfWork.CommitAsync();
-		}
+        public async Task AddAsync(CourseSaleViewModel courseSaleViewModel)
+        {
+            var courseSale = _mapper.Map<CourseSale>(courseSaleViewModel);
+            await _courseSaleRepository.AddAsync(courseSale);
+            await _unitOfWork.CommitAsync();
+        }
 
-		public async Task UpdateAsync(CourseSaleViewModel courseSaleViewModel)
-		{
-			var courseSale = _mapper.Map<CourseSale>(courseSaleViewModel);
-			_courseSaleRepository.Update(courseSale);
-			await _unitOfWork.CommitAsync();
-		}
+        public async Task UpdateAsync(CourseSaleViewModel courseSaleViewModel)
+        {
+            var courseSale = _mapper.Map<CourseSale>(courseSaleViewModel);
+            _courseSaleRepository.Update(courseSale);
+            await _unitOfWork.CommitAsync();
+        }
 
-		public async Task DeleteAsync(Guid id)
-		{
-			var courseSale = await _courseSaleRepository.GetByIdAsync(id);
-			if (courseSale != null)
-			{
-				_courseSaleRepository.Delete(courseSale);
-				await _unitOfWork.CommitAsync();
-			}
-		}
-	}
+        public async Task DeleteAsync(Guid id)
+        {
+            var courseSale = await _courseSaleRepository.GetByIdAsync(id);
+            if (courseSale != null)
+            {
+                _courseSaleRepository.Delete(courseSale);
+                await _unitOfWork.CommitAsync();
+            }
+        }
+    }
 }

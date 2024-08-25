@@ -12,18 +12,18 @@ namespace DevStart_Entity.UnitOfWork
     {
         IRepository<T> GetRepository<T>() where T : class;  //herhangi bir entity için kullanılabilir hale getiriyor iunitofwork.
         void Commit(); // savechanges çağırmak için
-		Task CommitAsync(); // savechangesasync çağırmak için
+        Task CommitAsync(); // savechangesasync çağırmak için
 
 
-		//IRepository<Category> Categories { get; } //böyle mi hocanın yaptığı üsttekiler gibi mi??
-		//IRepository<Course> Courses { get; }
-		//IRepository<CourseSale> CourseSales { get; }
-		//IRepository<CourseSaleDetail> CourseSaleDetails { get; }
-		//IRepository<Lesson> Lessons { get; }
-		//IRepository<Review> Reviews { get; }
-		//IRepository<Tag> Tags { get; }
-		//IRepository<Video> Videos { get; }
+        //IRepository<Category> Categories { get; } //böyle mi hocanın yaptığı üsttekiler gibi mi??
+        //IRepository<Course> Courses { get; }
+        //IRepository<CourseSale> CourseSales { get; }
+        //IRepository<CourseSaleDetail> CourseSaleDetails { get; }
+        //IRepository<Lesson> Lessons { get; }
+        //IRepository<Review> Reviews { get; }
+        //IRepository<Tag> Tags { get; }
+        //IRepository<Video> Videos { get; }
 
-		//Task<int> SaveChangesAsync();
-	}
+        //Task<int> SaveChangesAsync();
+    }
 }

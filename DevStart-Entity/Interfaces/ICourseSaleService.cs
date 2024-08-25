@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace DevStart_Entity.Interfaces
 {
-	public interface ICourseSaleService
-	{
-		Task<IEnumerable<CourseSaleViewModel>> GetAllAsync();
-		Task<CourseSaleViewModel> GetByIdAsync(Guid id);
-		Task AddAsync(CourseSaleViewModel courseSaleViewModel);
-		Task UpdateAsync(CourseSaleViewModel courseSaleViewModel);
-		Task DeleteAsync(Guid id);
-	}
+    public interface ICourseSaleService
+    {
+        Task<IEnumerable<CourseSaleViewModel>> GetAllAsync();
+        Task<CourseSaleViewModel> GetByIdAsync(Guid id);
+        Task AddAsync(CourseSaleViewModel courseSaleViewModel);
+        Task UpdateAsync(CourseSaleViewModel courseSaleViewModel);
+        Task DeleteAsync(Guid id);
+    }
 }

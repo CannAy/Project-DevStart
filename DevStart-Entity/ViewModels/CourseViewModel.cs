@@ -9,16 +9,16 @@ namespace DevStart_Entity.ViewModels
 {
     public class CourseViewModel
     {
-        [Key]
-		public Guid CourseId { get; set; }
-		public string CourseTitle { get; set; }
-		public string CourseDescription { get; set; }
-		public decimal CoursePrice { get; set; }
-		public DateTime CourseCreateDate { get; set; }
-		public bool CourseState { get; set; }
+        public Guid CourseId { get; set; }
+        public string CourseTitle { get; set; }
+        public string CourseDescription { get; set; }
+        public decimal CoursePrice { get; set; }
+        public DateTime CourseCreateDate { get; set; }
+        public bool CourseState { get; set; }
+        public Guid CategoryId { get; set; }
 
-		public string CategoryName { get; set; } //  Category ve User bilgilerini göstermek için
-		public string UserName { get; set; }
+        public Guid UserId { get; set; }
 
-	}
+
+    }
 }

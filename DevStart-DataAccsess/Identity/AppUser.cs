@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DevStart_DataAccsess.Identity
 {
-	public class AppUser : IdentityUser<Guid>
-	{
-		public string FirstName { get; set; }
-		public string LastName { get; set; }
-	}
+    public class AppUser : IdentityUser<Guid>
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
 }

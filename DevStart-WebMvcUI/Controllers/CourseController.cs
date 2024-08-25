@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DevStart_WebMvcUI.Controllers
 {
-	public class CourseController : Controller
-	{
-		private readonly ICourseService _courseService;
+    public class CourseController : Controller
+    {
+        private readonly ICourseService _courseService;
         private readonly ICategoryService _categoryService;
 
 
@@ -21,8 +21,8 @@ namespace DevStart_WebMvcUI.Controllers
         }
 
         public async Task<IActionResult> Index()
-		{
-			var courses = await _courseService.GetAllAsync();
+        {
+            var courses = await _courseService.GetAllAsync();
             var categories = await _categoryService.GetAllAsync();
             ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName");
             return View(courses);
@@ -31,25 +31,25 @@ namespace DevStart_WebMvcUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(CourseViewModel model)
         {
-            
+
 
 
             return View();
         }
 
-  //      [HttpPost]
-		//public async Task<IActionResult> Create(CourseViewModel model , IFormFile formFile )
-		//{
-  //          var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//images//", formFile.FileName);
-  //          var stream = new FileStream(path, FileMode.Create); //yeni bir stream oluşturacağımız için FileMode.Create
-  //          formFile.CopyTo(stream);
+        //      [HttpPost]
+        //public async Task<IActionResult> Create(CourseViewModel model , IFormFile formFile )
+        //{
+        //          var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//images//", formFile.FileName);
+        //          var stream = new FileStream(path, FileMode.Create); //yeni bir stream oluşturacağımız için FileMode.Create
+        //          formFile.CopyTo(stream);
 
-		//	model.PictureUrl = "/images/" + formFile.FileName;
-		//	var user = await _courseService.Find(User.Identity.Name);
-		//	model.UserId = user.Id;
-		//	await _courseService.AddAsync(model);
+        //	model.PictureUrl = "/images/" + formFile.FileName;
+        //	var user = await _courseService.Find(User.Identity.Name);
+        //	model.UserId = user.Id;
+        //	await _courseService.AddAsync(model);
 
-		//	return RedirectToAction("Index");
-  //      }
-	}
+        //	return RedirectToAction("Index");
+        //      }
+    }
 }

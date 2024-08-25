@@ -8,7 +8,7 @@ namespace DevStart_Entity.ViewModels
 {
     public class LoginRegisterViewModel
     {
-		public LoginViewModel? LoginViewModel { get; set; }
-		public RegisterViewModel? RegisterViewModel { get; set; }
-	}
+        public LoginViewModel? LoginViewModel { get; set; }
+        public RegisterViewModel? RegisterViewModel { get; set; }
+    }
 }

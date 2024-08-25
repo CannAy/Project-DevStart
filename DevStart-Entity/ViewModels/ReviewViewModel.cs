@@ -9,7 +9,6 @@ namespace DevStart_Entity.ViewModels
 {
     public class ReviewViewModel
     {
-        [Key]
         public Guid ReviewId { get; set; }
         public int ReviewRating { get; set; }
         public DateTime ReviewDate { get; set; }

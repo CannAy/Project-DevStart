@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace DevStart_Entity.ViewModels
 {
-	public class CourseSaleViewModel
-	{
-		public Guid CourseSaleId { get; set; }
-		public DateTime CourseSaleDate { get; set; }
-		public decimal CourseSaleTotalPrice { get; set; }
-		public bool CourseSaleState { get; set; }
+    public class CourseSaleViewModel
+    {
+        public Guid CourseSaleId { get; set; }
+        public DateTime CourseSaleDate { get; set; }
+        public decimal CourseSaleTotalPrice { get; set; }
+        public bool CourseSaleState { get; set; }
 
-		// UI'da User bilgilerini göstermek için
-		public string UserName { get; set; }  //Kullanıcı bilgisi ?? UserName tanımlamış mıydık??
-	}
+        // UI'da User bilgilerini göstermek için
+        public string UserName { get; set; }  //Kullanıcı bilgisi ?? UserName tanımlamış mıydık??
+    }
 }

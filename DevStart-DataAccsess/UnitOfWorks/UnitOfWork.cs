@@ -25,8 +25,8 @@ namespace DevStart_DataAccsess.UnitOfWorks
             _context.SaveChanges(); // Veritabanına yapılan tüm değişiklikleri kaydediyoruz.
         }
 
-		public async Task CommitAsync()
-		{
+        public async Task CommitAsync()
+        {
             await _context.SaveChangesAsync(); // Asenkron olarak veritabanına yapılan tüm değişiklikleri kaydediyoruz.
         }
 

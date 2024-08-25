@@ -9,9 +9,9 @@ builder.Services.AddControllersWithViews();
 
 // AppSettings.json da yer alan ayarlarý DBContext e ekleme
 builder.Services.AddDbContext<DevStartDbContext>(
-		options => 
-		options.UseSqlServer(builder.Configuration.GetConnectionString("DevStartConnection"))
-	);
+        options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DevStartConnection"))
+    );
 
 builder.Services.AddExtensions(); //DependencyExtensions için.
 
@@ -20,9 +20,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Home/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-	app.UseHsts();
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -30,10 +30,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

@@ -9,10 +9,10 @@
         <div class="box-header with-border">
             <h3 class="box-title">Yeni Kurs Oluşturma</h3>
             <div>
-               @*  @if (@TempData["message1"] != null)
+                 @if (@TempData["message1"] != null)
                 {
-                    <p>@TempData["message2"]</p>
-                } *@
+                <p>@TempData["message2"]</p>
+                }
             </div>
         </div>
         <!-- /.box-header -->
@@ -69,15 +69,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach (var item in Model)
-                {
-                <tr>
-                <td>@item.CourseTitle/td>
-                <td>@item.CourseDescription </td>
-                <td>@item.CoursePrice</td>
-                <td>@item.CourseCreateDate</td>
-                </tr>
-                }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.CourseTitle/td>
+                            <td>@item.CourseDescription </td>
+                            <td>@item.CoursePrice</td>
+                            <td>@item.CourseCreateDate</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
