@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DevStart_DataAccsess.Migrations
 {
     /// <inheritdoc />
-    public partial class firstSetup : Migration
+    public partial class NowNow : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -224,6 +224,7 @@ namespace DevStart_DataAccsess.Migrations
                     CoursePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CourseCreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CourseState = table.Column<bool>(type: "bit", nullable: false),
+                    PictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },

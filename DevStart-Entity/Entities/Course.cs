@@ -16,12 +16,14 @@ namespace DevStart_Entity.Entities
 		public decimal CoursePrice { get; set; }
 		public DateTime CourseCreateDate { get; set; }
 		public bool CourseState { get; set; } = true;
+        public string PictureUrl { get; set; }
 
 
-		public Guid UserId { get; set; }
+        public Guid UserId { get; set; }
 
 		public Guid CategoryId { get; set; }
 		public virtual Category Category { get; set; }
+
 
 
 		public virtual List<Review> Reviews { get; set; }

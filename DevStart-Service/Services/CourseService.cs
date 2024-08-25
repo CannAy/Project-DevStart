@@ -31,7 +31,7 @@ namespace DevStart_Service.Services
         public async Task<IEnumerable<CourseViewModel>> GetAllAsync()
         {
             var courses = await _courseRepository.GetAllAsync();
-            return _mapper.Map<IEnumerable<CourseViewModel>>(courses);
+            return _mapper.Map<List<CourseViewModel>>(courses);
         }
         public async Task<UserViewModel> Find(string userName) //BAKILACAAAAAAAAKK!
         {

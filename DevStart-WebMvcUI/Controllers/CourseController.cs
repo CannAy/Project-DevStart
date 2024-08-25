@@ -31,25 +31,50 @@ namespace DevStart_WebMvcUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(CourseViewModel model)
         {
-
-
-
+            if (ModelState.IsValid)
+            {
+                model.CourseId = Guid.NewGuid(); //id üretilmiş oldu.
+                await _courseService.AddAsync(model);
+                TempData["message1"] = true;
+                TempData["message2"] = "Kurs Kayıt Edildi";
+            }
+            else
+            {
+                TempData["message1"] = false;
+                TempData["message2"] = "Kurs Siteme Kayıt Edilemedi.";
+            }
             return View();
         }
 
-        //      [HttpPost]
-        //public async Task<IActionResult> Create(CourseViewModel model , IFormFile formFile )
-        //{
-        //          var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//images//", formFile.FileName);
-        //          var stream = new FileStream(path, FileMode.Create); //yeni bir stream oluşturacağımız için FileMode.Create
-        //          formFile.CopyTo(stream);
 
-        //	model.PictureUrl = "/images/" + formFile.FileName;
-        //	var user = await _courseService.Find(User.Identity.Name);
-        //	model.UserId = user.Id;
-        //	await _courseService.AddAsync(model);
+        [HttpPost]
+        public async Task<IActionResult> Create(CourseViewModel model, IFormFile formFile)
+        {
+            if (ModelState.IsValid)
+            {
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//images", formFile.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await formFile.CopyToAsync(stream);
+                }
 
-        //	return RedirectToAction("Index");
-        //      }
+                model.PictureUrl = "/images/" + formFile.FileName;
+
+                var user = await _courseService.Find(User.Identity.Name);
+                model.UserId = user.Id;
+
+                await _courseService.AddAsync(model);
+
+                TempData["message1"] = true;
+                TempData["message2"] = "Kurs başarıyla kayıt edildi.";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["message1"] = false;
+                TempData["message2"] = "Kurs kayıt edilemedi.";
+                return View(model);
+            }
+        }
     }
 }

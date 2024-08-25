@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevStart_DataAccsess.Migrations
 {
     [DbContext(typeof(DevStartDbContext))]
-    [Migration("20240812180854_Initial")]
-    partial class Initial
+    [Migration("20240825150902_NowNow")]
+    partial class NowNow
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -197,6 +197,10 @@ namespace DevStart_DataAccsess.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("PictureUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
