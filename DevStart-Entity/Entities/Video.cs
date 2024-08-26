@@ -14,6 +14,6 @@ namespace DevStart_Entity.Entities
 		public string VideoLink { get; set; }
 		public bool VideoState { get; set; } = true;
 
-		public virtual List<Lesson> Lessons { get; set; }
+		//public virtual List<Lesson> Lessons { get; set; }
 	}
 }

@@ -7,6 +7,7 @@ using DevStart_Entity.Interfaces;
 using DevStart_Entity.UnitOfWork;
 using DevStart_Service.Mapping;
 using DevStart_Service.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -35,12 +36,27 @@ namespace DevStart_Service.Extensions
                     opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1); //default 5
                 }).AddEntityFrameworkStores<DevStartDbContext>();
 
-            services.AddAutoMapper(typeof(MappingProfile));
+			services.ConfigureApplicationCookie(opt =>
+			{
+				opt.LoginPath = new PathString("/Account/Login");
+				opt.LogoutPath = new PathString("/Account/Logout");
+				opt.ExpireTimeSpan = TimeSpan.FromMinutes(600);
+				opt.SlidingExpiration = true; // 600 dakika olmadan yeniden login olursa süre yeniden başlar
+
+				opt.Cookie = new CookieBuilder()
+				{
+					Name = "Wissen.Cookie",
+					HttpOnly = true,
+				};
+			});
+
+			services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<ILessonService, LessonService>();
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); //generic repo kullanabilmemiz için.
 

@@ -13,14 +13,17 @@ namespace DevStart_Entity.Entities
 		public Guid LessonId { get; set; }
 		public string LessonTitle { get; set; }
 		public string LessonContent { get; set; }
-		public bool LessonState { get; set; } = true;
+
+        public string VideoLink { get; set; }
+
+        public bool LessonState { get; set; } = true;
 
 		public Guid CourseId { get; set; }
 
 		public virtual Course Course { get; set; }
 
-		public Guid VideoId { get; set; }
-		public virtual Video Video { get; set; }
+		//public Guid VideoId { get; set; }
+		//public virtual Video Video { get; set; }
 
 	}
 }

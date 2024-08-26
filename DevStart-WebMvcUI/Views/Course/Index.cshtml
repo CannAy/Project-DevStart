@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CourseViewModel>
+﻿@model (CourseViewModel, IEnumerable<CourseViewModel>)
 @{
     Layout = "_AdminLayout";
     // ViewData["Title"] = "Home Page";
@@ -17,39 +17,54 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form role="form" asp-action="Create" asp-controller="Course" method="post">
-            <div class="box-body">
-                <div class="form-group">
-                    <label for="CourseTitle">Kurs Başlık</label>
-                    <input type="text" class="form-control" id="CourseTitle" name="CourseTitle" placeholder="Kurs ismi giriniz">
-                </div>
-                <div class="form-group">
-                    <label for="CourseDescription">Kurs Hakkında Bilgi</label>
-                    <input type="text" class="form-control" id="CourseDescription" name="CourseDescription" placeholder="Kurs açıklaması giriniz">
-                </div>
-                <div class="form-group">
-                    <label for="CoursePrice">Kurs Fiyatı</label>
-                    <input type="text" class="form-control" id="CoursePrice" name="CoursePrice" placeholder="Kurs fiyatı">
-                </div>
-                <div class="form-group">
-                    <label for="CourseCreateDate">Kurs kayıt tarihi</label>
-                    <input type="datetime" class="form-control" id="CourseCreateDate" name="CourseCreateDate" placeholder="Kurs kayıt tarihi">
-                </div>
-                <div class="form-group">
-                    <label for="PictureUrl" class="control-label">Kurs Önizleme Fotoğrafı</label>
-                    <input type="file" for="PictureUrl" name="formFile" class="form-control" />
-                    @* <span asp-validation-for="PictureUrl" class="text-danger"></span> *@
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Kategoriler</label>
-                    <select id="CategoryId" name="CategoryId" class="form-control" asp-items="@ViewBag.Categories">
-                        <option selected disable>Kategori seçiniz</option>
-                    </select>
-                </div>
+        <form asp-action="Index" asp-controller="Course" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.Item1.CourseTitle" class="control-label"></label>
+                <input asp-for="@Model.Item1.CourseTitle" name="CourseTitle" class="form-control" />
+                <span asp-validation-for="@Model.Item1.CourseTitle" class="text-danger"></span>
             </div>
-            <!-- /.box-body -->
-            <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Kaydet</button>
+            <div class="form-group">
+                <label asp-for="@Model.Item1.CourseDescription" class="control-label"></label>
+                <input asp-for="@Model.Item1.CourseDescription" name="CourseDescription" class="form-control" />
+                <span asp-validation-for="@Model.Item1.CourseDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item1.CoursePrice" class="control-label"></label>
+                <input asp-for="@Model.Item1.CoursePrice" name="CoursePrice" class="form-control" />
+                <span asp-validation-for="@Model.Item1.CoursePrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item1.CourseCreateDate" class="control-label"></label>
+                <input asp-for="@Model.Item1.CourseCreateDate" name="CourseCreateDate" class="form-control" />
+                <span asp-validation-for="@Model.Item1.CourseCreateDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item1.PictureUrl" class="control-label"></label>
+                <input type="file" asp-for="@Model.Item1.PictureUrl" name="PictureUrl" class="form-control" />
+                <span asp-validation-for="@Model.Item1.PictureUrl" class="text-danger"></span>
+            </div>
+            @* <div class="form-group">
+            <div class="checkbox">
+            <label>
+            <input asp-for="CourseState" /> @Html.DisplayNameFor(model => model.CourseState)
+            </label>
+            </div>
+            </div> *@
+            <div class="form-group">
+                <label class="control-label">Kategoriler</label>
+                <select id="CategoryId" name="CategoryId" class="form-control" asp-items="@ViewBag.Categories">
+                    <option selected disable>Kategori seçiniz</option>
+                </select>
+            </div>
+            <!-- User oturum açtığında bu kısım olmamalı -->
+            <div class="form-group">
+                <label asp-for="@Model.Item1.UserId" class="control-label"></label>
+                <input asp-for="@Model.Item1.UserId" name="UserId" class="form-control" />
+                <span asp-validation-for="@Model.Item1.UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>
@@ -74,14 +89,14 @@
                     </tr>
                 </thead>
                 <tbody>                   
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.Item2)
                         {
                             <tr>
                                 <td>@item.CourseTitle</td>
                                 <td>@item.CourseDescription</td>
                                 <td>@item.CoursePrice</td>
                                 <td>@item.CourseCreateDate</td>
-                                <td>@item.PictureUrl</td>
+                                <td><img src="@item.PictureUrl" width ="30" height="30"/></td>
                                 <td>@item.CategoryId</td>
                             </tr>
                         }

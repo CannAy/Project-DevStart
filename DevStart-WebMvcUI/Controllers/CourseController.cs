@@ -25,25 +25,48 @@ namespace DevStart_WebMvcUI.Controllers
             var courses = await _courseService.GetAllAsync();
             var categories = await _categoryService.GetAllAsync();
             ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName");
-            return View(courses);
+            return View((new CourseViewModel(), courses));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(CourseViewModel model)
+        public async Task<IActionResult> Index(CourseViewModel model, IFormFile PictureUrl)
         {
-            if (ModelState.IsValid)
-            {
-                model.CourseId = Guid.NewGuid(); //id üretilmiş oldu.
+            //if (ModelState.IsValid)
+           // {
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//images", PictureUrl.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await PictureUrl.CopyToAsync(stream);
+                }
+
+                model.PictureUrl = "/images/" + PictureUrl.FileName;
+
+                // Giriş olduğunda burası açılacak ve index deki kısım silinecek.
+                //var user = await _courseService.Find(User.Identity.Name);
+                //model.UserId = user.Id;
+
                 await _courseService.AddAsync(model);
+
                 TempData["message1"] = true;
-                TempData["message2"] = "Kurs Kayıt Edildi";
-            }
-            else
-            {
-                TempData["message1"] = false;
-                TempData["message2"] = "Kurs Siteme Kayıt Edilemedi.";
-            }
-            return View();
+                TempData["message2"] = "Kurs başarıyla kayıt edildi.";
+
+                var courses = await _courseService.GetAllAsync();
+                var categories = await _categoryService.GetAllAsync();
+                ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName");
+
+                return View((model, courses));
+            //}
+            //else
+            //{
+            //    TempData["message1"] = false;
+            //    TempData["message2"] = "Kurs kayıt edilemedi.";
+
+            //    var courses = await _courseService.GetAllAsync();
+            //    var categories = await _categoryService.GetAllAsync();
+            //    ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName");
+
+            //    return View((model, courses));
+            //}
         }
 
 
@@ -73,7 +96,7 @@ namespace DevStart_WebMvcUI.Controllers
             {
                 TempData["message1"] = false;
                 TempData["message2"] = "Kurs kayıt edilemedi.";
-                return View(model);
+                return RedirectToAction("Index");
             }
         }
     }

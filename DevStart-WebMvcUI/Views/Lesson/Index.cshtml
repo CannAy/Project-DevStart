@@ -18,7 +18,7 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form role="form" asp-action="Index" asp-controller="Lesson" method="post">
+        <form role="form" asp-action="Index" asp-controller="Lesson" method="post" enctype="multipart/form-data">
             <div class="box-body">
                 <div class="form-group">
                     <label for="LessonTitle">Ders Başlık</label>
@@ -29,9 +29,8 @@
                     <input type="text" class="form-control" id="LessonContent" name="LessonContent" placeholder="Ders açıklaması giriniz">
                 </div>
                 <div class="form-group">
-                    <label for="VideoId" class="control-label">Ders Video </label>
-                    <input type="file" for="VideoId" name="VideoId" class="form-control" />
-                    @* <span asp-validation-for="PictureUrl" class="text-danger"></span> *@
+                    <label asp-for="VideoLink" class="control-label"></label>
+                    <input type="file" asp-for="VideoLink" name="VideoLink" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label class="control-label">Kurslar</label>

@@ -51,13 +51,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @if(Model != null)
                     {
-                        <tr>
-                            <td>@item.CategoryName</td>
-                            <td>@item.CategoryDescription</td>
-                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.CategoryName</td>
+                                <td>@item.CategoryDescription</td>
+                            </tr>
+                        }
                     }
+                    
                 </tbody>
             </table>
         </div>

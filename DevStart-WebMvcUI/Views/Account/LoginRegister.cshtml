@@ -9,15 +9,12 @@
 	<title>Login/Register</title>
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
 	<link rel="stylesheet" href="~/css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<!-- Toast for demo purposes -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 <body>
 	<div class="container" id="container">
-		@if (TempData["message"] != null)
-		{
-			<div class="alert alert-success">
-				@TempData["message"]
-			</div>
-		}
 		<div class="form-container sign-up-container">
 			<form asp-action="Register" asp-controller="Account" method="post">
 				<h1>Create Account</h1>
@@ -61,6 +58,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<script src="~/js/script.js"></script>
 </body>
 </html>

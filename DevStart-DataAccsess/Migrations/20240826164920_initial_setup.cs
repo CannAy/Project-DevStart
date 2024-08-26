@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DevStart_DataAccsess.Migrations
 {
     /// <inheritdoc />
-    public partial class NowNow : Migration
+    public partial class initial_setup : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
