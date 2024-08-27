@@ -15,6 +15,7 @@ namespace DevStart_WebMvcUI.Controllers
         public AccountController(IAccountService accountService, UserManager<AppUser> userManager)
         {
             _accountService = accountService;
+            _userManager = userManager;
         }
 
         // Index Action - Muhtemelen bir gösterge ya da ana sayfa
@@ -22,64 +23,63 @@ namespace DevStart_WebMvcUI.Controllers
         {
             return View();
         }
-
-        // LoginRegister Action - Hem giriş hem de kayıt işlemlerini gösterecek
-        public IActionResult LoginRegister()
+       
+        public IActionResult Login(string? ReturnUrl)
         {
-            var model = new LoginRegisterViewModel
+            LoginViewModel model = new LoginViewModel()
             {
-                LoginViewModel = new LoginViewModel(),
-                RegisterViewModel = new RegisterViewModel()
+                ReturnUrl = ReturnUrl //kullanıcıdan gelen returnurl'i alıyoruz bununla!
             };
             return View(model);
         }
 
+        public IActionResult Register()
+        {
+            return View();
+        }
+
         // Register Action - Sadece Register işlemi ile ilgilenecek
         [HttpPost]
-        public async Task<IActionResult> Register(LoginRegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            string msg = await _accountService.CreateUserAsync(model); //msg-> message benzeri.
+            if (msg == "OK")
             {
-                var response = await _accountService.CreateUserAsync(model.RegisterViewModel);
-
-                if (response.Success)
-                {
-                    TempData["Message"] = "Kayıt başarılı! Lütfen giriş yapın.";
-                    return RedirectToAction("LoginRegister"); // Kayıttan sonra kullanıcıyı aynı sayfaya yönlendir
-                }
-                else
-                {
-                    ModelState.AddModelError("", response.Message);
-                }
+                return RedirectToAction("Login");
             }
-            // ModelState hatalarını detaylı olarak göster
-            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            else
             {
-                Console.WriteLine(error.ErrorMessage);
+                ModelState.AddModelError("", msg);
             }
-            // Hatalıysa LoginRegister view'ına model ile geri dön
-            return View("LoginRegister", model);
+            return View(model);
         }
 
         // Login Action - Sadece Login işlemi ile ilgilenecek
         [HttpPost]
-        public async Task<IActionResult> Login(LoginRegisterViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (ModelState.IsValid)
+            string msg = await _accountService.FindByNameAsync(model);
+            if (msg == "Kullanıcı bulunamadı!")
             {
-                string msg = await _accountService.GetUserAsync(model.LoginViewModel);
-
-                if (msg == "OK")
-                {
-                    return Redirect(model.LoginViewModel.ReturnUrl ?? "/Home/Index"); // Başarılı girişte yönlendirme
-                }
-                else
-                {
-                    ModelState.AddModelError("", msg == "Kullanıcı bulunamadı!" ? "Kullanıcı bulunamadı!" : "Kullanıcı adı veya şifre hatalı!");
-                }
+                ModelState.AddModelError("", msg);
+                return View(model);
             }
-            // Hatalıysa LoginRegister view'ına model ile geri dön
-            return View("LoginRegister", model);
+            else if (msg == "OK")
+            {
+                return Redirect(model.ReturnUrl ?? "/Home/Index");  // ?? null'sa sen anasayfaya git!
+            }
+            else
+            {
+                ModelState.AddModelError("", "Kullanıcı adı veya şifre hatalı!");
+
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _accountService.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

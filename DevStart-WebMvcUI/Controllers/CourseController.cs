@@ -32,29 +32,28 @@ namespace DevStart_WebMvcUI.Controllers
         public async Task<IActionResult> Index(CourseViewModel model, IFormFile PictureUrl)
         {
             //if (ModelState.IsValid)
-           // {
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//images", PictureUrl.FileName);
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    await PictureUrl.CopyToAsync(stream);
-                }
+            // {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//images", PictureUrl.FileName);
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await PictureUrl.CopyToAsync(stream);
+            }
 
-                model.PictureUrl = "/images/" + PictureUrl.FileName;
+            model.PictureUrl = "/images/" + PictureUrl.FileName;
 
-                // Giriş olduğunda burası açılacak ve index deki kısım silinecek.
-                //var user = await _courseService.Find(User.Identity.Name);
-                //model.UserId = user.Id;
+            var user = await _courseService.Find(User.Identity.Name);
+            model.UserId = user.Id;
 
-                await _courseService.AddAsync(model);
+            await _courseService.AddAsync(model);
 
-                TempData["message1"] = true;
-                TempData["message2"] = "Kurs başarıyla kayıt edildi.";
+            TempData["message1"] = true;
+            TempData["message2"] = "Kurs başarıyla kayıt edildi.";
 
-                var courses = await _courseService.GetAllAsync();
-                var categories = await _categoryService.GetAllAsync();
-                ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName");
+            var courses = await _courseService.GetAllAsync();
+            var categories = await _categoryService.GetAllAsync();
+            ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName");
 
-                return View((model, courses));
+            return View((model, courses));
             //}
             //else
             //{

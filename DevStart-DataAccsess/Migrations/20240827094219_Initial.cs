@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DevStart_DataAccsess.Migrations
 {
     /// <inheritdoc />
-    public partial class initial_setup : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -297,9 +297,9 @@ namespace DevStart_DataAccsess.Migrations
                     LessonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LessonTitle = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     LessonContent = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    VideoLink = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LessonState = table.Column<bool>(type: "bit", nullable: false),
-                    CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    VideoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -309,12 +309,6 @@ namespace DevStart_DataAccsess.Migrations
                         column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "CourseId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Lessons_Videos_VideoId",
-                        column: x => x.VideoId,
-                        principalTable: "Videos",
-                        principalColumn: "VideoId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -406,11 +400,6 @@ namespace DevStart_DataAccsess.Migrations
                 column: "CourseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lessons_VideoId",
-                table: "Lessons",
-                column: "VideoId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Reviews_CourseId",
                 table: "Reviews",
                 column: "CourseId");
@@ -447,6 +436,9 @@ namespace DevStart_DataAccsess.Migrations
                 name: "Reviews");
 
             migrationBuilder.DropTable(
+                name: "Videos");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -457,9 +449,6 @@ namespace DevStart_DataAccsess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tags");
-
-            migrationBuilder.DropTable(
-                name: "Videos");
 
             migrationBuilder.DropTable(
                 name: "Courses");

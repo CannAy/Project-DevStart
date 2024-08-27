@@ -10,15 +10,16 @@ namespace DevStart_Entity.Interfaces
 {
     public interface IAccountService
     {
-        Task<Response> CreateUserAsync(RegisterViewModel model);
-        Task<string> GetUserAsync(LoginViewModel model);
+        Task<string> CreateUserAsync(RegisterViewModel model);
         Task<UserViewModel> Find(string username);
-
+        Task<string> FindByNameAsync(LoginViewModel model);
         Task<string> CreateRoleAsync(RoleViewModel model);
 
         Task<List<UserViewModel>> GetAllUsers();
         Task<List<RoleViewModel>> GetAllRoles();
 
+        //Task<string> EditRoleListAsync(EditRoleViewModel model);
+        Task DeleteRoleAsync(string id);
         Task SignOutAsync();
     }
 }

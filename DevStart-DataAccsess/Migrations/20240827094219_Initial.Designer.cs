@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevStart_DataAccsess.Migrations
 {
     [DbContext(typeof(DevStartDbContext))]
-    [Migration("20240826164920_initial_setup")]
-    partial class initial_setup
+    [Migration("20240827094219_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -284,14 +284,13 @@ namespace DevStart_DataAccsess.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<Guid>("VideoId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("VideoLink")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("LessonId");
 
                     b.HasIndex("CourseId");
-
-                    b.HasIndex("VideoId");
 
                     b.ToTable("Lessons");
                 });
@@ -525,15 +524,7 @@ namespace DevStart_DataAccsess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DevStart_Entity.Entities.Video", "Video")
-                        .WithMany("Lessons")
-                        .HasForeignKey("VideoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Course");
-
-                    b.Navigation("Video");
                 });
 
             modelBuilder.Entity("DevStart_Entity.Entities.Review", b =>
@@ -615,11 +606,6 @@ namespace DevStart_DataAccsess.Migrations
             modelBuilder.Entity("DevStart_Entity.Entities.CourseSale", b =>
                 {
                     b.Navigation("CourseSaleDetails");
-                });
-
-            modelBuilder.Entity("DevStart_Entity.Entities.Video", b =>
-                {
-                    b.Navigation("Lessons");
                 });
 #pragma warning restore 612, 618
         }

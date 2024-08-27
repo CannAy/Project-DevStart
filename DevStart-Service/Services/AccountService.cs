@@ -33,36 +33,35 @@ namespace DevStart_Service.Services
             throw new NotImplementedException();
         }
 
-        public async Task<Response> CreateUserAsync(RegisterViewModel model)
+        public async Task<string> CreateUserAsync(RegisterViewModel model)
         {
-            //string message = string.Empty;
-            Response response = new Response();
+            string message = string.Empty;
             AppUser user = new AppUser()
             {
-                //Id = Guid.NewGuid(),
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
                 PhoneNumber = model.PhoneNumber,
-                UserName = model.UserName,
+                UserName = model.UserName
             };
-            var identityResult = await _userManager.CreateAsync(user, model.Password);
-
+            var identityResult = await _userManager.CreateAsync(user, model.Password); // createasync methodu için awaitle işaretledik. üstteki IActionResult'tı da Task<> içine aldık. öncesinde de async ile işaretledik. ve identityResult ismindeki değişkene atadık!
             if (identityResult.Succeeded)
             {
-                response.Success = true;
-                response.Message = "Kullanıcı başarıyla oluşturuldu.";
+                message = "OK";
             }
             else
             {
-                response.Success = false;
                 foreach (var error in identityResult.Errors)
                 {
-                    response.Message = error.Description;
+                    message = error.Description;
                 }
             }
+            return message;
+        }
 
-            return response;
+        public Task DeleteRoleAsync(string id)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<UserViewModel> Find(string username)
@@ -82,35 +81,20 @@ namespace DevStart_Service.Services
             return _mapper.Map<IEnumerable<UserViewModel>>(list).ToList();
         }
 
-        public async Task<string> GetUserAsync(LoginViewModel model)
+        public async Task<string> FindByNameAsync(LoginViewModel model)
         {
             string message = string.Empty;
-
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            var user = await _userManager.FindByNameAsync(model.UserName); //ekrandan gelen user modeli ona veriyoruz. await ekledik aysnc olduğundan. sonra üst tarafa async ve Task<> ilave ettik.
             if (user == null)
             {
                 message = "Kullanıcı bulunamadı!";
-                return message;
+                return message; //buraları service katmanı olduğundan view kullanmıyoruz BURALARDA!!
             }
-            var signInResult = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);   //sondaki true, lockout özelliğini aktif yapıyor.
+            var signInResult = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false); //sonraki false lockout özelliğini inaktif yapıyor.
 
-            //Aşağıdaki 3 seçenekten sadece biri gerçekleşir.
             if (signInResult.Succeeded)
             {
                 message = "OK";
-
-            }
-            //if (signInResult.IsLockedOut)
-            //{
-            //    message = "Login işlemi bir süreliğine kilitlenmiştir.";
-            //}
-            //if(signInResult.IsNotAllowed)
-            //{
-            //    //Email yada telefon onayı istenmişse
-            //}
-            else
-            {
-                message = "Kullanıcı adı veya şifre hatalı!";
             }
             return message;
         }
@@ -119,5 +103,7 @@ namespace DevStart_Service.Services
         {
             await _signInManager.SignOutAsync();
         }
+
+       
     }
 }
