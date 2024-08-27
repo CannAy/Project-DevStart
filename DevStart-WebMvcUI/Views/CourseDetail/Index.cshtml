@@ -1,0 +1,35 @@
+﻿@model List<LessonViewModel>
+@{
+    Layout = null;
+}
+
+@foreach(var item in Model)
+{
+    <div class="col-md-6 col-lg-4">
+
+        <div class="course-box">            
+            <div class="course-content">
+                <h3 class="@item.LessonTitle">
+                    <a href="course-details.html">
+                        @item.LessonTitle
+                    </a>
+                </h3>
+                <div class="course-author">
+                    <div class="author-info">
+                        <img src="assets/img/course/author.png" alt="author">
+                        <a href="/CourseDetail/Index/@item.CourseId" class="author-name"></a>
+                    </div>
+                    <div>                        
+                        <a href="course-details.html">
+                            @item.LessonContent
+                        </a>
+                    </div>
+                    <div class="course-img">
+                        <img src="@item.VideoLink" alt="kurs resmi">
+                    </div>
+                </div>                
+            </div>
+        </div>
+
+    </div>
+}
