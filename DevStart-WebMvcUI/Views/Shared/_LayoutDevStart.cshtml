@@ -79,7 +79,7 @@
     <!--==============================
         Sidemenu
     ============================== -->
-    <div class="sidemenu-wrapper d-none d-lg-block ">
+    @* <div class="sidemenu-wrapper d-none d-lg-block ">
         <div class="sidemenu-content">
             <button class="closeButton sideMenuCls"><i class="far fa-times"></i></button>
             <div class="widget woocommerce widget_shopping_cart">
@@ -136,28 +136,28 @@
                                 </span>
                             </span>
                         </li>
-                    </ul>
-                    <p class="woocommerce-mini-cart__total total">
+                    </ul> 
+                     <p class="woocommerce-mini-cart__total total">
                         <strong>Subtotal:</strong>
                         <span class="woocommerce-Price-amount amount">
                             <span class="woocommerce-Price-currencySymbol">$</span>4398.00
                         </span>
-                    </p>
-                    <p class="woocommerce-mini-cart__buttons buttons">
+                    </p> 
+                     <p class="woocommerce-mini-cart__buttons buttons">
                         <a href="cart.html" class="th-btn wc-forward">View cart</a>
                         <a href="checkout.html" class="th-btn checkout wc-forward">Checkout</a>
                     </p>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="popup-search-box d-none d-lg-block">
+    </div> *@
+    @* <div class="popup-search-box d-none d-lg-block">
         <button class="searchClose"><i class="fal fa-times"></i></button>
         <form action="#">
             <input type="text" placeholder="What are you looking for?">
             <button type="submit"><i class="fal fa-search"></i></button>
         </form>
-    </div>
+    </div> *@
     <!--==============================
       Mobile Menu
     ============================== -->
@@ -167,7 +167,7 @@
             <div class="mobile-logo">
                 <a href="index.html"><img src="/images/Logo1.png" alt="DevStart"></a>
             </div>
-            <div class="th-mobile-menu">
+            @* <div class="th-mobile-menu">
                 <ul>
                     <li>
                         <a href="index.html">Home</a>
@@ -191,7 +191,7 @@
                         <a href="contact.html">Contact</a>
                     </li>
                 </ul>
-            </div>
+            </div> *@
         </div>
     </div>
     <!--==============================
@@ -213,7 +213,7 @@
                     <div class="col-auto">
                         <div class="header-links header-right">
                             <ul>
-                                <li>
+                                @* <li>
                                     <div class="header-social">
                                         <span class="social-title">Follow Us:</span>
                                         <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
@@ -222,7 +222,7 @@
                                         <a href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a>
                                         <a href="https://www.instagram.com/"><i class="fab fa-skype"></i></a>
                                     </div>
-                                </li>
+                                </li> *@
                                 <!-- Kullanıcı Bilgilerini Buraya Ekleyin -->
                                 <li class="d-none d-lg-inline-block">
                                     @if (User.Identity.IsAuthenticated)
@@ -263,14 +263,14 @@
                 <div class="row align-items-center justify-content-between">
                     <div class="col-auto">
                         <div class="header-logo">
-                            <a href="index.html"><img src="/images/Logo1.png" alt="DevStart"></a>
+                            <a href="/Home/Index"><img src="/images/Logo1.png" alt="DevStart"></a>
                         </div>
                     </div>
                     <div class="col-auto">
                         <div class="row">
                             <div class="col-auto">
                                 <nav class="main-menu d-none d-lg-inline-block">
-                                    <ul>
+                                    @* <ul>
                                         <li>
                                             <a href="index.html">Home</a>
                                         </li>
@@ -283,13 +283,13 @@
                                         <li>
                                             <a href="contact.html">Contact</a>
                                         </li>
-                                    </ul>
+                                    </ul> *@
                                 </nav>
                                 <button type="button" class="th-menu-toggle d-block d-lg-none"><i class="far fa-bars"></i></button>
                             </div>
                             <div class="col-auto d-none d-xl-block">
                                 <div class="header-button">
-                                    <button type="button" class="icon-btn searchBoxToggler"><i class="far fa-search"></i></button>
+                                    @* <button type="button" class="icon-btn searchBoxToggler"><i class="far fa-search"></i></button>
                                     <a href="wishlist.html" class="icon-btn">
                                         <i class="far fa-heart"></i>
                                         <span class="badge">3</span>
@@ -297,8 +297,8 @@
                                     <button type="button" class="icon-btn sideMenuToggler">
                                         <i class="far fa-shopping-cart"></i>
                                         <span class="badge">5</span>
-                                    </button>
-                                    <a href="/User/Index" class="th-btn ml-25">Giriş<i class="fas fa-arrow-right ms-1"></i></a>
+                                    </button> *@
+                                    <a href="/User/Index" class="th-btn ml-25">Eğitmen Girişi<i class="fas fa-arrow-right ms-1"></i></a>
                                 </div>
                             </div>
                         </div>
