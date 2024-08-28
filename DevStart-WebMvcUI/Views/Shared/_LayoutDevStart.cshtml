@@ -2,6 +2,12 @@
 <html class="no-js" lang="zxx">
 
 <head>
+    <style>
+        .payment_box {
+            display: none; /* Başlangıçta gizli */
+        }
+    </style>
+
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>DevStart</title>
@@ -270,7 +276,7 @@
                         <div class="row">
                             <div class="col-auto">
                                 <nav class="main-menu d-none d-lg-inline-block">
-                                    @* <ul>
+                                    <ul>
                                         <li>
                                             <a href="index.html">Home</a>
                                         </li>
@@ -283,13 +289,13 @@
                                         <li>
                                             <a href="contact.html">Contact</a>
                                         </li>
-                                    </ul> *@
+                                    </ul>
                                 </nav>
                                 <button type="button" class="th-menu-toggle d-block d-lg-none"><i class="far fa-bars"></i></button>
                             </div>
                             <div class="col-auto d-none d-xl-block">
                                 <div class="header-button">
-                                    @* <button type="button" class="icon-btn searchBoxToggler"><i class="far fa-search"></i></button>
+                                    <button type="button" class="icon-btn searchBoxToggler"><i class="far fa-search"></i></button>
                                     <a href="wishlist.html" class="icon-btn">
                                         <i class="far fa-heart"></i>
                                         <span class="badge">3</span>
@@ -297,7 +303,7 @@
                                     <button type="button" class="icon-btn sideMenuToggler">
                                         <i class="far fa-shopping-cart"></i>
                                         <span class="badge">5</span>
-                                    </button> *@
+                                    </button>
                                     <a href="/User/Index" class="th-btn ml-25">Eğitmen Girişi<i class="fas fa-arrow-right ms-1"></i></a>
                                 </div>
                             </div>
@@ -438,6 +444,19 @@
     <!-- Main Js File -->
     <script src="../../assets/js/main.js"></script>
 
+    <script>
+        // Radio butonunu seçildiğinde kredi kartı formunu göster veya gizle
+        document.querySelectorAll('input[name="payment_method"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                var paymentBox = document.querySelector('.payment_box');
+                if (this.checked && this.id === 'credit_card_payment') {
+                    paymentBox.style.display = 'block';
+                } else {
+                    paymentBox.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
