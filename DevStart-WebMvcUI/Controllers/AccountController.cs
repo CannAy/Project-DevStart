@@ -66,7 +66,7 @@ namespace DevStart_WebMvcUI.Controllers
             }
             else if (msg == "OK")
             {
-                return Redirect(model.ReturnUrl ?? "/Home/Index");  // ?? null'sa sen anasayfaya git!
+                return Redirect(model.ReturnUrl ?? "/Home");  // ?? null'sa sen anasayfaya git!
             }
             else
             {

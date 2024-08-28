@@ -15,7 +15,10 @@
                             <a href="course-details.html">@item.LessonTitle</a>
                         </h3>
                         <div class="course-img">
-                            <img src="@item.VideoLink" alt="kurs resmi">
+                            <video width="320" height="240" controls>
+                                <source src="@item.VideoLink" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
                         <div class="author-info">
                            <a href="/CourseDetail/Index/@item.CourseId" class="author-name"></a>
