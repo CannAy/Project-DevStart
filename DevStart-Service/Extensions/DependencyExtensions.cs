@@ -60,7 +60,7 @@ namespace DevStart_Service.Extensions
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); //generic repo kullanabilmemiz için.
 
-
+            
 
 
         }

@@ -7,8 +7,6 @@
         public int CourseQuantity { get; set; }
         public decimal CoursePrice { get; set; }
 
-
-
         public List<CartItem> AddToCart(List<CartItem> cart, CartItem cartItem)  //cart-->sepet  cartItem-->yeni sipariş
         {
             //if (cart.Any(c => c.MovieId == cartItem.MovieId)) //Any, bize sadece var mı yok mu sorgusunu yapıyor. sipariş sepette varsa true döner.
@@ -27,9 +25,9 @@
             return cart;
         }
 
-        public List<CartItem> DeleteFromCart(List<CartItem> cart, Guid id)
+        public List<CartItem> DeleteFromCart(List<CartItem> cart, Guid CourseId)
         {
-            cart.RemoveAll(c => c.CourseId == id);
+            cart.RemoveAll(c => c.CourseId == CourseId);
             return cart;
         }
 

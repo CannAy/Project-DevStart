@@ -8,16 +8,17 @@ using System.Threading.Tasks;
 
 namespace DevStart_Service.Extensions
 {
-    public static class SessionExtensions //class STATIC olmak zorunda Extension yazmak için!!1. kural bu
+    public static class SessionExtensions
+{
+    public static void SetJson(this ISession session, string key, object value)
     {
-        public static void SetJson<T>(this ISession session, string key, T value) //2. kural, ilk parametre this ile başlayacak.
-        {
-            session.SetString(key, JsonSerializer.Serialize(value));
-        }
-        public static T? GetJson<T>(this ISession session, string key)   //2. kural, ilk parametre this ile başlayacak.
-        {
-            var value = session.GetString(key);
-            return value == null ? default : JsonSerializer.Deserialize<T>(value);
-        }
+        session.SetString(key, JsonSerializer.Serialize(value));
     }
+
+    public static T GetJson<T>(this ISession session, string key)
+    {
+        var value = session.GetString(key);
+        return value == null ? default : JsonSerializer.Deserialize<T>(value);
+    }
+}
 }

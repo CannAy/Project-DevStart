@@ -13,6 +13,14 @@ builder.Services.AddDbContext<DevStartDbContext>(
         options.UseSqlServer(builder.Configuration.GetConnectionString("DevStartConnection"))
     );
 
+builder.Services.AddDistributedMemoryCache(); // Add memory cache services.
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Session süresi
+    options.Cookie.HttpOnly = true; // Cookie eriþim ayarlarý
+    options.Cookie.IsEssential = true; // Cookie'nin gerekli olduðu belirtir
+});
+
 builder.Services.AddExtensions(); //DependencyExtensions için.
 
 builder.Services.AddSession();
