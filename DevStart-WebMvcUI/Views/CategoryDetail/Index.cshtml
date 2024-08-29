@@ -1,0 +1,32 @@
+﻿@model List<CourseViewModel>
+@{
+    ViewData["Title"] = "CategoryDetail";
+    Layout = "~/Views/Shared/_LayoutDevStart.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3">
+                <div class="course-box">
+                    <div class="course-content">
+                        <div class="course-img">
+                            <img src="@item.PictureUrl" alt="Kategori resmi">
+                        </div>
+                        <h3>
+                            <a href="/CourseDetail/Index/@item.CourseId">@item.CourseTitle</a>
+                        </h3>
+                        <div>
+                            <a href="/CourseDetail/Index/@item.CourseId">@item.CourseDescription</a>
+                        </div>
+                        <div class="author-info">
+                            <a href="/CourseDetail/Index/@item.CourseId" class="author-name">Kursa ait dersler...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>

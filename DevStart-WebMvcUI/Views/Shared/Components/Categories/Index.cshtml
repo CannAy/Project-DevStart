@@ -12,10 +12,11 @@
             </div>
             <div class="course-content">
                 <h3 class="@item.CategoryName">
-                    <a href="/Category/Index/@item.CategoryId">
-                        @item.CategoryDescription
+                    <a href="/CategoryDetail/Index/@item.CategoryId">
+                        @item.CategoryName
                     </a>
                 </h3>
+
                 @* <div class="course-meta">
             <span><i class="fal fa-file"></i>Lesson 8</span>
             <span><i class="fal fa-user"></i>Students 60+</span>
@@ -23,8 +24,8 @@
             </div> *@
                 <div class="course-author">
                     <div class="author-info">
-                        @* <img src="assets/img/course/author.png" alt="author"> *@
-                        <a href="/CourseDetail/Index/@item.CategoryId" class="author-name">Detay...</a>
+                        <img src="assets/img/course/author.png" alt="author"> 
+                        <a href="/CategoryDetail/Index/@item.CategoryId" class="author-name">kategori Detayı...</a>
                     </div>
                 </div>
             </div>
