@@ -10,14 +10,9 @@
                 <div class="course-img">
                     <img src="@item.PictureUrl" alt="kurs resmi">           
                 </div>
-                <div class="course-content">
-                    <div class="course-rating">
-                        <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5">
-                            <span style="width:79%">Rated <strong class="rating">4.00</strong> out of 5</span>
-                        </div>(4.7)
-                    </div>
+                <div class="course-content">                   
                     <h3 class="@item.CourseTitle">
-                        <a href="course-details.html">
+                    <a href="/CourseDetail/Index/@item.CourseId">
                             @item.CourseTitle
                         </a>
                     </h3>
