@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DevStart_WebMvcUI.Models.CartItem>
+﻿@model IEnumerable<CartItem>
 
 @{
     ViewData["Title"] = "Index";
@@ -39,4 +39,8 @@
     <strong>Toplam Tutar:</strong> @TempData["ToplamTutar"]
 </div>
 
-<a href="@Url.Action("DeleteCart", "Cart")" class="btn btn-warning">Sepeti Boşalt</a>
+<div class="mt-3">
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Alışverişe Devam Et</a>
+    <a href="@Url.Action("Checkout", "Cart")" class="btn btn-success">Alışverişi Tamamla</a>
+    <a href="@Url.Action("DeleteCart", "Cart")" class="btn btn-warning">Sepeti Boşalt</a>
+</div>

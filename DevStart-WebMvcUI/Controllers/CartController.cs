@@ -10,36 +10,50 @@ namespace DevStart_WebMvcUI.Controllers
     public class CartController : Controller
     {
         private readonly IRepository<Course> _courseRepo;
+        
 
         public CartController(IRepository<Course> courseRepo)
         {
             _courseRepo = courseRepo;
         }
-
         List<CartItem> cart = new List<CartItem>(); //bu satır SEPET!!
-        CartItem cartItem = new CartItem();           //bu satır SİPARİŞ!!
-
+        CartItem cartItem = new CartItem();
         public IActionResult Index()
         {
-            cart = GetCart(); // Session'dan sepeti alıyoruz.
+            //var cart = GetCart(); // Session'dan sepeti alıyoruz.
+
+            //// Sepetteki toplam adet ve toplam tutarı hesaplayın
+            //var totalQuantity = cart.Sum(item => item.CourseQuantity);
+            //var totalPrice = cart.Sum(item => item.CourseQuantity * item.CoursePrice);
+
+            //// TempData'ya hesaplamaları atayın
+            //TempData["ToplamAdet"] = totalQuantity;
+            //TempData["TotalTutar"] = totalPrice;
+
+            //return View(cart);
+
+            var cart = GetCart(); // Session'dan sepeti alıyoruz.
             TempData["ToplamAdet"] = cartItem.TotalQuantity(cart);
             if (cartItem.TotalPrice(cart) > 0)
                 TempData["ToplamTutar"] = cartItem.TotalPrice(cart);
             return View(cart);
         }
 
-        public async Task<IActionResult> Add(Guid courseId, int adet)
+        public async Task<IActionResult> Add(Guid CourseId, int adet)
         {
-            var course = await _courseRepo.GetByIdAsync(courseId); // Sipariş edilecek ürünü buluyorum burada.
+            var course = await _courseRepo.GetByIdAsync(CourseId); // Sipariş edilecek ürünü buluyorum burada.
 
-            cart = GetCart(); // Sepetimi istiyorum (ilk olarak boş sepet geliyor bize, aşağıda yazmıştık bu methodu)
+            var cart = GetCart(); // Sepetimi alıyorum
 
-            cartItem.CourseId = course.CourseId;  // Sipariş oluşturuyoruz burada.
-            cartItem.CourseTitle = course.CourseTitle;
-            cartItem.CourseQuantity = adet;
-            cartItem.CoursePrice = course.CoursePrice;
+            var cartItem = new CartItem
+            {
+                CourseId = course.CourseId,
+                CourseTitle = course.CourseTitle,
+                CourseQuantity = adet,
+                CoursePrice = course.CoursePrice
+            };
 
-            cart = cartItem.AddToCart(cart, cartItem); // Yeni siparişi sepete ekliyoruz.
+            cart = CartItem.AddToCart(cart, cartItem); // Yeni siparişi sepete ekliyoruz.
 
             SetCart(cart);
             return RedirectToAction("Index");
@@ -47,31 +61,26 @@ namespace DevStart_WebMvcUI.Controllers
 
         public IActionResult Delete(Guid courseId)
         {
-            cart = GetCart();
-            cart = cartItem.DeleteFromCart(cart, courseId);
+            var cart = GetCart();
+            cart = CartItem.DeleteFromCart(cart, courseId);
             SetCart(cart); // Session'a sepetin son halini kayıt ediyoruz.
             return RedirectToAction("Index");
         }
 
         public void SetCart(List<CartItem> sepet)
         {
-            HttpContext.Session.SetJson("sepet", sepet); // Alışveriş sepetimizi sepet isimli (key) session'a kayıt ediyoruz.
+            HttpContext.Session.SetJson("sepet", sepet); // Alışveriş sepetimizi session'a kayıt ediyoruz.
         }
 
         public List<CartItem> GetCart()
         {
-            var sepet = HttpContext.Session.GetJson<List<CartItem>>("sepet") ?? new List<CartItem>(); // ?? işaretinin solu null olursa sağındaki kod devreye giriyor.
-            return sepet;
+            return HttpContext.Session.GetJson<List<CartItem>>("sepet") ?? new List<CartItem>();
         }
 
         public IActionResult DeleteCart()
         {
-            HttpContext.Session.Remove("sepet"); // Sadece adı sepet olan session'ı siler.
+            HttpContext.Session.Remove("sepet"); // Sepeti boşalt
             return RedirectToAction("Index");
         }
-
-
-
-
     }
 }

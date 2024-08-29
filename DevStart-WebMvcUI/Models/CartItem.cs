@@ -7,27 +7,23 @@
         public int CourseQuantity { get; set; }
         public decimal CoursePrice { get; set; }
 
-        public List<CartItem> AddToCart(List<CartItem> cart, CartItem cartItem)  //cart-->sepet  cartItem-->yeni sipariş
+        public static List<CartItem> AddToCart(List<CartItem> cart, CartItem cartItem)
         {
-            //if (cart.Any(c => c.MovieId == cartItem.MovieId)) //Any, bize sadece var mı yok mu sorgusunu yapıyor. sipariş sepette varsa true döner.
-            //{
-            //    //ürünü bulup adet arttırılacak
-            //}
-            var item = cart.Find(c => c.CourseId == cartItem.CourseId);  //sepette yeni siparişle aynı üründen varsa yakalar.
+            var item = cart.Find(c => c.CourseId == cartItem.CourseId);
             if (item != null)
             {
-                item.CourseQuantity += cartItem.CourseQuantity; //aynı ürünü bulup miktarını yeni siparişin miktarı kadar arttıyoruz
+                item.CourseQuantity += cartItem.CourseQuantity;
             }
             else
             {
-                cart.Add(cartItem);  //siparişi sepete ekler.
+                cart.Add(cartItem);
             }
             return cart;
         }
 
-        public List<CartItem> DeleteFromCart(List<CartItem> cart, Guid CourseId)
+        public static List<CartItem> DeleteFromCart(List<CartItem> cart, Guid courseId)
         {
-            cart.RemoveAll(c => c.CourseId == CourseId);
+            cart.RemoveAll(c => c.CourseId == courseId);
             return cart;
         }
 
@@ -42,6 +38,5 @@
             decimal total = cart.Sum(c => c.CourseQuantity * c.CoursePrice);
             return total;
         }
-
     }
 }
