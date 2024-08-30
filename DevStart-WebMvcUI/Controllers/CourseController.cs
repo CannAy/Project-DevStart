@@ -22,7 +22,7 @@ namespace DevStart_WebMvcUI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var courses = await _courseService.GetAllAsync();
+            var courses = await _courseService.GetAllAsync();            
             var categories = await _categoryService.GetAllAsync();
             ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName");
             return View((new CourseViewModel(), courses));

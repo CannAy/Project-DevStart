@@ -17,6 +17,7 @@ namespace DevStart_Entity.ViewModels
         public bool CourseState { get; set; }
         public Guid CategoryId { get; set; }
         public string PictureUrl { get; set; }
+        public bool ShowCase { get; set; }
 
         public Guid UserId { get; set; }
 

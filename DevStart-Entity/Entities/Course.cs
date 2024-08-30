@@ -17,6 +17,7 @@ namespace DevStart_Entity.Entities
 		public DateTime CourseCreateDate { get; set; }
 		public bool CourseState { get; set; } = true;
         public string PictureUrl { get; set; }
+		public bool ShowCase { get; set; } = false;
 
 
         public Guid UserId { get; set; }

@@ -177,13 +177,10 @@
                                     <button type="button" class="th-menu-toggle d-block d-lg-none"><i class="far fa-bars"></i></button>
                                 </div>
                                 <div class="col-auto d-none d-xl-block">
-                                    <div class="header-button">
-                                        <button type="button" class="icon-btn searchBoxToggler"><i class="far fa-search"></i></button>
-                                                                              
-                                        <button type="button" class="icon-btn sideMenuToggler">
-                                            <i class="far fa-shopping-cart"></i>
-                                            <a href="@Url.Action("Index", "Cart")" />
-                                            <span class="badge">@TempData["ToplamAdet"]</span>
+                                    <div class="header-button">                                                                                                                  
+                                        <button onclick="javascript:window.location.href= '/Cart/Index/'" type="button" class="icon-btn sideMenuToggler">
+                                            <i class="far fa-shopping-cart"></i>                                            
+                                            <span id="cartCount" class="badge">0</span>
                                         </button>
                                         
                                             <a href="/User/Index" class="th-btn ml-25">Eğitmen Girişi<i class="fas fa-arrow-right ms-1"></i></a>
@@ -885,3 +882,15 @@
 </body>
 
 </html>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Cart/GetCartAcount",
+            type: "get",
+            success: function (response) {
+                $("#cartCount").html(response)
+            }
+        })
+    })
+</script>

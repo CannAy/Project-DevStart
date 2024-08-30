@@ -19,24 +19,21 @@ namespace DevStart_WebMvcUI.Controllers
         List<CartItem> cart = new List<CartItem>(); //bu satır SEPET!!
         CartItem cartItem = new CartItem();
         public IActionResult Index()
-        {
-            //var cart = GetCart(); // Session'dan sepeti alıyoruz.
-
-            //// Sepetteki toplam adet ve toplam tutarı hesaplayın
-            //var totalQuantity = cart.Sum(item => item.CourseQuantity);
-            //var totalPrice = cart.Sum(item => item.CourseQuantity * item.CoursePrice);
-
-            //// TempData'ya hesaplamaları atayın
-            //TempData["ToplamAdet"] = totalQuantity;
-            //TempData["TotalTutar"] = totalPrice;
-
-            //return View(cart);
-
+        {          
             var cart = GetCart(); // Session'dan sepeti alıyoruz.
+
             TempData["ToplamAdet"] = cartItem.TotalQuantity(cart);
+
             if (cartItem.TotalPrice(cart) > 0)
                 TempData["ToplamTutar"] = cartItem.TotalPrice(cart);
+
             return View(cart);
+        }
+
+        public int GetCartAcount()
+        {
+            var cart = GetCart();
+            return cartItem.TotalQuantity(cart);
         }
 
         public async Task<IActionResult> Add(Guid CourseId, int adet)
@@ -44,7 +41,7 @@ namespace DevStart_WebMvcUI.Controllers
             var course = await _courseRepo.GetByIdAsync(CourseId); // Sipariş edilecek ürünü buluyorum burada.
 
             var cart = GetCart(); // Sepetimi alıyorum
-
+            adet = 1;
             var cartItem = new CartItem
             {
                 CourseId = course.CourseId,

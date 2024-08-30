@@ -1,4 +1,5 @@
-﻿using DevStart_Entity.Interfaces;
+﻿using DevStart_Entity.Entities;
+using DevStart_Entity.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevStart_WebMvcUI.Components
@@ -15,7 +16,8 @@ namespace DevStart_WebMvcUI.Components
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var list = await _courseService.GetAllAsync();
-            return View("Index", list);
+            var courses = list.Where(c => c.ShowCase == true).ToList();
+            return View("Index", courses);
         }
     }
 }
