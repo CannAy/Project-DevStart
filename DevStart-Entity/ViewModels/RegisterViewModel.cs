@@ -25,7 +25,10 @@ namespace DevStart_Entity.ViewModels
         [Required(ErrorMessage = "Şifre alanı boş geçilemez!")]
         [Display(Name = "Şifre")]
         [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$",
+    ErrorMessage = "Şifre en az 8 karakter uzunluğunda olmalı, bir büyük harf, bir küçük harf, bir rakam ve bir özel karakter içermelidir.")]
         public string Password { get; set; }
+
         [Required(ErrorMessage = "Tekrar Şifresi boş geçilemez!")]
         [Display(Name = "Şifre Tekrar")]
         [DataType(DataType.Password)]

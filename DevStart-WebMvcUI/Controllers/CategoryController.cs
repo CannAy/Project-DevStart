@@ -28,12 +28,12 @@ namespace DevStart_WebMvcUI.Controllers
                 model.CategoryId = Guid.NewGuid(); //id üretilmiş oldu.
                 await _categoryService.AddAsync(model);
                 TempData["message1"] = true;
-                TempData["message2"] = "Kayıt Başarılı";
+                TempData["message2"] = "Yeni Kategori Kaydedildi";
             }
             else
             {
                 TempData["message1"] = false;
-                TempData["message2"] = "Kayıt Başarısız";
+                TempData["message2"] = "Kategori Kaydedilemedi";
             }
             return View();
         }

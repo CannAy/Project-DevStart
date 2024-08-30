@@ -42,12 +42,13 @@ namespace DevStart_WebMvcUI.Controllers
             await _lessonService.AddAsync(model);
 
             TempData["message1"] = true;
-            TempData["message2"] = "Kurs başarıyla kayıt edildi.";
+            TempData["message2"] = "Ders başarıyla kayıt edildi.";
 
             var courses = await _courseService.GetAllAsync();
             ViewBag.Courses = new SelectList(courses, "CourseId", "CourseTitle");
 
             return View(model);
         }
+
     }
 }
