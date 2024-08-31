@@ -1,7 +1,7 @@
 ﻿@model (CourseViewModel, IEnumerable<CourseViewModel>)
 @{
     Layout = "_AdminLayout";
-    // ViewData["Title"] = "Home Page";
+    
 }
 <div class="col-md-6">
     <!-- general form elements -->
@@ -44,25 +44,13 @@
                 <input type="file" asp-for="@Model.Item1.PictureUrl" name="PictureUrl" class="form-control" />
                 <span asp-validation-for="@Model.Item1.PictureUrl" class="text-danger"></span>
             </div>
-            @* <div class="form-group">
-            <div class="checkbox">
-            <label>
-            <input asp-for="CourseState" /> @Html.DisplayNameFor(model => model.CourseState)
-            </label>
-            </div>
-            </div> *@
+           
             <div class="form-group">
                 <label class="control-label">Kategoriler</label>
                 <select id="CategoryId" name="CategoryId" class="form-control" asp-items="@ViewBag.Categories">
                     <option selected disable>Kategori seçiniz</option>
                 </select>
             </div>
-            <!-- User oturum açtığında bu kısım olmamalı -->
-            @* <div class="form-group">
-                <label asp-for="@Model.Item1.UserId" class="control-label"></label>
-                <input asp-for="@Model.Item1.UserId" name="UserId" class="form-control" />
-                <span asp-validation-for="@Model.Item1.UserId" class="text-danger"></span>
-            </div> *@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
@@ -86,6 +74,7 @@
                         <th>Kurs Eklenme Tarihi</th>
                         <th>Kurs Resmi</th>
                         <th>Kurs Kategorisi</th>
+                        <th></th>                        
                     </tr>
                 </thead>
                 <tbody>                   
@@ -97,7 +86,18 @@
                                 <td>@item.CoursePrice</td>
                                 <td>@item.CourseCreateDate</td>
                                 <td><img src="@item.PictureUrl" width ="30" height="30"/></td>
-                                <td>@item.CategoryId</td>
+                                <td>@item.CategoryId</td>                            
+                                <td>
+                                <form asp-action="Update" asp-controller="Course" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="courseId" value="@item.CourseId" />
+                                    <button type="submit" class="btn btn-primary">Edit</button>
+                                </form>
+
+                                <form asp-action="Delete" asp-controller="Course" method="post" onsubmit="return confirm('Silmek İstiyor musunuz?')">
+                                    <input type="hidden" name="courseId" value="@item.CourseId" />
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                                </td>
                             </tr>
                         }
                 </tbody>

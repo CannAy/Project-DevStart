@@ -98,5 +98,40 @@ namespace DevStart_WebMvcUI.Controllers
                 return RedirectToAction("Index");
             }
         }
+        public async Task<IActionResult> Update(CourseViewModel courseViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(courseViewModel);
+            }
+
+            try
+            {
+                await _courseService.UpdateAsync(courseViewModel); // Asenkron güncellemeyi gerçekleştir
+                var updatedCourse = await _courseService.GetByIdAsync(courseViewModel.CourseId); // Güncellenmiş veriyi al
+                var viewModel = new CourseViewModel
+                {
+                    CourseId = updatedCourse.CourseId,
+                    CourseDescription = updatedCourse.CourseDescription,
+                    CoursePrice = updatedCourse.CoursePrice,
+                    CourseCreateDate = updatedCourse.CourseCreateDate,
+                    PictureUrl = updatedCourse.PictureUrl,
+                    CategoryId = updatedCourse.CategoryId
+
+                };
+
+                return View(viewModel); // Güncellenmiş veriyi göster
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Güncelleme sırasında bir hata oluştu: " + ex.Message);
+                return View(courseViewModel);
+            }
+        }
+        public async Task<IActionResult> Delete(Guid CourseId)
+        {
+            await _courseService.DeleteAsync(CourseId);
+            return RedirectToAction("Index");
+        }
     }
 }

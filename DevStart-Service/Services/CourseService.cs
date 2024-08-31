@@ -5,6 +5,9 @@ using DevStart_Entity.Interfaces;
 using DevStart_Entity.UnitOfWork;
 using DevStart_Entity.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,15 +61,16 @@ namespace DevStart_Service.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid CourseId)
         {
-            var course = await _courseRepository.GetByIdAsync(id);
+            var course = await _courseRepository.GetByIdAsync(CourseId);
             if (course != null)
             {
                 _courseRepository.Delete(course);
                 await _unitOfWork.CommitAsync();
             }
         }
+
 
         public async Task<IEnumerable<CourseViewModel>> GetCoursesByCategoryIdAsync(Guid categoryId)
         {

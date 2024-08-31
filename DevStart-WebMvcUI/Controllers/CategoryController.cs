@@ -1,6 +1,7 @@
 ﻿using Azure;
 using DevStart_Entity.Interfaces;
 using DevStart_Entity.ViewModels;
+using DevStart_Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevStart_WebMvcUI.Controllers
@@ -36,6 +37,39 @@ namespace DevStart_WebMvcUI.Controllers
                 TempData["message2"] = "Kategori Kaydedilemedi";
             }
             return View();
+        }
+
+        public async Task<IActionResult> Update(CategoryViewModel categoryViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(categoryViewModel);
+            }
+
+            try
+            {
+                await _categoryService.UpdateAsync(categoryViewModel); // Asenkron güncellemeyi gerçekleştir
+                var updatedCategory = await _categoryService.GetByIdAsync(categoryViewModel.CategoryId);// Güncellenmiş veriyi al
+                
+                var viewModel = new CategoryViewModel
+                {
+                    CategoryName = updatedCategory.CategoryName,
+                    CategoryDescription = updatedCategory.CategoryDescription
+
+                };
+
+                return View(viewModel); // Güncellenmiş veriyi göster
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Güncelleme sırasında bir hata oluştu: " + ex.Message);
+                return View(categoryViewModel);
+            }
+        }
+        public async Task<IActionResult> Delete(Guid CategoryId)
+        {
+            await _categoryService.DeleteAsync(CategoryId);
+            return RedirectToAction("Index");
         }
     }
 }

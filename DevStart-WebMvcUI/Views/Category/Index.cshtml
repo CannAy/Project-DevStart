@@ -48,6 +48,7 @@
                     <tr>
                         <th>Kategori İsmi</th>
                         <th>Kategori Açıklaması</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,6 +59,17 @@
                             <tr>
                                 <td>@item.CategoryName</td>
                                 <td>@item.CategoryDescription</td>
+                                <td>
+                                    <form asp-action="Update" asp-controller="Category" method="post" enctype="multipart/form-data">
+                                        <input type="hidden" name="categoryId" value="@item.CategoryId" />
+                                        <button type="submit" class="btn btn-primary">Edit</button>
+                                    </form>
+
+                                    <form asp-action="Delete" asp-controller="Category" method="post" onsubmit="return confirm('Silmek İstiyor musunuz?')">
+                                        <input type="hidden" name="categoryId" value="@item.CategoryId" />
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         }
                     }
