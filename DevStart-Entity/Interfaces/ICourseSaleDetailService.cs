@@ -1,4 +1,5 @@
-﻿using DevStart_Entity.ViewModels;
+﻿using DevStart_Entity.Entities;
+using DevStart_Entity.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace DevStart_Entity.Interfaces
     {
         Task<IEnumerable<CourseSaleDetailViewModel>> GetAllAsync();
         Task<CourseSaleDetailViewModel> GetByIdAsync(Guid id);
-        Task AddAsync(CourseSaleDetailViewModel courseSaleDetailViewModel);
+        Task AddAsync(CourseSaleDetail courseSaleDetail);
         Task UpdateAsync(CourseSaleDetailViewModel courseSaleDetailViewModel);
         Task DeleteAsync(Guid id);
         Task<IEnumerable<CourseSaleDetailViewModel>> GetDetailsByCourseSaleIdAsync(Guid courseSaleId);

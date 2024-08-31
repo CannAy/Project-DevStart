@@ -1,25 +1,33 @@
 ﻿using DevStart_DataAccsess.Contexts;
 using DevStart_Entity.Entities;
 using DevStart_Entity.Interfaces;
+using DevStart_Entity.ViewModels;
 using DevStart_Service.Extensions;
+using DevStart_Service.Services;
 using DevStart_WebMvcUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace DevStart_WebMvcUI.Controllers
 {
     public class CartController : Controller
     {
         private readonly IRepository<Course> _courseRepo;
-        
+        private readonly CourseSaleService _courseSaleService;
+        private readonly CourseSaleDetailService _courseSaleDetailService;
 
-        public CartController(IRepository<Course> courseRepo)
+
+        public CartController(IRepository<Course> courseRepo, CourseSaleService courseSaleService, CourseSaleDetailService courseSaleDetailService)
         {
             _courseRepo = courseRepo;
+            _courseSaleService = courseSaleService;
+            _courseSaleDetailService = courseSaleDetailService;
         }
+
         List<CartItem> cart = new List<CartItem>(); //bu satır SEPET!!
         CartItem cartItem = new CartItem();
         public IActionResult Index()
-        {          
+        {
             var cart = GetCart(); // Session'dan sepeti alıyoruz.
 
             TempData["ToplamAdet"] = cartItem.TotalQuantity(cart);
@@ -79,5 +87,48 @@ namespace DevStart_WebMvcUI.Controllers
             HttpContext.Session.Remove("sepet"); // Sepeti boşalt
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> Checkout()
+        {
+            var userId = new Guid(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var cart = GetCart();
+            if (!cart.Any())
+            {
+                return RedirectToAction("Index");
+            }
+
+            var courseSale = new CourseSale
+            {
+                CourseSaleId = Guid.NewGuid(),
+                CourseSaleDate = DateTime.Now,
+                CourseSaleTotalPrice = cart.Sum(item => item.CoursePrice * item.CourseQuantity),
+                CourseSaleState = true,
+                UserId = userId
+            };
+
+            await _courseSaleService.AddAsync(courseSale);
+
+            foreach (var item in cart)
+            {
+                var courseSaleDetail = new CourseSaleDetail
+                {
+                    CourseSaleDetailId = Guid.NewGuid(),
+                    CourseSaleDetailQuantity = item.CourseQuantity,
+                    CourseSaleDetailState = true,
+                    CourseSaleId = courseSale.CourseSaleId,
+                    CourseId = item.CourseId
+                };
+
+                await _courseSaleDetailService.AddAsync(courseSaleDetail);
+            }
+
+            
+            DeleteCart();
+
+            return RedirectToAction("Checkout");
+        }
     }
+
+
 }
