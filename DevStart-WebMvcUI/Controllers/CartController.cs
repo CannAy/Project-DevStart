@@ -13,11 +13,10 @@ namespace DevStart_WebMvcUI.Controllers
     public class CartController : Controller
     {
         private readonly IRepository<Course> _courseRepo;
-        private readonly CourseSaleService _courseSaleService;
-        private readonly CourseSaleDetailService _courseSaleDetailService;
+        private readonly ICourseSaleService _courseSaleService;
+        private readonly ICourseSaleDetailService _courseSaleDetailService;
 
-
-        public CartController(IRepository<Course> courseRepo, CourseSaleService courseSaleService, CourseSaleDetailService courseSaleDetailService)
+        public CartController(IRepository<Course> courseRepo, ICourseSaleService courseSaleService, ICourseSaleDetailService courseSaleDetailService)
         {
             _courseRepo = courseRepo;
             _courseSaleService = courseSaleService;
@@ -43,13 +42,13 @@ namespace DevStart_WebMvcUI.Controllers
             var cart = GetCart();
             return cartItem.TotalQuantity(cart);
         }
-
-        public async Task<IActionResult> Add(Guid CourseId, int adet)
+        [HttpPost]
+        public async Task<IActionResult> Add(Guid CourseId)
         {
             var course = await _courseRepo.GetByIdAsync(CourseId); // Sipariş edilecek ürünü buluyorum burada.
 
             var cart = GetCart(); // Sepetimi alıyorum
-            adet = 1;
+            int adet = 1;
             var cartItem = new CartItem
             {
                 CourseId = course.CourseId,
@@ -88,7 +87,14 @@ namespace DevStart_WebMvcUI.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Checkout()
+        public IActionResult Checkout()
+        {
+            var cartList =  HttpContext.Session.GetJson<List<CartItem>>("sepet") ?? new List<CartItem>();
+            return View(cartList);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Checkout(int? x)
         {
             var userId = new Guid(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
@@ -97,10 +103,10 @@ namespace DevStart_WebMvcUI.Controllers
             {
                 return RedirectToAction("Index");
             }
-
-            var courseSale = new CourseSale
+            var courseSaleId = Guid.NewGuid();
+            var courseSale = new CourseSaleViewModel
             {
-                CourseSaleId = Guid.NewGuid(),
+                CourseSaleId = courseSaleId,
                 CourseSaleDate = DateTime.Now,
                 CourseSaleTotalPrice = cart.Sum(item => item.CoursePrice * item.CourseQuantity),
                 CourseSaleState = true,
@@ -111,22 +117,22 @@ namespace DevStart_WebMvcUI.Controllers
 
             foreach (var item in cart)
             {
-                var courseSaleDetail = new CourseSaleDetail
+                var courseSaleDetail = new CourseSaleDetailViewModel
                 {
                     CourseSaleDetailId = Guid.NewGuid(),
                     CourseSaleDetailQuantity = item.CourseQuantity,
                     CourseSaleDetailState = true,
-                    CourseSaleId = courseSale.CourseSaleId,
+                    CourseSaleId = courseSaleId,
                     CourseId = item.CourseId
                 };
 
                 await _courseSaleDetailService.AddAsync(courseSaleDetail);
             }
 
-            
+
             DeleteCart();
 
-            return RedirectToAction("Checkout");
+            return RedirectToAction("Index","Home");
         }
     }
 

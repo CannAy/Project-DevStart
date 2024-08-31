@@ -57,9 +57,8 @@ namespace DevStart_Service.Extensions
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<ILessonService, LessonService>();
-
-            services.AddScoped<CourseSaleService>();
-            services.AddScoped<CourseSaleDetailService>();
+            services.AddScoped<ICourseSaleService, CourseSaleService>();
+            services.AddScoped<ICourseSaleDetailService, CourseSaleDetailService>();
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); //generic repo kullanabilmemiz için.
 

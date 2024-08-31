@@ -12,7 +12,7 @@ namespace DevStart_Entity.Interfaces
     {
         Task<IEnumerable<CourseSaleDetailViewModel>> GetAllAsync();
         Task<CourseSaleDetailViewModel> GetByIdAsync(Guid id);
-        Task AddAsync(CourseSaleDetail courseSaleDetail);
+        Task AddAsync(CourseSaleDetailViewModel courseSaleDetailViewModel);
         Task UpdateAsync(CourseSaleDetailViewModel courseSaleDetailViewModel);
         Task DeleteAsync(Guid id);
         Task<IEnumerable<CourseSaleDetailViewModel>> GetDetailsByCourseSaleIdAsync(Guid courseSaleId);

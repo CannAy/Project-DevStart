@@ -36,8 +36,9 @@ namespace DevStart_Service.Services
             return _mapper.Map<CourseSaleDetailViewModel>(courseSaleDetail);
         }
 
-        public async Task AddAsync(CourseSaleDetail courseSaleDetail)
+        public async Task AddAsync(CourseSaleDetailViewModel courseSaleDetailViewModel)
         {
+            var courseSaleDetail = _mapper.Map<CourseSaleDetail>(courseSaleDetailViewModel);
             await _courseSaleDetailRepository.AddAsync(courseSaleDetail);
             await _unitOfWork.CommitAsync();
         }

@@ -20,6 +20,8 @@ namespace DevStart_Service.Mapping
             CreateMap<AppUser, UserViewModel>().ReverseMap();
             CreateMap<Course, CourseViewModel>().ReverseMap();
             CreateMap<Lesson, LessonViewModel>().ReverseMap();
+            CreateMap<CourseSale, CourseSaleViewModel>().ReverseMap();
+            CreateMap<CourseSaleDetail, CourseSaleDetailViewModel>().ReverseMap();
             CreateMap<RegisterViewModel, AppUser>();
 
         }

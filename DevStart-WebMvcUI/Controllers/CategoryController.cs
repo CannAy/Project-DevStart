@@ -39,6 +39,14 @@ namespace DevStart_WebMvcUI.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Update(Guid CategoryId)
+        {
+            var category = await _categoryService.GetByIdAsync(CategoryId);
+          return View(category);
+        }
+
+
+        [HttpPost]
         public async Task<IActionResult> Update(CategoryViewModel categoryViewModel)
         {
             if (!ModelState.IsValid)
@@ -49,22 +57,14 @@ namespace DevStart_WebMvcUI.Controllers
             try
             {
                 await _categoryService.UpdateAsync(categoryViewModel); // Asenkron güncellemeyi gerçekleştir
-                var updatedCategory = await _categoryService.GetByIdAsync(categoryViewModel.CategoryId);// Güncellenmiş veriyi al
                 
-                var viewModel = new CategoryViewModel
-                {
-                    CategoryName = updatedCategory.CategoryName,
-                    CategoryDescription = updatedCategory.CategoryDescription
-
-                };
-
-                return View(viewModel); // Güncellenmiş veriyi göster
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", "Güncelleme sırasında bir hata oluştu: " + ex.Message);
                 return View(categoryViewModel);
             }
+            return RedirectToAction("Index");
         }
         public async Task<IActionResult> Delete(Guid CategoryId)
         {

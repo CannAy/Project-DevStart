@@ -14,6 +14,6 @@ namespace DevStart_Entity.ViewModels
         public bool CourseSaleState { get; set; }
 
         // UI'da User bilgilerini göstermek için
-        public string UserName { get; set; }  //Kullanıcı bilgisi ?? UserName tanımlamış mıydık??
+        public Guid UserId { get; set; }  //Kullanıcı bilgisi ?? UserName tanımlamış mıydık??
     }
 }

@@ -127,6 +127,7 @@ namespace DevStart_WebMvcUI.Controllers
                 ModelState.AddModelError("", "Güncelleme sırasında bir hata oluştu: " + ex.Message);
                 return View(courseViewModel);
             }
+
         }
         public async Task<IActionResult> Delete(Guid CourseId)
         {

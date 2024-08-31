@@ -13,12 +13,13 @@ namespace DevStart_Entity.ViewModels
         public int CourseSaleDetailQuantity { get; set; }
         public bool CourseSaleDetailState { get; set; }
 
-        public decimal CoursePrice { get; set; }  // Bu özelliği ekleyin
+        //public decimal CoursePrice { get; set; }  // Bu özelliği ekleyin
         public Guid CourseId { get; set; }
 
+        public Guid CourseSaleId { get; set; }
 
-        public string CourseTitle { get; set; } //front tarafta Course ve CourseSale bilgilerini göstermek için
-        public DateTime CourseSaleDate { get; set; }
+        //public string CourseTitle { get; set; } //front tarafta Course ve CourseSale bilgilerini göstermek için
+        //public DateTime CourseSaleDate { get; set; }
         
     }
 }
