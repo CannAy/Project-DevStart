@@ -69,9 +69,9 @@
             var courseSaleId = $(this).data("course-id");
             $.ajax({
                 type: "Get",
-                url: "/UserSales/GetDetail", // Değiştirmeniz gereken yer
+                url: "/UserSales/GetDetail",
                 data: { courseSaleId: courseSaleId },
-                dataType: "json", // Sunucudan JSON veri beklediğimizi belirtiyoruz
+                dataType: "json", 
                 success: function (response) {
                     var _html = "";
                     for (var i = 0; i < response.length; i++) {
