@@ -49,7 +49,8 @@
                 <thead>
                     <tr>
                         <th>Kurs Adı</th>
-                        <th>Adet</th>
+                        <th>Açıklama</th>
+                        <th>Fiyat</th>
                     </tr>
                 </thead>
                 <tbody id="TBody">
@@ -64,27 +65,27 @@
     $(document).ready(function () {
         $("tbody").on("click", "tr", function () {
             // Tıklanan tr'nin data-course-id değerini al
-            //var courseId = $(this).data("course-id");
-            alert("courseId");
-            // $.ajax({
-            //     type: "Get",
-            //     url: "/UserSales/GetDetail", // Değiştirmeniz gereken yer
-            //     data: { courseSaleId: courseSaleId },
-            //     dataType: "json", // Sunucudan JSON veri beklediğimizi belirtiyoruz
-            //     success: function (response) {
-            //         var _html = "";
-            //         for (var i = 0; i < response.length; i++) {
-            //             _html += "<tr>";
-            //             _html += "<td>" + response[i].count + "</td>";
-            //             _html += "<td>" + response[i].courseId + "</td>";
-            //             _html += "</tr>";
-            //         }
-            //         $("#TBody").html(_html);
-            //     },
-            //     error: function () {
-            //         alert("Bir hata oluştu!");
-            //     }
-            // });
+            var courseSaleId = $(this).data("course-id");
+            $.ajax({
+                type: "Get",
+                url: "/UserSales/GetDetail", // Değiştirmeniz gereken yer
+                data: { courseSaleId: courseSaleId },
+                dataType: "json", // Sunucudan JSON veri beklediğimizi belirtiyoruz
+                success: function (response) {
+                    var _html = "";
+                    for (var i = 0; i < response.length; i++) {
+                        _html += "<tr>";
+                        _html += "<td>" + response[i].courseTitle + "</td>";
+                        _html += "<td>" + response[i].courseDescription + "</td>";
+                        _html += "<td>" + response[i].coursePrice + "</td>";
+                        _html += "</tr>";
+                    }
+                    $("#TBody").html(_html);
+                },
+                error: function () {
+                    alert("Bir hata oluştu!");
+                }
+            });
         });
     });
 </script>

@@ -7,11 +7,13 @@ namespace DevStart_WebMvcUI.Controllers
 {
     public class UserSalesController : Controller
     {
+        private readonly ICourseService _courseService;
         private readonly ICourseSaleService _courseSaleService;
         private readonly ICourseSaleDetailService _courseSaleDetailService;
 
-        public UserSalesController(ICourseSaleService courseSaleService, ICourseSaleDetailService courseSaleDetailService)
+        public UserSalesController(ICourseService courseService, ICourseSaleService courseSaleService, ICourseSaleDetailService courseSaleDetailService)
         {
+            _courseService = courseService;
             _courseSaleService = courseSaleService;
             _courseSaleDetailService = courseSaleDetailService;
         }
@@ -30,17 +32,39 @@ namespace DevStart_WebMvcUI.Controllers
         [HttpGet]
         public async Task<JsonResult> GetDetail(Guid courseSaleId)
         {
-            // courseId'yi kullanarak veritabanından dersleri alıyoruz
-            var list = await _courseSaleDetailService.GetDetailsByCourseSaleIdAsync(courseSaleId);
+            var details = await _courseSaleDetailService.GetDetailsByCourseSaleIdAsync(courseSaleId);
 
-            // Dersleri JSON verisi olarak döndürmek için bir liste oluşturuyoruz
-            var jsonResponse = list.Select(detail => new
+            var jsonResponse = new List<object>();
+
+            foreach (var detail in details)
             {
-                count = detail.CourseSaleDetailQuantity,
-                courseId = detail.CourseId,
-            }).ToList();
+                // CourseId ile ilgili kursu alıyoruz
+                var course = await _courseService.GetByIdAsync(detail.CourseId);
+
+                jsonResponse.Add(new
+                {
+                    count = detail.CourseSaleDetailQuantity,
+                    courseId = detail.CourseId,
+                    courseTitle = course?.CourseTitle,
+                    courseDescription = course?.CourseDescription,
+                    coursePrice = course?.CoursePrice,
+                });
+            }
 
             return Json(jsonResponse);
+
+            //// courseId'yi kullanarak veritabanından dersleri alıyoruz
+            //var list = await _courseSaleDetailService.GetDetailsByCourseSaleIdAsync(courseSaleId);
+
+            //// Dersleri JSON verisi olarak döndürmek için bir liste oluşturuyoruz
+            //var jsonResponse = list.Select(detail => new
+            //{
+            //    count = detail.CourseSaleDetailQuantity,
+            //    courseId = detail.CourseId,
+            //    courseTitle = detail.Course?.CourseTitle
+            //}).ToList();
+
+            //return Json(jsonResponse);
         }
     }
 }
