@@ -1,10 +1,13 @@
 ﻿using DevStart_Entity.Interfaces;
 using DevStart_Entity.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace DevStart_WebMvcUI.Controllers
 {
+    [Authorize(Roles = "Yazar")]
     public class LessonController : Controller
     {
         private readonly ICourseService _courseService;
@@ -21,10 +24,15 @@ namespace DevStart_WebMvcUI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var courses = await _courseService.GetAllAsync();
-            ViewBag.Courses = new SelectList(courses, "CourseId", "CourseTitle");
-            return View(new LessonViewModel());
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Guid.TryParse(userIdString, out Guid userId);
+            
 
+            var courses = await _courseService.GetAllAsync();
+            var userCourses = courses.Where(c => c.UserId == userId).ToList();
+
+            ViewBag.Courses = new SelectList(userCourses, "CourseId", "CourseTitle");
+            return View(new LessonViewModel());
         }
 
         [HttpPost]

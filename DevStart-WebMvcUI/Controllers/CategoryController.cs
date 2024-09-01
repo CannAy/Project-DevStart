@@ -2,10 +2,12 @@
 using DevStart_Entity.Interfaces;
 using DevStart_Entity.ViewModels;
 using DevStart_Service.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevStart_WebMvcUI.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

@@ -22,5 +22,6 @@ namespace DevStart_Entity.ViewModels
         [Required(ErrorMessage = "Email adresi boş geçilemez!")]
         [EmailAddress(ErrorMessage = "Email formatına uygun değil!")]
         public string Email { get; set; }
+        public string RoleName { get; set; }
     }
 }

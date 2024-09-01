@@ -3,7 +3,7 @@ using DevStart_Entity.Interfaces;
 using DevStart_Entity.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+//using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
 namespace DevStart_WebMvcUI.Controllers
 {
@@ -66,7 +66,18 @@ namespace DevStart_WebMvcUI.Controllers
             }
             else if (msg == "OK")
             {
+                //if (User.IsInRole("Admin"))
+                //{
+                //    return Redirect(model.ReturnUrl ?? "/Dashboard");  //Admin Dashboard
+                //}
+                //else if (User.IsInRole("Yazar"))
+                //{
+                //    return Redirect(model.ReturnUrl ?? "/DashboardA"); // Yazar DashBoard
+                //}
+
                 return Redirect(model.ReturnUrl ?? "/Home");  // ?? null'sa sen anasayfaya git!
+                
+                
             }
             else
             {

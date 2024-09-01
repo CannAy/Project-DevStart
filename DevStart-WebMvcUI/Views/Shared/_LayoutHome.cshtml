@@ -125,12 +125,24 @@
                                     @if (User.Identity.IsAuthenticated)
                                     //Eğer kullanıcı giriş yaptıysa :
                                     {
-                                        <span>Hoşgeldiniz @User.Identity.Name</span>
-                                        <span class="mx-lg-4 mx-md-2  mx-1">
-                                            <a asp-action="Logout" asp-controller="Account">
-                                                <i class="fas fa-lock"></i> Çıkış Yap
+                                        <div class="dropdown">
+                                            <a class="dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-user"></i> @User.Identity.Name
                                             </a>
-                                        </span>
+
+                                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                                <li>
+                                                    <a asp-action="Index" asp-controller="UserCourse">
+                                                        Kurslarım
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a asp-action="Logout" asp-controller="Account">
+                                                        Çıkış Yap
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     }
                                     else
                                     {
@@ -159,7 +171,7 @@
                     <div class="row align-items-center justify-content-between">
                         <div class="col-auto">
                             <div class="header-logo">
-                                <a href="index.html"><img src="/images/Logo1.png" alt="DevStart"></a>
+                                <a href="/"><img src="/images/Logo1.png" alt="DevStart"></a>
                             </div>
                         </div>
                         <div class="col-auto">
@@ -167,11 +179,11 @@
                                 <div class="col-auto">
                                     <nav class="main-menu d-none d-lg-inline-block">
                                         <ul>
-                                            <li><a href="/Home">Home</a></li>   
+                                            <li><a href="/Home">Ana Sayfa</a></li>   
                                             <li><a href="#category-sec">Kategoriler</a></li>
                                             <li><a href="#course-sec">Kurslar</a></li>
-                                            <li><a href="#team-sec">Instructor</a></li>                                        
-                                            <li><a href="#contact-sec">Contact Us</a></li>
+                                            <li><a href="#team-sec">Eğitmenler</a></li>                                        
+                                            <li><a href="#contact-sec">İletişim</a></li>
                                         </ul>
                                     </nav>
                                     <button type="button" class="th-menu-toggle d-block d-lg-none"><i class="far fa-bars"></i></button>
@@ -182,8 +194,14 @@
                                             <i class="far fa-shopping-cart"></i>                                            
                                             <span id="cartCount" class="badge">0</span>
                                         </button>
-                                        
-                                            <a href="/User/Index" class="th-btn ml-25">Eğitmen Girişi<i class="fas fa-arrow-right ms-1"></i></a>
+                                        @if (User.IsInRole("Yazar"))
+                                        {
+                                            <a href="/DashBoardA/Index" class="th-btn ml-25">Yönetim Paneli<i class="fas fa-arrow-right ms-1"></i></a>
+                                        }  
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <a href="/DashBoard/Index" class="th-btn ml-25">Yönetim Paneli<i class="fas fa-arrow-right ms-1"></i></a>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -262,7 +280,7 @@
                         </div>
                     </div>
                     <div class="col-md-auto">
-                        <a href="blog.html" class="th-btn">View All Posts<i class="fa-solid fa-arrow-right ms-2"></i></a>
+                        <a href="/CategoryHome/Index/" class="th-btn">Tüm Kategoriler<i class="fa-solid fa-arrow-right ms-2"></i></a>
                     </div>
                 </div>
             </div>
@@ -291,14 +309,17 @@
             </div>
         </div>
         <div class="cta-img-1" data-overlay="title" data-opacity="8">
-            <img src="assets/img/normal/cta_1_1.png" alt="Image">
+            <img src="~/images/cta_1_1.png" alt="Image">
             <a href="https://www.youtube.com/watch?v=_sI_Ps7JSEk" class="play-btn style2 popup-video"><i class="fa-sharp fa-solid fa-play"></i></a>
         </div>
+
     </div>
     <!--==============================
     Why choose us Area
     ==============================-->
     <div class="why-area-1 space overflow-hidden">
+
+
 
         <div class="shape-mockup why-shape-1 jump" data-top="10%" data-left="7%">
             <img src="assets/img/normal/about_1_shape1.png" alt="img">
@@ -404,134 +425,7 @@
         <div class="shape-mockup testi-bg-shape2 spin" data-left="0" data-top="15%">
             <img src="assets/img/testimonial/testi-bg-shape_1_2.png" alt="img">
         </div>
-        <div class="container">
-            <div class="title-area text-center mb-50">
-                <span class="sub-title"><i class="fal fa-book me-2"></i> Our Students Testimonials</span>
-                <h2 class="sec-title">Students Say’s About Our University</h2>
-            </div>
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="th-carousel testi-slider1 dot-style2 row" id="testimonial-slider1" data-slide-show="2" data-ml-slide-show="2" data-lg-slide-show="1" data-md-slide-show="1" data-dots="true" data-arrows="false">
-                        <div class="col-lg-6">
-                            <div class="testi-box">
-                                <div class="testi-box-bg-shape">
-                                    <svg width="150" height="137" viewBox="0 0 150 137" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0 9.99951C0 4.47666 4.47715 -0.000488281 10 -0.000488281H140C145.523 -0.000488281 150 4.47666 150 9.99951V10.5803C150 13.3951 148.814 16.0796 146.732 17.9747L18.8619 134.394C17.0205 136.07 14.6199 137 12.1297 137H10C4.47715 137 0 132.522 0 127V9.99951Z" fill="#0D5EF4" />
-                                    </svg>
-                                </div>
-                                <div class="testi-box_content">
-                                    <div class="testi-box_img">
-                                        <img src="assets/img/testimonial/testi_1_1.jpg" alt="Avater">
-                                    </div>
-                                    <p class="testi-box_text">“Quickly maximize visionary solutions after mission critical action items productivate premium portals for impactful -services stinctively negotiate enabled niche markets via growth strategies”</p>
-                                </div>
-                                <div class="testi-box_bottom">
-                                    <div>
-                                        <h3 class="testi-box_name">David H. Smith</h3>
-                                        <span class="testi-box_desig">IT Student</span>
-                                    </div>
-                                    <div class="testi-box_review">
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        (4.7)
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="testi-box">
-                                <div class="testi-box-bg-shape">
-                                    <svg width="150" height="137" viewBox="0 0 150 137" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0 9.99951C0 4.47666 4.47715 -0.000488281 10 -0.000488281H140C145.523 -0.000488281 150 4.47666 150 9.99951V10.5803C150 13.3951 148.814 16.0796 146.732 17.9747L18.8619 134.394C17.0205 136.07 14.6199 137 12.1297 137H10C4.47715 137 0 132.522 0 127V9.99951Z" fill="#0D5EF4" />
-                                    </svg>
-                                </div>
-                                <div class="testi-box_content">
-                                    <div class="testi-box_img">
-                                        <img src="assets/img/testimonial/testi_1_2.jpg" alt="Avater">
-                                    </div>
-                                    <p class="testi-box_text">“Quickly maximize visionary solutions after mission critical action items productivate premium portals for impactful -services stinctively negotiate enabled niche markets via growth strategies”</p>
-                                </div>
-                                <div class="testi-box_bottom">
-                                    <div>
-                                        <h3 class="testi-box_name">Zara Head Milan</h3>
-                                        <span class="testi-box_desig">Regular Student</span>
-                                    </div>
-                                    <div class="testi-box_review">
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        (4.7)
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="testi-box">
-                                <div class="testi-box-bg-shape">
-                                    <svg width="150" height="137" viewBox="0 0 150 137" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0 9.99951C0 4.47666 4.47715 -0.000488281 10 -0.000488281H140C145.523 -0.000488281 150 4.47666 150 9.99951V10.5803C150 13.3951 148.814 16.0796 146.732 17.9747L18.8619 134.394C17.0205 136.07 14.6199 137 12.1297 137H10C4.47715 137 0 132.522 0 127V9.99951Z" fill="#0D5EF4" />
-                                    </svg>
-                                </div>
-                                <div class="testi-box_content">
-                                    <div class="testi-box_img">
-                                        <img src="assets/img/testimonial/testi_1_1.jpg" alt="Avater">
-                                    </div>
-                                    <p class="testi-box_text">“Quickly maximize visionary solutions after mission critical action items productivate premium portals for impactful -services stinctively negotiate enabled niche markets via growth strategies”</p>
-                                </div>
-                                <div class="testi-box_bottom">
-                                    <div>
-                                        <h3 class="testi-box_name">David H. Smith</h3>
-                                        <span class="testi-box_desig">IT Student</span>
-                                    </div>
-                                    <div class="testi-box_review">
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        (4.7)
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="testi-box">
-                                <div class="testi-box-bg-shape">
-                                    <svg width="150" height="137" viewBox="0 0 150 137" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0 9.99951C0 4.47666 4.47715 -0.000488281 10 -0.000488281H140C145.523 -0.000488281 150 4.47666 150 9.99951V10.5803C150 13.3951 148.814 16.0796 146.732 17.9747L18.8619 134.394C17.0205 136.07 14.6199 137 12.1297 137H10C4.47715 137 0 132.522 0 127V9.99951Z" fill="#0D5EF4" />
-                                    </svg>
-                                </div>
-                                <div class="testi-box_content">
-                                    <div class="testi-box_img">
-                                        <img src="assets/img/testimonial/testi_1_2.jpg" alt="Avater">
-                                    </div>
-                                    <p class="testi-box_text">“Quickly maximize visionary solutions after mission critical action items productivate premium portals for impactful -services stinctively negotiate enabled niche markets via growth strategies”</p>
-                                </div>
-                                <div class="testi-box_bottom">
-                                    <div>
-                                        <h3 class="testi-box_name">Zara Head Milan</h3>
-                                        <span class="testi-box_desig">Regular Student</span>
-                                    </div>
-                                    <div class="testi-box_review">
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        <i class="fa-solid fa-star-sharp"></i>
-                                        (4.7)
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </section>
     <!--==============================
     Blog Area
@@ -602,7 +496,27 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-xl-6 mb-40 mb-xl-0">
+                <div class="title-area mb-30">
+                    <span class="sub-title"><i class="fal fa-book me-2"></i> EĞİTMENLERİMİZ </span>
+                    <h2 class="sec-title">Uzman Eğitmenimizle Tanışın</h2>
+                    <p class="sec-text mt-20">DevStart Kurs mezunları seçtikleri alanlarda kayda değer başarılar elde ettiler; birçoğu yüksek lisans eğitimleri aldılar, tatmin edici kariyerler elde ettiler ve toplumlarına değerli katkılarda bulundular.</p>
+                    <p class="sec-text">Kursumuz, kurumun eğitim kalitesinin ve sağladığı fırsatların kanıtı niteliğindeki mezun ağıyla gurur duymaktadır.</p>
+                </div>
+                <div class="btn-group mt-30">
+                    <a href="#course-sec" class="th-btn">Kursları Keşfet<i class="fas fa-arrow-right ms-2"></i></a>
+                    <a href="#contact-sec" class="th-btn style7">İletişim<i class="fas fa-arrow-right ms-2"></i></a>
+                </div>
+            </div>
 
+            <div class="col-xl-6">
+                <!-- Authors bileşeni için yeni bir sütun -->
+                @await Component.InvokeAsync("Authors")
+            </div>
+        </div>
+    </div>
     <div class="team-area overflow-hidden space" id="team-sec">
         <div class="shape-mockup team-bg-shape1 jump-reverse d-xxl-block d-none" data-left="-2%" data-top="0">
             <img src="assets/img/team/team-shape_1_1.png" alt="img">
@@ -624,138 +538,7 @@
             <img src="assets/img/team/team-shape_1_5.png" alt="img">
         </div>
 
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-xl-6 mb-40 mb-xl-0">
-                    <div class="title-area mb-30">
-                        <span class="sub-title"><i class="fal fa-book me-2"></i> Our Instructor</span>
-                        <h2 class="sec-title">Meet Our Expert Instructor</h2>
-                        <p class="sec-text mt-20">Graduates of XYZ University have achieved remarkable success in their chosen fields, with many going on to pursue advanced degrees, secure fulfilling careers, and make valuable contributions to their communities.</p>
-                        <p class="sec-text">The university takes pride in its alumni network, which serves as a testament to the quality of education and the opportunities provided by the institution.</p>
-                    </div>
-                    <div class="btn-group mt-30">
-                        <a href="#course-sec" class="th-btn">Explore Courses<i class="fas fa-arrow-right ms-2"></i></a>
-                        <a href="#contact-sec" class="th-btn style7">Contact Us<i class="fas fa-arrow-right ms-2"></i></a>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="team-card team-card-1-1 team-card-1-1-active mt-0">
-                        <div class="team-img-wrap">
-                            <div class="team-img">
-                                <img src="assets/img/team/team_1_1.jpg" alt="Team">
-                            </div>
-                        </div>
-                        <div class="team-hover-wrap">
-                            <div class="team-social">
-                                <a href="#" class="icon-btn">
-                                    <i class="far fa-plus"></i>
-                                </a>
-                                <div class="th-social">
-                                    <a target="_blank" href="https://vimeo.com/"><i class="fab fa-vimeo-v"></i></a>
-                                    <a target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
-                                    <a target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
-                                    <a target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a>
-                                </div>
-                            </div>
-                            <div class="team-content">
-                                <h3 class="team-title"><a href="team-details.html">Hirmar Ubunti</a></h3>
-                                <span class="team-desig">Instructor</span>
-                            </div>
-                            <div class="team-info">
-                                <span><i class="fal fa-file-check"></i>2 Courses</span>
-                                <span><i class="fa-light fa-users"></i>Students 60+</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-card team-card-1-1">
-                        <div class="team-img-wrap">
-                            <div class="team-img">
-                                <img src="assets/img/team/team_1_2.jpg" alt="Team">
-                            </div>
-                        </div>
-                        <div class="team-hover-wrap">
-                            <div class="team-social">
-                                <a href="#" class="icon-btn">
-                                    <i class="far fa-plus"></i>
-                                </a>
-                                <div class="th-social">
-                                    <a target="_blank" href="https://vimeo.com/"><i class="fab fa-vimeo-v"></i></a>
-                                    <a target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
-                                    <a target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
-                                    <a target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a>
-                                </div>
-                            </div>
-                            <div class="team-content">
-                                <h3 class="team-title"><a href="team-details.html">Marvin McKinney</a></h3>
-                                <span class="team-desig">Founder & CEO</span>
-                            </div>
-                            <div class="team-info">
-                                <span><i class="fal fa-file-check"></i>3 Courses</span>
-                                <span><i class="fa-light fa-users"></i>Students 50+</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="team-card team-card-1-2 mt-md-0">
-                        <div class="team-img-wrap">
-                            <div class="team-img">
-                                <img src="assets/img/team/team_1_3.jpg" alt="Team">
-                            </div>
-                        </div>
-                        <div class="team-hover-wrap">
-                            <div class="team-social">
-                                <a href="#" class="icon-btn">
-                                    <i class="far fa-plus"></i>
-                                </a>
-                                <div class="th-social">
-                                    <a target="_blank" href="https://vimeo.com/"><i class="fab fa-vimeo-v"></i></a>
-                                    <a target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
-                                    <a target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
-                                    <a target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a>
-                                </div>
-                            </div>
-                            <div class="team-content">
-                                <h3 class="team-title"><a href="team-details.html">Courtney Henry</a></h3>
-                                <span class="team-desig">Junior Instructor</span>
-                            </div>
-                            <div class="team-info">
-                                <span><i class="fal fa-file-check"></i>4 Courses</span>
-                                <span><i class="fa-light fa-users"></i>Students 30+</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="team-card team-card-1-2 team-card-1-2-active">
-                        <div class="team-img-wrap">
-                            <div class="team-img">
-                                <img src="assets/img/team/team_1_4.jpg" alt="Team">
-                            </div>
-                        </div>
-                        <div class="team-hover-wrap">
-                            <div class="team-social">
-                                <a href="#" class="icon-btn">
-                                    <i class="far fa-plus"></i>
-                                </a>
-                                <div class="th-social">
-                                    <a target="_blank" href="https://vimeo.com/"><i class="fab fa-vimeo-v"></i></a>
-                                    <a target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
-                                    <a target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
-                                    <a target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a>
-                                </div>
-                            </div>
-                            <div class="team-content">
-                                <h3 class="team-title"><a href="team-details.html">Brooklyn Simmons</a></h3>
-                                <span class="team-desig">Senior Instructor</span>
-                            </div>
-                            <div class="team-info">
-                                <span><i class="fal fa-file-check"></i>4 Courses</span>
-                                <span><i class="fa-light fa-users"></i>Students 70+</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
     <!--==============================
             Footer Area

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<CategoryViewModel>
 @{
     Layout = "_AdminLayout";
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Kategori İşlemleri";
 }
 <div class="col-md-6">
     <!-- general form elements -->
     <div class="box box-primary">
         <div class="box-header with-border">
-            <h3 class="box-title">Yeni Kategori Kayıt</h3>
+            <h3 class="box-title">Yeni Kategori</h3>
             <div>
                 @if (@TempData["message1"] != null)
                 {
@@ -43,7 +43,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped">
+            <table id="example1" class="example table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Kategori İsmi</th>
@@ -80,3 +80,4 @@
         <!-- /.box-body -->
     </div>
 </div>
+

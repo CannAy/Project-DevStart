@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Blank Page</title>
+    <title>DevStart Kurs</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -18,12 +18,37 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../../AdminLTE/dist/css/skins/_all-skins.min.css">
 
+    <!-- DataTables -->
+    <link href="../../adminlte/plugins/datatables/datatables.bootstrap.css" rel="stylesheet" />
+    <link href="../../adminlte/plugins/datatables/jquery.datatables.min.css" rel="stylesheet" />
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <!-- ./wrapper -->
+    <!-- jQuery 2.2.0 -->
+    <script src="../../AdminLTE/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="../../AdminLTE/bootstrap/js/bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="../../AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="../../AdminLTE/plugins/fastclick/fastclick.js"></script>
+
+	<!-- DataTables -->
+    <script src="../../adminlte/plugins/datatables/datatables.bootstrap.min.js"></script>
+    <script src="../../adminlte/plugins/datatables/jquery.datatables.min.js"></script>
+
+
+    <!-- AdminLTE App -->
+    <script src="../../AdminLTE/dist/js/app.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../../AdminLTE/dist/js/demo.js"></script>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <!-- Site wrapper -->
@@ -33,9 +58,9 @@
             <!-- Logo -->
             <a href="../../AdminLTE/index2.html" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>A</b>LT</span>
+                <span class="logo-mini"><b>Dev</b>Start</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Admin</b>LTE</span>
+                <span class="logo-lg"><b>DevStart</b><small> Kurs</small></span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
@@ -54,6 +79,14 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="../../AdminLTE/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                                 <span class="hidden-xs">@User.Identity.Name</span>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <span> (Admin)</span>
+                                }
+                                @if (User.IsInRole("Yazar"))
+                                {
+                                    <span> (Yazar)</span>
+                                }
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
@@ -61,20 +94,25 @@
                                     <img src="../../AdminLTE/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                                     <p>
-                                        @User.Identity.Name                                       
+                                        @User.Identity.Name  
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <span> (Admin)</span>
+                                        }
+                                        @if (User.IsInRole("Yazar"))
+                                        {
+                                            <span> (Yazar)</span>
+                                        }
                                     </p>
+                                    
                                 </li>                              
                                 <!-- Menu Footer-->
                                 <li class="user-footer">                                  
                                     <div class="pull-right">
-                                        <a asp-action="Logout" asp-controller="User" class="btn btn-default btn-flat">Çıkış</a>
+                                        <a asp-action="Logout" asp-controller="Account" class="btn btn-default btn-flat">Çıkış</a>
                                     </div>
                                 </li>
                             </ul>
-                        </li>
-                        <!-- Control Sidebar Toggle Button -->
-                        <li>
-                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -95,45 +133,82 @@
                         @if (User.Identity.IsAuthenticated)
                         //Eğer kullanıcı giriş yaptıysa :
                         {
-                            <span>@User.Identity.Name</span>                          
+                            <span>@User.Identity.Name</span>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <span> (Admin)</span>
+                            }
+                            @if (User.IsInRole("Yazar"))
+                            {
+                                <span> (Yazar)</span>
+                            }
                         }
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
-                <!-- search form -->
-                <form action="#" method="get" class="sidebar-form">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-control" placeholder="Search...">
-                        <span class="input-group-btn">
-                            <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-                <!-- /.search form -->
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
-                    <li class="header">MAIN NAVIGATION</li>
-                    <li class="treeview">
-                        <a href="#">
-                        <a href="/Category/Index"><i class="fa fa-circle-o"></i>Yeni Kategori Oluşturma</a>
-                        </a>                      
-                    </li>
-                     <li class="treeview">
-                        <a href="#">
-                        <a href="/Course/Index"><i class="fa fa-circle-o"></i>Yeni Kurs Oluşturma</a>
-                        </a>                      
-                    </li>
-                     <li class="treeview">
-                        <a href="#">
-                        <a href="/Lesson/Index"><i class="fa fa-circle-o"></i>Yeni Ders Oluşturma</a>
-                        </a>                      
-                    </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="header">Kullanıcı İşlemleri</li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-users"></i> <span>Kullanıcı İşlemleri</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/User/Index"><i class="fa fa-user"></i> <span>Kullanıcı Yetki</span></a></li>
+                            </ul>
+                        </li>
+
+                        <li class="header">Kurs İşlemleri</li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-edit"></i> <span>Kategori İşlemleri</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Category/Index"><i class="fa fa-newspaper-o"></i> <span>Yeni Kategori</span></a></li>
+                            </ul>
+                        </li>
+                    }else if (User.IsInRole("Yazar"))
+                    {
+                        <li class="header">Kurs İşlemleri</li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-edit"></i> <span>Kurs İşlemleri</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/Course/Index"><i class="fa fa-newspaper-o"></i> <span>Yeni Kurs</span></a></li>
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-edit"></i> <span>Ders İşlemleri</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="/CourseLesson/Index"><i class="fa fa-newspaper-o"></i> <span>Ders Listesi</span></a></li>
+                                <li><a href="/Lesson/Index"><i class="fa fa-newspaper-o"></i> <span>Yeni Ders</span></a></li>                                
+                            </ul>
+                        </li>
+                    }else
+                    {
+
+                    }
+
                     
-                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -155,7 +230,7 @@
                 <!-- Default box -->
                 <div class="box"> @*Admin açılış sayfası /User kısmı kullanıcı işlemleri div'i*@
                     <div class="box-header with-border">
-                        <h3 class="box-title">Kullanıcı İşlemleri</h3>
+                        <h3 class="box-title">@ViewData["Title"]</h3>
 
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -169,11 +244,6 @@
                     <div class="box-body">
                         @RenderBody()
                     </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer">
-                        Footer
-                    </div>
-                    <!-- /.box-footer-->
                 </div>
                 
             </section>
@@ -185,7 +255,7 @@
             <div class="pull-right hidden-xs">
                 <b>Version</b> 2.3.3
             </div>
-            <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+            <strong>Copyright &copy; 2024 <a href="https://bau.edu.tr">DevStart Kurs</a>.</strong> All rights
             reserved.
         </footer>
 
@@ -384,18 +454,46 @@
              immediately after the control sidebar -->
         <div class="control-sidebar-bg"></div>
     </div>
-    <!-- ./wrapper -->
-    <!-- jQuery 2.2.0 -->
-    <script src="../../AdminLTE/plugins/jQuery/jQuery-2.2.0.min.js"></script>
-    <!-- Bootstrap 3.3.6 -->
-    <script src="../../AdminLTE/bootstrap/js/bootstrap.min.js"></script>
-    <!-- SlimScroll -->
-    <script src="../../AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-    <!-- FastClick -->
-    <script src="../../AdminLTE/plugins/fastclick/fastclick.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../../AdminLTE/dist/js/app.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="../../AdminLTE/dist/js/demo.js"></script>
 </body>
 </html>
+
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            "closeButton": true,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
+        $('.example').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': true,
+            'ordering': true,
+            'info': false,
+            'autoWidth': false,
+            'dom': 'Bfrtip',
+            "language": {
+                "paginate": {
+                    "previous": "Geri",
+                    "next": "İleri"
+                },
+                "emptyTable": "Gösterilecek herhangi bir veri bulunamadı!",
+                "info": " Sayfa _PAGE_ / _PAGES_",
+                "search": "Ara:",
+                "sInfoEmpty": " Sayfa 0 / 0",
+            },
+        });
+    });
+</script>

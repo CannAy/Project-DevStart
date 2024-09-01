@@ -5,10 +5,10 @@
 
 @foreach (var item in Model)
 {
-    <div class="col-md-6 col-lg-4">
+    <div class="col-md-3 col-lg-2">
         <div class="course-box">
             <div class="course-img">
-                <img src="/images/1.jpg" alt="Kategori resmi">
+                <img src="/images/6.jpg" alt="Kategori resmi" width="100" height="100">
             </div>
             <div class="course-content">
                 <h3 class="@item.CategoryName">
@@ -24,8 +24,8 @@
             </div> *@
                 <div class="course-author">
                     <div class="author-info">
-                        <img src="assets/img/course/author.png" alt="author"> 
-                        <a href="/CategoryDetail/Index/@item.CategoryId" class="author-name">kategori Detayı...</a>
+                        <i class="fal fa-file"></i>
+                        <a href="/CategoryDetail/Index/@item.CategoryId" class="author-name">Kurslar...</a>
                     </div>
                 </div>
             </div>

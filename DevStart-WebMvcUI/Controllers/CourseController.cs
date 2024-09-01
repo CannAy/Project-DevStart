@@ -1,29 +1,42 @@
-﻿using DevStart_Entity.Entities;
+﻿using DevStart_DataAccsess.Identity;
+using DevStart_Entity.Entities;
 using DevStart_Entity.Interfaces;
 using DevStart_Entity.ViewModels;
 using DevStart_Service.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace DevStart_WebMvcUI.Controllers
 {
+    [Authorize(Roles = "Yazar")]
     public class CourseController : Controller
     {
         private readonly ICourseService _courseService;
         private readonly ICategoryService _categoryService;
+        private readonly UserManager<AppUser> _userManager;
 
-
-        public CourseController(ICourseService courseService, ICategoryService categoryService) //DI Container -> CourseService
+        public CourseController(UserManager<AppUser> userManager, ICourseService courseService, ICategoryService categoryService) //DI Container -> CourseService
         {
             _courseService = courseService;
             _categoryService = categoryService;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
         {
-            var courses = await _courseService.GetAllAsync();            
+            var courses = await _courseService.GetAllAsync();
             var categories = await _categoryService.GetAllAsync();
+
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;            
+            if (Guid.TryParse(userIdString, out Guid userId))
+            {
+                courses = courses.Where(c => c.UserId == userId);
+            }
+
             ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName");
             return View((new CourseViewModel(), courses));
         }
