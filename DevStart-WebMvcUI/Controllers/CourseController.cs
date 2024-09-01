@@ -64,21 +64,18 @@ namespace DevStart_WebMvcUI.Controllers
 
             var courses = await _courseService.GetAllAsync();
             var categories = await _categoryService.GetAllAsync();
+
+
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (Guid.TryParse(userIdString, out Guid userId))
+            {
+                courses = courses.Where(c => c.UserId == userId);
+            }
+
             ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName");
 
             return View((model, courses));
-            //}
-            //else
-            //{
-            //    TempData["message1"] = false;
-            //    TempData["message2"] = "Kurs kayıt edilemedi.";
 
-            //    var courses = await _courseService.GetAllAsync();
-            //    var categories = await _categoryService.GetAllAsync();
-            //    ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName");
-
-            //    return View((model, courses));
-            //}
         }
 
 

@@ -1,4 +1,5 @@
-﻿using DevStart_Entity.Interfaces;
+﻿using DevStart_Entity.Entities;
+using DevStart_Entity.Interfaces;
 using DevStart_Entity.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -31,6 +32,23 @@ namespace DevStart_WebMvcUI.Controllers
 
             ViewBag.Categories = new SelectList(categories, "CategoryId", "CategoryName");
             return View(courses);
+        }
+
+        [HttpPost]
+        public JsonResult GetLesson(Guid courseId)
+        {
+            // courseId'yi kullanarak veritabanından gerekli bilgiyi alma
+            var lessons = _lessonService.GetLessonsByCourseIdAsync(courseId).Result;
+
+            // JSON verisi olarak döndürmek için
+            var jsonResponse = lessons.Select(lesson => new
+            {
+                lessonTitle = lesson.LessonTitle,
+                lessonDescription = lesson.LessonContent,
+                lessonVideoLink = lesson.VideoLink
+            }).ToList();
+
+            return Json(jsonResponse);
         }
     }
 }

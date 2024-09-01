@@ -1,0 +1,91 @@
+﻿@model List<CourseSaleViewModel>
+@{
+    ViewData["Title"] = "Siparişlerim Pape";
+    Layout = "~/Views/Shared/_LayoutDevStart.cshtml";
+}
+<style>
+    tbody tr:hover {
+        background-color: #f0f0f0; /* Hover rengini ayarlayın */
+        cursor: pointer;
+    }
+</style>
+
+<div class="col-md-6">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Sipariş Listesi</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Tarih</th>
+                        <th>Toplam Ücret</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr data-course-id="@item.CourseSaleId">
+                            <td>@item.CourseSaleDate</td>
+                            <td>@item.CourseSaleTotalPrice</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Sipariş Detay Listesi</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Kurs Adı</th>
+                        <th>Adet</th>
+                    </tr>
+                </thead>
+                <tbody id="TBody">
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("tbody").on("click", "tr", function () {
+            // Tıklanan tr'nin data-course-id değerini al
+            //var courseId = $(this).data("course-id");
+            alert("courseId");
+            // $.ajax({
+            //     type: "Get",
+            //     url: "/UserSales/GetDetail", // Değiştirmeniz gereken yer
+            //     data: { courseSaleId: courseSaleId },
+            //     dataType: "json", // Sunucudan JSON veri beklediğimizi belirtiyoruz
+            //     success: function (response) {
+            //         var _html = "";
+            //         for (var i = 0; i < response.length; i++) {
+            //             _html += "<tr>";
+            //             _html += "<td>" + response[i].count + "</td>";
+            //             _html += "<td>" + response[i].courseId + "</td>";
+            //             _html += "</tr>";
+            //         }
+            //         $("#TBody").html(_html);
+            //     },
+            //     error: function () {
+            //         alert("Bir hata oluştu!");
+            //     }
+            // });
+        });
+    });
+</script>
+

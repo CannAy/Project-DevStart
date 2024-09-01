@@ -73,7 +73,7 @@
                         <th>Kurs Ücreti</th>
                         <th>Kurs Eklenme Tarihi</th>
                         <th>Kurs Resmi</th>
-                        <th>Kurs Kategorisi</th>
+                        @* <th>Kurs Kategorisi</th> *@
                         <th></th>                        
                     </tr>
                 </thead>
@@ -86,7 +86,7 @@
                                 <td>@item.CoursePrice</td>
                                 <td>@item.CourseCreateDate</td>
                                 <td><img src="@item.PictureUrl" width ="30" height="30"/></td>
-                                <td>@item.CategoryId</td>                            
+                                @* <td>@item.CategoryId</td>  *@                           
                                 <td>
                                 <form asp-action="Update" asp-controller="Course" method="post" enctype="multipart/form-data">
                                     <input type="hidden" name="courseId" value="@item.CourseId" />

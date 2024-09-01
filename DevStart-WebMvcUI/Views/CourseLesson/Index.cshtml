@@ -31,10 +31,10 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="TBodyList">
                     @foreach (var item in Model)
                     {
-                        <tr data-course-id="@item.CourseId">
+                        <tr data-course-id="@item.CourseId" data-course-title="@item.CourseTitle">
                             <td>@item.CourseTitle</td>
                             <td>@item.CourseDescription</td>
                             <td>@item.CoursePrice</td>
@@ -52,7 +52,7 @@
 <div class="col-md-6">
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">Ders Listesi</h3>
+            <h3 id="CTitle" class="box-title">Ders Listesi</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -74,20 +74,24 @@
 </div>
 <script>
     $(document).ready(function () {
-        $("tbody tr").click(function () {
+        $("#TBodyList tr").click(function () {
             var courseId = $(this).data("course-id");
-
+            $("#CTitle").html("Ders Listesi - " + $(this).data("course-title"))
             $.ajax({
                 type: "POST",
-                url: "/CourseLesson/getLesson", // Değiştirmeniz gereken yer
+                url: "/CourseLesson/GetLesson", // Değiştirmeniz gereken yer
                 data: { courseId: courseId },
                 dataType: "json", // Sunucudan JSON veri beklediğimizi belirtiyoruz
                 success: function (response) {
-                    // JSON verisini burada işleyin
-                    console.log("Gelen veri:", response);
-
-                    // Örneğin, bir alanı güncellemek için
-                    alert("Course Title: " + response.courseTitle);
+                    var _html = "";
+                    for (var i = 0; i < response.length; i++) {
+                        _html += "<tr>";
+                        _html += "<td>" + response[i].lessonTitle + "</td>";
+                        _html += "<td>" + response[i].lessonDescription + "</td>";
+                        _html += "<td>" + response[i].lessonVideoLink + "</td>";
+                        _html += "</tr>";
+                    }
+                    $("#TBody").html(_html);
                 },
                 error: function () {
                     alert("Bir hata oluştu!");

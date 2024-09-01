@@ -137,6 +137,11 @@
                                                     </a>
                                                 </li>
                                                 <li>
+                                                    <a asp-action="Index" asp-controller="UserSales">
+                                                        Siparişlerim
+                                                    </a>
+                                                </li>
+                                                <li>
                                                     <a asp-action="Logout" asp-controller="Account">
                                                         Çıkış Yap
                                                     </a>
@@ -196,11 +201,11 @@
                                         </button>
                                         @if (User.IsInRole("Yazar"))
                                         {
-                                            <a href="/DashBoardA/Index" class="th-btn ml-25">Yönetim Paneli<i class="fas fa-arrow-right ms-1"></i></a>
+                                            <a href="/Course/Index" class="th-btn ml-25">Yönetim Paneli<i class="fas fa-arrow-right ms-1"></i></a>
                                         }  
                                         @if (User.IsInRole("Admin"))
                                         {
-                                            <a href="/DashBoard/Index" class="th-btn ml-25">Yönetim Paneli<i class="fas fa-arrow-right ms-1"></i></a>
+                                            <a href="/User/Index" class="th-btn ml-25">Yönetim Paneli<i class="fas fa-arrow-right ms-1"></i></a>
                                         }
                                     </div>
                                 </div>
